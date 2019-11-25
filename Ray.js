@@ -29,7 +29,6 @@ class Ray {
             this.screen.circle(this.pos.x + x * scale, (this.pos.y + y * scale * -1), 4, "#FFF");
 
 
-                if (World[Math.floor(y * -1 + (this.pos.y / 60)) - 1][Math.floor(x + (this.pos.x / 60))] === 1) {
             if (World[Math.floor(y * -1 + (this.pos.y / 60))]) {
                 if (World[Math.floor(y * -1 + (this.pos.y / 60))][Math.floor(x + (this.pos.x / 60))] === 1) {
                     this.screen.circle(this.pos.x + x * scale, (this.pos.y + y * scale * -1), 4, "#FFF");
