@@ -9,30 +9,74 @@ class Ray {
     }
 
     draw() {
-        let x, y, slope, count, hit, distance, xhit;
+        let rise = Math.sin(this.dir);
+        let run = Math.cos(this.dir);
+
+        let x, y, slope, count, hit, distance, xhit, rounding;
 
         hit = false;
-        count = 0;
 
         const posOff = {
             x: 1 - (this.pos.x % scale) / scale,
             y: (this.pos.y % scale) / scale
         };
 
-        slope = this.slope();
+        slope = rise / run;
 
+        let dir = this.dir;
 
+        this.dir = this.dir < 0 ? this.dir + Math.PI * 2 : this.dir; 
+
+        if ((this.dir >= 0 && this.dir <= Math.PI / 2) || (this.dir >= (3 * Math.PI) / 2 && this.dir <= 2 * Math.PI)) {
+            run = 1;
+        } else {
+            run = -1;
+        }
+
+        if ((this.dir >= 0 && this.dir <= Math.PI)) {
+            rise = 1;
+        } else {
+            rise = -1;
+        }
+
+        this.dir = dir;
+
+        // If rise / run is positive, this will work for x hits (0, 0)
+        // If rise / run is positive, this will work for y hits (0, -1)
+
+        rounding = {
+            x: 0,
+            y: 0
+        };
+
+        count = run;
+
+        console.log(rise, run);
         while (!hit) {
             x = posOff.x + count;
             y = x * slope;
 
-            this.screen.circle(this.pos.x + x * scale, (this.pos.y + y * scale * -1), 4, "#FFF");
+            if (run > 0) {
+                rounding = {
+                    x: 0,
+                    y: 0
+                };
+            }else {
+                rounding = {
+                    x: -1,
+                    y: 0
+                }
+            }
+
+            // this.screen.circle(this.pos.x + x * scale, (this.pos.y + y * scale * -1), 4, "#0000FF");
+            console.log(count, "x-hit", Math.floor(x + (this.pos.x / 60)) + rounding.x, Math.floor(y * -1 + (this.pos.y / 60)) + rounding.y);
 
 
-            if (World[Math.floor(y * -1 + (this.pos.y / 60))]) {
-                if (World[Math.floor(y * -1 + (this.pos.y / 60))][Math.floor(x + (this.pos.x / 60))] === 1) {
-                    this.screen.circle(this.pos.x + x * scale, (this.pos.y + y * scale * -1), 4, "#FFF");
+            if (World[Math.floor(y * -1 + (this.pos.y / 60)) + rounding.y]) {
+                if (World[Math.floor(y * -1 + (this.pos.y / 60)) + rounding.y][Math.floor(x + (this.pos.x / 60)) + rounding.x] === 1) {
+                    // this.screen.circle(this.pos.x + x * scale, (this.pos.y + y * scale * -1), 4, "#0000FF");
                     hit = true;
+                    console.log(count, "x-hit-hit", Math.floor(x + (this.pos.x / 60)) + rounding.x, Math.floor(y * -1 + (this.pos.y / 60)) + rounding.y);
                     distance = Math.hypot(x * scale, (y * scale * -1));
                     xhit = x;
                 }
@@ -41,52 +85,59 @@ class Ray {
                 break;
             }
 
-            count++;
+            count += Math.sign(run);
         }
 
         hit = false;
-        count = 0;
+        count = rise;
 
         while (!hit) {
+
+            if (rise > 0) {
+                rounding = {
+                    x: 0,
+                    y: -1
+                };
+            } 
+
             y = posOff.y + count;
             x = y / slope;
 
-            this.screen.circle(this.pos.x + x * scale, (this.pos.y + y * scale * -1), 4, "#FFF");
-            console.log(count ,"hit",Math.floor(x + (this.pos.x / 60)), Math.floor(y * -1 + (this.pos.y / 60)), "test", x + this.pos.x / 60, -y + this.pos.y / 60);
+            // this.screen.circle(this.pos.x + x * scale, (this.pos.y + y * scale * -1), 4, "#00FF00");
+            console.log(count, "y-hit", Math.floor(x + (this.pos.x / 60)) + rounding.x, Math.floor(y * -1 + (this.pos.y / 60)) + rounding.y);
 
-            if (World[Math.floor(y * -1 + (this.pos.y / 60))]) {
-                if (World[Math.floor(y * -1 + (this.pos.y / 60)) ][Math.floor(x + (this.pos.x / 60))] === 1) {
+            if (World[Math.floor(y * -1 + (this.pos.y / 60)) + rounding.y]) {
+                if (World[Math.floor(y * -1 + (this.pos.y / 60)) + rounding.y][Math.floor(x + (this.pos.x / 60)) + rounding.x] === 1) {
                     hit = true;
-                    console.log(count ,"hit",Math.floor(x + (this.pos.x / 60)), Math.floor(y * -1 + (this.pos.y / 60)));
+                    console.log(count, "y-hit-hit", Math.floor(x + (this.pos.x / 60)) + rounding.x, Math.floor(y * -1 + (this.pos.y / 60)) + rounding.y);
                 }
             } else {
                 break;
             }
 
-            count++;
+            count += Math.sign(rise);
         }
 
-        if (Math.hypot(x * scale, (y * scale * -1)) < distance) {
-            x *= scale;
-            y = x * slope;
-            y *= -1;
+        if (xhit) {
+            console.log(xhit, Math.hypot(x * scale, (y * scale * -1)) < distance)
+            if (Math.hypot(x * scale, (y * scale * -1)) < distance) {
+                x *= scale;
+                y = x * slope;
+                y *= -1;
+            } else {
+                x = xhit;
+                x *= scale;
+                y = x * slope;
+                y *= -1;
+            }
         } else {
-            x = xhit;
             x *= scale;
             y = x * slope;
             y *= -1;
         }
 
 
+        this.screen.circle(this.pos.x + x, (this.pos.y + y), 4, "#0000FF");
         this.screen.line(this.pos.x, this.pos.y, this.pos.x + x, this.pos.y + y);
-    }
-
-    slope() {
-        let x, y;
-
-        x = Math.cos(this.dir);
-        y = Math.sin(this.dir);
-
-        return y / x;
     }
 }
