@@ -26,16 +26,20 @@ class Ray {
             x = posOff.x + count;
             y = x * slope;
 
+            this.screen.circle(this.pos.x + x * scale, (this.pos.y + y * scale * -1), 4, "#FFF");
 
 
-            if (World[Math.floor(y * -1 + (this.pos.y / 60)) - 1]) {
                 if (World[Math.floor(y * -1 + (this.pos.y / 60)) - 1][Math.floor(x + (this.pos.x / 60))] === 1) {
+            if (World[Math.floor(y * -1 + (this.pos.y / 60))]) {
+                if (World[Math.floor(y * -1 + (this.pos.y / 60))][Math.floor(x + (this.pos.x / 60))] === 1) {
                     this.screen.circle(this.pos.x + x * scale, (this.pos.y + y * scale * -1), 4, "#FFF");
                     hit = true;
                     distance = Math.hypot(x * scale, (y * scale * -1));
                     xhit = x;
                 }
 
+            } else {
+                break;
             }
 
             count++;
@@ -46,16 +50,18 @@ class Ray {
 
         while (!hit) {
             y = posOff.y + count;
-
             x = y / slope;
 
+            this.screen.circle(this.pos.x + x * scale, (this.pos.y + y * scale * -1), 4, "#FFF");
+            console.log(count ,"hit",Math.floor(x + (this.pos.x / 60)), Math.floor(y * -1 + (this.pos.y / 60)), "test", x + this.pos.x / 60, -y + this.pos.y / 60);
 
-            if (World[Math.floor(y * -1 + (this.pos.y / 60)) - 1]) {
-                if (World[Math.floor(y * -1 + (this.pos.y / 60)) - 1][Math.floor(x + (this.pos.x / 60))] === 1) {
+            if (World[Math.floor(y * -1 + (this.pos.y / 60))]) {
+                if (World[Math.floor(y * -1 + (this.pos.y / 60)) ][Math.floor(x + (this.pos.x / 60))] === 1) {
                     hit = true;
-                    this.screen.circle(this.pos.x + x * scale, (this.pos.y + y * scale * -1), 4, "#FFF");
-                    //console.log(count ,"hit",Math.floor(x + (this.pos.x / 60)), Math.floor(y * -1 + (this.pos.y / 60)) - 1);
+                    console.log(count ,"hit",Math.floor(x + (this.pos.x / 60)), Math.floor(y * -1 + (this.pos.y / 60)));
                 }
+            } else {
+                break;
             }
 
             count++;
