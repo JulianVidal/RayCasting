@@ -1,5 +1,7 @@
-const fps = 60;
+const fps = 15;
 const scale = 60;
+
+document.addEventListener('keydown', handle);
 
 const World = [
     [1, 1, 1, 1, 1],
@@ -20,8 +22,8 @@ window.onload = setup();
 function setup() {
 
     // Initialises both canvases
-    map  = new Map( document.getElementById("Map") );
-    game = new Game( document.getElementById("Game") );
+    map = new Map(document.getElementById("Map"));
+    game = new Game(document.getElementById("Game"));
 
     // Changes the size of the canvas
     map.screen.setSize(300, 300);
@@ -32,17 +34,17 @@ function setup() {
     game.screen.background("#000");
 
     // Initialises player
-    player = new Player(map.screen, 120, 180);
+    player = new Player(map.screen, 150, 150);
 
     // Begins the game
-    //setInterval(draw, 1000/fps);
+    //setInterval(draw, 1000 / fps);
     draw();
 
     // window.onload needs a return
     return null;
 }
 
-function  draw() {
+function draw() {
     // Changes the background of the canvas
     map.screen.background("#555");
     game.screen.background("#000");
@@ -51,4 +53,42 @@ function  draw() {
     game.draw();
 
     player.draw();
+}
+
+function handle(key) {
+
+    switch (key.key) {
+        case "d":
+            console.log("right");
+            player.move("right");
+            break;
+
+        case "a":
+            console.log("left");
+            player.move("left");
+            break;
+
+        case "w":
+            console.log("up");
+            player.move("up");
+            break;
+
+        case "s":
+            console.log("down");
+            player.move("down");
+            break;
+
+        case "e":
+            console.log("clock");
+            player.rotate("clock");
+            break;
+
+        case "q":
+            console.log("aclock");
+            player.rotate("aclock");
+            break;
+
+        default:
+            break;
+    }
 }
