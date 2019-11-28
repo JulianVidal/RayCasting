@@ -6,19 +6,20 @@ class Player {
         }
         this.screen = screen;
         this.FOV = Math.PI * 2;
-        //this.ray = new Ray(screen, x, y, (2 * Math.PI + Math.PI / 6));
+        this.ray = new Ray(screen, x, y, (Math.PI * 1) / 9);
         this.rays = [];
 
         this.rot = 0;
 
-        for (let i = -(this.FOV) / 2 + this.rot; i < (this.FOV) / 2 + this.rot; i += (this.FOV / 10) ) {
+        for (let i = -(this.FOV) / 2 + this.rot; i < (this.FOV) / 2 + this.rot; i += (this.FOV / 50) ) {
             this.rays.push(new Ray(screen, x, y, i));
         }
     }
 
     draw() {
         this.screen.circle(this.pos.x, this.pos.y, scale / 6, "#DDD");
-        //this.ray.draw();
+
+        // this.ray.draw();
 
         for (let ray of this.rays) {
             ray.draw();
@@ -57,6 +58,8 @@ class Player {
         for (let ray of this.rays) {
             ray.pos = this.pos;
         }
+
+        this.ray.pos = this.pos;
     }
 
     rotate(direction) {
@@ -77,5 +80,6 @@ class Player {
         for (let i = -(this.FOV) / 2 + this.rot; i < (this.FOV) / 2 + this.rot; i += (this.FOV / 10)) {
             this.rays.push(new Ray(this.screen, this.pos.x, this.pos.y, i));
         }
+        this.ray = new Ray(this.screen, this.pos.x, this.pos.y, Math.PI + this.rot);
     }
 }
