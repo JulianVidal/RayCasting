@@ -18,7 +18,7 @@ class Ray {
     }
 
     draw() {
-        let x, y, slope, count, hit, distance, xhit, rounding, rise, run;
+        let x, y, slope, count, hit, distance, xhit, rounding, rise, run, testPos;
 
         // Offset position of the player from the nearest corner of the box
         const posOff = {
@@ -56,44 +56,33 @@ class Ray {
         // Detects every hit against a wall
         while (!hit && slope.valueOf() != Infinity) {
 
+            testPos = {
+                x: count.add( run < 0 ? 0 : 1).add(Decimal.floor(this.pos.x / 60)),
+                y: Decimal.floor(this.pos.y / 60)
+            };
+
             // Calculates the x and y of the next intersection point
             x = Decimal.add(posOff.x, count);
             y = Decimal.mul(x, slope);
 
-            // console.log(x.valueOf());
-
-            // Depending on how the ray hits a wall, the wall detection need some adjustment
-            if (run >= 0) {
-
-                rounding = {
-                    x: new Decimal(0),
-                    y: new Decimal(0)
-                };
-
-            } else {
-
-                rounding = {
-                    x: new Decimal(-1),
-                    y: new Decimal(0)
-                }
+            if (rise > 0) { 
+                testPos.y = testPos.y.sub( Decimal.floor(y.div(x.div(slope))) );
+            } else if (rise < 0) {
+                testPos.y = testPos.y.add( Decimal.floor(y.div(x.div(slope))) );
             }
 
-            // This calculates the box the line intersected
-            const worldPos = {
-                x: x < 0 ? (Decimal.ceil(x.plus(Decimal.div(this.pos.x, scale))).plus(rounding.x)) : (Decimal.floor(parseFloat(x.valueOf()) + parseFloat(Decimal.div(this.pos.x, scale).valueOf())).add(rounding.x)),
-                y: y < 0 ? (Decimal.ceil(y.plus(Decimal.div(this.pos.y, scale))).plus(rounding.y)) : (Decimal.floor(y.mul(-1).add(Decimal.div(this.pos.y, scale))).add(rounding.y))
-            };
+            // console.log(x.valueOf());
 
             // console.log(worldPos.valueOf(), x.valueOf(), y.valueOf(), posOff.x.add(count).valueOf())
 
-            // this.screen.circle(Decimal.add(this.pos.x, x.mul(scale)), Decimal.add(this.pos.y, y.mul(scale).mul(-1)), 4, "#0000FF");
+            this.screen.circle(Decimal.add(this.pos.x, x.mul(scale)), Decimal.add(this.pos.y, y.mul(scale).mul(-1)), 4, "#0000FF");
             // console.log(count.valueOf(), "x-hit", worldPos.x.valueOf(), worldPos.y.valueOf(), x.add(Decimal.div(this.pos.x, scale)).valueOf(), y.valueOf(), posOff.x.valueOf());
             // console.log(parseFloat(x.valueOf()) + parseFloat(Decimal.div(this.pos.x, scale).valueOf()));
             // console.log(Decimal.floor(y.mul(-1).add(Decimal.div(this.pos.y, scale))).add(rounding.y).valueOf());
 
             // Checks if the box is a wall
-            if (World[worldPos.y]) {
-                if (World[worldPos.y][worldPos.x] === 1) {
+            if (World[testPos.y]) {
+                if (World[testPos.y][testPos.x] === 1) {
                     hit = true;
                     distance = Decimal.hypot(x.times(scale), (y.times(scale).times(-1)));
                     xhit = x;
@@ -117,6 +106,12 @@ class Ray {
 
         while (!hit && slope.valueOf() != 0) {
 
+            testPos = {
+                x: Decimal.floor(this.pos.x / 60),
+                y: count.mul(rise > 0 ? -1 : 0).add(Decimal.floor(this.pos.y / 60))
+            };
+            //x: count.add( run < 0 ? 0 : 1).add(Decimal.floor(this.pos.x / 60)),
+
             // Calculates the x and y of the next intersection point
             y = posOff.y.add(count);
             if (slope !== Infinity) {
@@ -125,35 +120,24 @@ class Ray {
                 x = new Decimal(0);
             }
 
-            // Depending on how the ray hits a wall, the wall detection need some adjustment
-            if (rise > 0) {
-                rounding = {
-                    x: new Decimal(0),
-                    y: new Decimal(-1)
-                };
-            } else {
-                rounding = {
-                    x: new Decimal(0),
-                    y: new Decimal(0)
-                };
+            if (run > 0) { 
+                testPos.x = testPos.x.add( Decimal.floor(x.div(y.mul(slope))) );
+            } else if (run < 0) {
+                testPos.x = testPos.x.sub( Decimal.floor(x.div(y.mul(slope))) );
             }
 
-            // This calculates the box the line intersected
-            const worldPos = {
-                x: x < 0 ? (Decimal.ceil(x.plus(Decimal.div(this.pos.x, scale))).plus(rounding.x)) : (Decimal.floor(x.add(Decimal.div(this.pos.x, scale))).add(rounding.x)),
-                y: y < 0 ? (Decimal.ceil(y.mul(-1).plus(Decimal.div(this.pos.y, scale))).plus(rounding.y)) : (Decimal.floor(y.mul(-1).add(Decimal.div(this.pos.y, scale))).add(rounding.y).valueOf())
-            };
+            console.log(testPos.x.valueOf(), testPos.y.valueOf(), (y.mul(slope)).div(x).valueOf() );
 
 
             // console.log(worldPos, x, y, posOff.y + count)
 
-            // this.screen.circle(Decimal.add(this.pos.x, x.mul(scale)), Decimal.add(this.pos.y, y.mul(scale).mul(-1)), 4, "#00FF00");
+            this.screen.circle(Decimal.add(this.pos.x, x.mul(scale)), Decimal.add(this.pos.y, y.mul(scale).mul(-1)), 4, "#00FF00");
             // console.log(count.valueOf(), "y-hit", worldPos.x.valueOf(), worldPos.y.valueOf(), x.add(Decimal.div(this.pos.x, scale)).valueOf(), y.valueOf(), posOff.x.valueOf());
             // console.log(Decimal.floor(y.mul(-1).add(Decimal.div(this.pos.y, scale))).add(rounding.y).valueOf());
 
             // Checks if the box is a wall
-            if (World[worldPos.y]) {
-                if (World[worldPos.y][worldPos.x] === 1) {
+            if (World[testPos.y]) {
+                if (World[testPos.y][testPos.x] === 1) {
                     hit = true;
 
                     // this.screen.circle(this.pos.x + x * scale, (this.pos.y + y * scale * -1), 4, "#00FF00");
@@ -170,8 +154,7 @@ class Ray {
         // Checks there was an x-hit and if the y-hit was closer
         if (xhit) {
 
-            if (distance.gte(Decimal.hypot(x.times(scale), (y.times(scale).times(-1)))) ) {
-
+            if (distance.gte(Decimal.hypot(x.times(scale), (y.times(scale).times(-1))))) {
                 x = x.mul(scale);
                 y = x.mul(slope);
                 y = y.mul(-1);
@@ -198,7 +181,7 @@ class Ray {
 
         }
 
-        this.screen.circle(Decimal.add(this.pos.x, x).valueOf(), Decimal.add(this.pos.y, y).valueOf().valueOf(), 4, "#00FFFF");
+        // this.screen.circle(Decimal.add(this.pos.x, x).valueOf(), Decimal.add(this.pos.y, y).valueOf().valueOf(), 4, "#00FFFF");
         this.screen.line(this.pos.x, this.pos.y, Decimal.add(this.pos.x, x).valueOf(), Decimal.add(this.pos.y, y).valueOf().valueOf());
     }
 }

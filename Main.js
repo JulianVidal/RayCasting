@@ -1,6 +1,5 @@
 const fps = 15;
 const scale = 60;
-const precision = 100;
 
 document.addEventListener('keydown', handle);
 
@@ -35,7 +34,7 @@ function setup() {
     game.screen.background("#000");
 
     // Initialises player
-    player = new Player(map.screen, 154, 150);
+    player = new Player(map.screen, 150, 150);
 
     // Begins the game
     // setInterval(draw, 1000 / fps);
