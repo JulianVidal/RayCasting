@@ -41,10 +41,11 @@ class Screen {
         this.canvas.fill(circle);
     }
 
-    line(x1, y1, x2, y2, width = 1) {
+    line(x1, y1, x2, y2, width = 1, color) {
         const line = new Path2D();
         line.moveTo(x1,y1);
         line.lineTo(x2, y2);
+        this.canvas.strokeStyle = color;
         this.canvas.lineWidth = width;
         this.canvas.stroke(line);
     }

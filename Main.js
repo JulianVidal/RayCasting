@@ -1,15 +1,25 @@
 const fps = 15;
-const scale = 60;
+const scale = 30;
 const precision = 100;
+let moving = "";
 
-document.addEventListener('keydown', handle);
+let rotating = "";
+
+
+document.addEventListener('keydown', keyPressed);
+document.addEventListener('keyup', keyUp);
 
 const World = [
-    [1, 1, 1, 1, 1],
-    [1, 0, 0, 0, 1],
-    [1, 0, 0, 0, 1],
-    [1, 0, 0, 0, 1],
-    [1, 1, 1, 1, 1]
+    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+    [1, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+    [1, 0, 1, 1, 1, 1, 0, 0, 0, 1],
+    [1, 0, 1, 0, 0, 0, 0, 0, 0, 1],
+    [1, 0, 1, 0, 0, 0, 1, 0, 0, 1],
+    [1, 0, 1, 0, 0, 0, 1, 0, 0, 1],
+    [1, 0, 0, 0, 0, 0, 1, 0, 0, 1],
+    [1, 0, 0, 0, 1, 1, 1, 0, 0, 1],
+    [1, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
 ];
 
 let map;
@@ -27,7 +37,7 @@ function setup() {
     game = new Game(document.getElementById("Game"));
 
     // Changes the size of the canvas
-    map.screen.setSize(300, 300);
+    map.screen.setSize(World[0].length * scale, World.length * scale);
     game.screen.setSize(533, 200);
 
     // Changes the background of the canvas
@@ -53,40 +63,55 @@ function draw() {
     map.draw();
     game.draw3D();
 
+    player.move();
     player.draw();
 }
 
-function handle(key) {
+function keyPressed(event) {
 
-    switch (key.key) {
-        case "d":
-            console.log("right");
-            player.move("right");
-            break;
-
-        case "a":
-            console.log("left");
-            player.move("left");
-            break;
-
+    switch (event.key) {
         case "w":
-            console.log("up");
-            player.move("up");
+            console.log("forward");
+            moving = "forward";
             break;
 
         case "s":
-            console.log("down");
-            player.move("down");
+            console.log("backward");
+            moving = "backward";
             break;
 
-        case "e":
-            console.log("clock");
-            player.rotate("clock");
+        case "d":
+            console.log("turn-right");
+            rotating = "turn-right";
             break;
 
-        case "q":
-            console.log("aclock");
-            player.rotate("aclock");
+        case "a":
+            console.log("turn-left");
+            rotating = "turn-left";
+            break;
+
+        default:
+            break;
+    }
+}
+
+function keyUp(event) {
+
+    switch (event.key) {
+        case "w":
+            moving = "";
+            break;
+
+        case "s":
+            moving = "";
+            break;
+
+        case "d":
+            rotating = "";
+            break;
+
+        case "a":
+            rotating = "";
             break;
 
         default:

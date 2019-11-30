@@ -6,13 +6,13 @@ class Player {
         }
         this.screen = screen;
         this.FOV = Math.PI / 3;
-        this.ray = new Ray(screen, x, y, (Math.PI * 1) /6);
-        this.rayAmount = 533;
+        this.ray = new Ray(screen, x, y, (Math.PI * 1) / 6);
+        this.rayAmount = 600;
         this.rays = [];
 
-        this.rot = Math.PI * 3 / 2;
+        this.rot = 0;
 
-        for (let i = -(this.FOV) / 2 + this.rot; i < (this.FOV) / 2 + this.rot; i += (this.FOV / this.rayAmount) ) {
+        for (let i = -(this.FOV) / 2 + this.rot; i < (this.FOV) / 2 + this.rot; i += (this.FOV / this.rayAmount)) {
             this.rays.push(new Ray(screen, x, y, i));
         }
     }
@@ -27,50 +27,25 @@ class Player {
         }
     }
 
-    move(direction) {
-        switch (direction) {
-            case "right":
-                this.pos.x++;
+    move() {
+
+        switch (moving) {
+            case "forward":
+                this.forward();
                 break;
-
-            case "left":
-                this.pos.x--;
-
-                break;
-            case "up":
-                this.pos.y--;
-
-                break;
-            case "down":
-                this.pos.y++;
-
-                break;
-
-            default:
+            case "backward":
+                this.backward();
                 break;
         }
 
-        for (let ray of this.rays) {
-            ray.pos = this.pos;
-        }
-
-        this.ray.pos = this.pos;
-    }
-
-    rotate(direction) {
-        switch (direction) {
-            case "clock":
-                this.rot += 0.05;
+        switch (rotating) {
+            case "turn-right":
+                this.turn_right();
                 break;
-
-            case "aclock":
-                this.rot -= 0.05;
-
-            default:
+            case "turn-left":
+                this.turn_left();
                 break;
         }
-
-        this.rays = [];
 
         while (this.rot > Math.PI * 2) {
             this.rot -= Math.PI * 2;
@@ -80,10 +55,34 @@ class Player {
             this.rot += Math.PI * 2;
         }
 
+        this.rays = [];
 
         for (let i = -(this.FOV) / 2 + this.rot; i < (this.FOV) / 2 + this.rot; i += (this.FOV / this.rayAmount)) {
             this.rays.push(new Ray(this.screen, this.pos.x, this.pos.y, i));
         }
-        this.ray = new Ray(this.screen, this.pos.x, this.pos.y, Math.PI + this.rot);
+
+        for (let ray of this.rays) {
+            ray.pos = this.pos;
+        }
+
+        this.ray.pos = this.pos;
+    }
+
+    forward() {
+        this.pos.x += Math.cos(this.rot);
+        this.pos.y += Math.sin(this.rot) * -1;
+    }
+
+    backward() {
+        this.pos.x -= Math.cos(this.rot);
+        this.pos.y -= Math.sin(this.rot) * -1;
+    }
+
+    turn_right() {
+        this.rot -= 0.05;
+    }
+
+    turn_left() {
+        this.rot += 0.05;
     }
 }

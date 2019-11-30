@@ -7,7 +7,7 @@ class Game {
         const distances = [];
 
         for (const ray of player.rays) {
-            distances.push(ray.distance());
+            distances.unshift(ray.distance());
         }
 
         const width = this.screen.width / distances.length;

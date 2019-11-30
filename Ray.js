@@ -22,7 +22,7 @@ class Ray {
 
         // Offset position of the player from the nearest corner of the box
         const posOff = {
-            x: 1 - (this.pos.x % 60) / 60,
+            x: 1 - (this.pos.x % scale) / scale,
             y: (this.pos.y % scale) / scale
         };
 
@@ -72,8 +72,8 @@ class Ray {
             y = x * slope;
 
             worldPos = {
-                x: Math.floor(this.pos.x / 60) + count + 1 + ( run < 0 ? -1 : 0),
-                y: Math.floor(this.pos.y / 60) - (Math.floor((x / ( 1 / slope)) - posOff.y) + 1)
+                x: Math.floor(this.pos.x / scale) + count + 1 + ( run < 0 ? -1 : 0),
+                y: Math.floor(this.pos.y / scale) - (Math.floor((x / ( 1 / slope)) - posOff.y) + 1)
             };
 
             // this.screen.circle(this.pos.x + (x * scale), (this.pos.y + ((y * scale)) * -1), 4, "#0000FF");
@@ -102,8 +102,8 @@ class Ray {
             x = slope !== Infinity ? y / slope : 0;
 
             worldPos = {
-                x: Math.floor(this.pos.x / 60) + (Math.floor((y / slope) - posOff.x) + 1),
-                y: (Math.floor(this.pos.y / 60) + count * -1) + ( rise < 0 ? 0 : -1)
+                x: Math.floor(this.pos.x / scale) + (Math.floor((y / slope) - posOff.x) + 1),
+                y: (Math.floor(this.pos.y / scale) + count * -1) + ( rise < 0 ? 0 : -1)
             };
 
             // this.screen.circle(this.pos.x + (x * scale), (this.pos.y + ((y * scale)) * -1), 4, "#00FF00");
@@ -135,7 +135,7 @@ class Ray {
             xHit = false;
         }
 
-        this.screen.line(this.pos.x, this.pos.y, this.pos.x + (x * scale), this.pos.y + (y * scale * -1));
+        this.screen.line(this.pos.x, this.pos.y, this.pos.x + (x * scale), this.pos.y + (y * scale * -1), 2, '#FFFF00');
 
         // console.log(this.dir * (180 / Math.PI), distance.length, Math.sin(this.dir),  distance.length * Math.sin(this.dir));
         return [distance.length * Math.cos(this.dir - player.rot), xHit];
