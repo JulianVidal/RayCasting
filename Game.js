@@ -13,7 +13,7 @@ class Game {
         const width = this.screen.width / distances.length;
 
         for (let i = 0; i < distances.length; i++) {
-            const height = 200 / distances[i][0];
+            const height = 150 / distances[i][0];
             let color = "#888";
 
             color = distances[i][1] ? "#555" : color;

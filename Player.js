@@ -69,20 +69,24 @@ class Player {
     }
 
     forward() {
-        this.pos.x += Math.cos(this.rot);
-        this.pos.y += Math.sin(this.rot) * -1;
+        if ( World[Math.floor((this.pos.y + (Math.sin(this.rot) * -1 * MoveSpeed)) / scale)][Math.floor((this.pos.x + (Math.cos(this.rot) * MoveSpeed)) / scale)] !== 1 ) {
+            this.pos.x += Math.cos(this.rot) * MoveSpeed;
+            this.pos.y += Math.sin(this.rot) * -1 * MoveSpeed;
+        }
     }
 
     backward() {
-        this.pos.x -= Math.cos(this.rot);
-        this.pos.y -= Math.sin(this.rot) * -1;
+        if ( World[Math.floor((this.pos.y - (Math.sin(this.rot) * -1 * MoveSpeed)) / scale)][Math.floor((this.pos.x - (Math.cos(this.rot) * MoveSpeed)) / scale)] !== 1 ) {
+            this.pos.x -= Math.cos(this.rot) * MoveSpeed;
+            this.pos.y -= Math.sin(this.rot) * -1 * MoveSpeed;
+        }
     }
 
     turn_right() {
-        this.rot -= 0.05;
+        this.rot -= rotateSpeed;
     }
 
     turn_left() {
-        this.rot += 0.05;
+        this.rot += rotateSpeed;
     }
 }

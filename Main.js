@@ -1,6 +1,8 @@
-const fps = 15;
+const fps = 30;
 const scale = 30;
 const precision = 100;
+const MoveSpeed = 2;
+const rotateSpeed = 0.1;
 let moving = "";
 
 let rotating = "";
