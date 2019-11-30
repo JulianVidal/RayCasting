@@ -28,18 +28,18 @@ function setup() {
 
     // Changes the size of the canvas
     map.screen.setSize(300, 300);
-    game.screen.setSize(533, 300);
+    game.screen.setSize(533, 200);
 
     // Changes the background of the canvas
     map.screen.background("#555");
     game.screen.background("#000");
 
     // Initialises player
-    player = new Player(map.screen, 154, 150);
+    player = new Player(map.screen, 150, 150);
 
     // Begins the game
-    // setInterval(draw, 1000 / fps);
-    draw();
+    setInterval(draw, 1000 / fps);
+    // draw();
 
     // window.onload needs a return
     return null;
@@ -51,7 +51,7 @@ function draw() {
     game.screen.background("#000");
 
     map.draw();
-    game.draw();
+    game.draw3D();
 
     player.draw();
 }

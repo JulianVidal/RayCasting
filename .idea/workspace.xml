@@ -2,15 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="8e0546fc-cf5b-430e-854c-ae2e745f8984" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/jsLibraryMappings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/decimal.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/decimal.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/RayCasting.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/RayCasting.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Game.js" beforeDir="false" afterPath="$PROJECT_DIR$/Game.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Main.js" beforeDir="false" afterPath="$PROJECT_DIR$/Main.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Player.js" beforeDir="false" afterPath="$PROJECT_DIR$/Player.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Ray.js" beforeDir="false" afterPath="$PROJECT_DIR$/Ray.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Screen.js" beforeDir="false" afterPath="$PROJECT_DIR$/Screen.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/decimal.js" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -134,10 +132,10 @@
     </ignored-roots>
   </component>
   <component name="WindowStateProjectService">
-    <state x="217" y="330" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1574949306698">
+    <state x="217" y="330" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1575108717790">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state x="217" y="330" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1920.1080@0.0.1920.1080" timestamp="1574949306698" />
+    <state x="217" y="330" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1920.1080@0.0.1920.1080" timestamp="1575108717790" />
     <state x="223" y="378" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1" timestamp="1574950166099">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>

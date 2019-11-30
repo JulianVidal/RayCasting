@@ -25,6 +25,15 @@ class Screen {
         this.canvas.fillRect(x, y, l, l);
     }
 
+    rect(x, y, b, h, color, center = false) {
+        this.canvas.fillStyle = color;
+        if (!center) {
+            this.canvas.fillRect(x, y, b, h);
+        } else {
+            this.canvas.fillRect(x - (b / 2), y - (h / 2), b, h);
+        }
+    }
+
     circle(x, y, r, color) {
         const circle = new Path2D();
         circle.arc(x, y, r, 0, 2 * Math.PI);
@@ -32,7 +41,7 @@ class Screen {
         this.canvas.fill(circle);
     }
 
-    line(x1, y1, x2, y2, width = 2) {
+    line(x1, y1, x2, y2, width = 1) {
         const line = new Path2D();
         line.moveTo(x1,y1);
         line.lineTo(x2, y2);

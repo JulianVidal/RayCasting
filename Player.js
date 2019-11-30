@@ -5,13 +5,14 @@ class Player {
             y: y
         }
         this.screen = screen;
-        this.FOV = Math.PI * 2;
-        this.ray = new Ray(screen, x, y, (Math.PI * 1) / 9);
+        this.FOV = Math.PI / 3;
+        this.ray = new Ray(screen, x, y, (Math.PI * 1) /6);
+        this.rayAmount = 533;
         this.rays = [];
 
-        this.rot = 0;
+        this.rot = Math.PI * 3 / 2;
 
-        for (let i = -(this.FOV) / 2 + this.rot; i < (this.FOV) / 2 + this.rot; i += (this.FOV / 50) ) {
+        for (let i = -(this.FOV) / 2 + this.rot; i < (this.FOV) / 2 + this.rot; i += (this.FOV / this.rayAmount) ) {
             this.rays.push(new Ray(screen, x, y, i));
         }
     }
@@ -22,13 +23,8 @@ class Player {
         // this.ray.draw();
 
         for (let ray of this.rays) {
-            ray.draw();
+            ray.distance(this.rot);
         }
-
-        //this.rays[0].draw();
-
-        // this.screen.line(this.pos.x, this.pos.y, this.pos.x + (this.pos.x * Math.cos(-this.rot)), this.pos.y + (this.pos.y * Math.sin(-this.rot)));
-
     }
 
     move(direction) {
@@ -54,7 +50,6 @@ class Player {
                 break;
         }
 
-
         for (let ray of this.rays) {
             ray.pos = this.pos;
         }
@@ -65,11 +60,11 @@ class Player {
     rotate(direction) {
         switch (direction) {
             case "clock":
-                this.rot -= 0.05;
+                this.rot += 0.05;
                 break;
 
             case "aclock":
-                this.rot += 0.05;
+                this.rot -= 0.05;
 
             default:
                 break;
@@ -77,7 +72,16 @@ class Player {
 
         this.rays = [];
 
-        for (let i = -(this.FOV) / 2 + this.rot; i < (this.FOV) / 2 + this.rot; i += (this.FOV / 10)) {
+        while (this.rot > Math.PI * 2) {
+            this.rot -= Math.PI * 2;
+        }
+
+        while (this.rot < 0) {
+            this.rot += Math.PI * 2;
+        }
+
+
+        for (let i = -(this.FOV) / 2 + this.rot; i < (this.FOV) / 2 + this.rot; i += (this.FOV / this.rayAmount)) {
             this.rays.push(new Ray(this.screen, this.pos.x, this.pos.y, i));
         }
         this.ray = new Ray(this.screen, this.pos.x, this.pos.y, Math.PI + this.rot);
