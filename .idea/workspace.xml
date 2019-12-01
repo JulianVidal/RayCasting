@@ -2,20 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="8e0546fc-cf5b-430e-854c-ae2e745f8984" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/wolftex/barrel.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/wolftex/bluestone.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/wolftex/colorstone.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/wolftex/eagle.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/wolftex/greenlight.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/wolftex/greystone.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/wolftex/mossy.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/wolftex/pillar.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/wolftex/purplestone.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/wolftex/redbrick.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/wolftex/wood.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Game.js" beforeDir="false" afterPath="$PROJECT_DIR$/Game.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -110,7 +98,7 @@
       <workItem from="1574950503114" duration="5779000" />
       <workItem from="1575124478361" duration="2182000" />
       <workItem from="1575135926281" duration="5045000" />
-      <workItem from="1575178986437" duration="26150000" />
+      <workItem from="1575178986437" duration="26554000" />
     </task>
     <servers />
   </component>
