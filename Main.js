@@ -121,10 +121,8 @@ function keyUp(event) {
     }
 }
 
-async function getImage(x, y, xImg, w, h) {
-    const response = await fetch("brick.png");
-    image = await response.blob();
-    let img = await createImageBitmap(image, xImg * 310, 0, w, 310);
+function getImage(x, y, xImg, w, h) {
+    let img = document.images;
 
-    game.screen.canvas.drawImage(img, x, y, w, h);
+    game.screen.canvas.drawImage(img[0], xImg * 310, 0, w, 310, x, y, w + 100, h);
 }
