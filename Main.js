@@ -3,10 +3,7 @@ const scale = 30;
 const MoveSpeed = 2;
 const rotateSpeed = 0.1;
 let moving = "";
-
 let rotating = "";
-
-let image;
 
 
 document.addEventListener('keydown', keyPressed);
@@ -23,6 +20,19 @@ const World = [
     [1, 0, 0, 0, 0, 0, 3, 0, 0, 3],
     [1, 0, 0, 1, 0, 0, 3, 0, 0, 3],
     [1, 1, 1, 1, 1, 1, 3, 3, 3, 3]
+];
+
+const roofWorld = [
+    [{x: 0, y: 0}, {x: 0, y: 0}, {x: 0, y: 0}, {x: 0, y: 0}, {x: 0, y: 0}, {x: 0, y: 0}, {x: 0, y: 0}, {x: 0, y: 0}, {x: 0, y: 0}, {x: 0, y: 0}],
+    [{x: 0, y: 0}, {x: 0, y: 0}, {x: 0, y: 0}, {x: 0, y: 0}, {x: 0, y: 0}, {x: 0, y: 0}, {x: 0, y: 0}, {x: 0, y: 0}, {x: 0, y: 0}, {x: 0, y: 0}],
+    [{x: 0, y: 0}, {x: 0, y: 0}, {x: 0, y: 0}, {x: 0, y: 0}, {x: 0, y: 0}, {x: 0, y: 0}, {x: 0, y: 0}, {x: 0, y: 0}, {x: 0, y: 0}, {x: 0, y: 0}],
+    [{x: 0, y: 0}, {x: 0, y: 0}, {x: 0, y: 0}, {x: 0, y: 0}, {x: 0, y: 0}, {x: 0, y: 0}, {x: 0, y: 0}, {x: 0, y: 0}, {x: 0, y: 0}, {x: 0, y: 0}],
+    [{x: 0, y: 0}, {x: 0, y: 0}, {x: 0, y: 0}, {x: 0, y: 0}, {x: 0, y: 0}, {x: 0, y: 0}, {x: 0, y: 0}, {x: 0, y: 0}, {x: 0, y: 0}, {x: 0, y: 0}],
+    [{x: 0, y: 0}, {x: 0, y: 0}, {x: 0, y: 0}, {x: 0, y: 0}, {x: 0, y: 0}, {x: 0, y: 0}, {x: 0, y: 0}, {x: 0, y: 0}, {x: 0, y: 0}, {x: 0, y: 0}],
+    [{x: 0, y: 0}, {x: 0, y: 0}, {x: 0, y: 0}, {x: 2, y: 3}, {x: 0, y: 0}, {x: 0, y: 0}, {x: 0, y: 0}, {x: 0, y: 0}, {x: 0, y: 0}, {x: 0, y: 0}],
+    [{x: 0, y: 0}, {x: 0, y: 0}, {x: 0, y: 0}, {x: 0, y: 0}, {x: 0, y: 0}, {x: 0, y: 0}, {x: 0, y: 0}, {x: 0, y: 0}, {x: 0, y: 0}, {x: 0, y: 0}],
+    [{x: 0, y: 0}, {x: 0, y: 0}, {x: 0, y: 0}, {x: 0, y: 0}, {x: 0, y: 0}, {x: 0, y: 0}, {x: 0, y: 0}, {x: 0, y: 0}, {x: 0, y: 0}, {x: 0, y: 0}],
+    [{x: 0, y: 0}, {x: 0, y: 0}, {x: 0, y: 0}, {x: 0, y: 0}, {x: 0, y: 0}, {x: 0, y: 0}, {x: 0, y: 0}, {x: 0, y: 0}, {x: 0, y: 0}, {x: 0, y: 0}],
 ];
 
 let map;
@@ -48,7 +58,7 @@ function setup() {
     game.screen.background("#000");
 
     // Initialises player
-    player = new Player(map.screen, (World[0].length * scale) / 2, scale * (3/2));
+    player = new Player(map.screen, (World[0].length * scale) / 2, scale * (3 / 2));
 
     // Begins the game
     setInterval(draw, 1000 / fps);
@@ -121,8 +131,13 @@ function keyUp(event) {
     }
 }
 
-function getImage(x, y, xImg, w, h) {
-    let img = document.images;
+function getImage(x, y, xImg, w, h, i) {
+    const images = document.images;
+    const image = images[i];
 
-    game.screen.canvas.drawImage(img[0], xImg * 310, 0, w, 310, x, y, w + 100, h);
+    const width = image.width;
+    const height = image.height;
+
+    game.screen.canvas.drawImage(image, xImg * width, 0, w, height, x, y, w + 100, h);
+
 }
