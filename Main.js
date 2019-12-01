@@ -1,27 +1,28 @@
 const fps = 30;
 const scale = 30;
-const precision = 100;
 const MoveSpeed = 2;
 const rotateSpeed = 0.1;
 let moving = "";
 
 let rotating = "";
 
+let image;
+
 
 document.addEventListener('keydown', keyPressed);
 document.addEventListener('keyup', keyUp);
 
 const World = [
-    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-    [1, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-    [1, 0, 1, 1, 1, 1, 0, 0, 0, 1],
-    [1, 0, 1, 0, 0, 0, 0, 0, 0, 1],
-    [1, 0, 1, 0, 0, 0, 1, 0, 0, 1],
-    [1, 0, 1, 0, 0, 0, 1, 0, 0, 1],
-    [1, 0, 0, 0, 0, 0, 1, 0, 0, 1],
-    [1, 0, 0, 0, 1, 1, 1, 0, 0, 1],
-    [1, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
+    [2, 2, 2, 2, 1, 1, 1, 1, 1, 1],
+    [2, 0, 0, 2, 0, 0, 0, 0, 0, 1],
+    [2, 0, 0, 2, 0, 0, 0, 0, 0, 1],
+    [2, 0, 0, 2, 0, 0, 0, 0, 0, 1],
+    [2, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+    [2, 2, 2, 0, 0, 0, 0, 3, 3, 3],
+    [1, 1, 1, 1, 0, 0, 0, 0, 0, 3],
+    [1, 0, 0, 0, 0, 0, 3, 0, 0, 3],
+    [1, 0, 0, 1, 0, 0, 3, 0, 0, 3],
+    [1, 1, 1, 1, 1, 1, 3, 3, 3, 3]
 ];
 
 let map;
@@ -40,14 +41,14 @@ function setup() {
 
     // Changes the size of the canvas
     map.screen.setSize(World[0].length * scale, World.length * scale);
-    game.screen.setSize(533, 200);
+    game.screen.setSize(600, 200);
 
     // Changes the background of the canvas
     map.screen.background("#555");
     game.screen.background("#000");
 
     // Initialises player
-    player = new Player(map.screen, 150, 150);
+    player = new Player(map.screen, (World[0].length * scale) / 2, scale * (3/2));
 
     // Begins the game
     setInterval(draw, 1000 / fps);
@@ -61,7 +62,6 @@ function draw() {
     // Changes the background of the canvas
     map.screen.background("#555");
     game.screen.background("#000");
-
     map.draw();
     game.draw3D();
 
@@ -119,4 +119,12 @@ function keyUp(event) {
         default:
             break;
     }
+}
+
+async function getImage(x, y, xImg, w, h) {
+    const response = await fetch("brick.png");
+    image = await response.blob();
+    let img = await createImageBitmap(image, xImg * 310, 0, w, 310);
+
+    game.screen.canvas.drawImage(img, x, y, w, h);
 }

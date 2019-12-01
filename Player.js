@@ -3,14 +3,14 @@ class Player {
         this.pos = {
             x: x,
             y: y
-        }
+        };
         this.screen = screen;
-        this.FOV = Math.PI / 3;
-        this.ray = new Ray(screen, x, y, (Math.PI * 1) / 6);
-        this.rayAmount = 600;
+        this.FOV = (Math.PI / 3);
+        this.ray = new Ray(screen, x, y, (Math.PI) / 6);
+        this.rayAmount = 599;
         this.rays = [];
 
-        this.rot = 0;
+        this.rot = rotateSpeed * 110;
 
         for (let i = -(this.FOV) / 2 + this.rot; i < (this.FOV) / 2 + this.rot; i += (this.FOV / this.rayAmount)) {
             this.rays.push(new Ray(screen, x, y, i));
@@ -69,14 +69,14 @@ class Player {
     }
 
     forward() {
-        if ( World[Math.floor((this.pos.y + (Math.sin(this.rot) * -1 * MoveSpeed)) / scale)][Math.floor((this.pos.x + (Math.cos(this.rot) * MoveSpeed)) / scale)] !== 1 ) {
+        if ( World[Math.floor((this.pos.y + (Math.sin(this.rot) * -1 * MoveSpeed)) / scale)][Math.floor((this.pos.x + (Math.cos(this.rot) * MoveSpeed)) / scale)] === 0 ) {
             this.pos.x += Math.cos(this.rot) * MoveSpeed;
             this.pos.y += Math.sin(this.rot) * -1 * MoveSpeed;
         }
     }
 
     backward() {
-        if ( World[Math.floor((this.pos.y - (Math.sin(this.rot) * -1 * MoveSpeed)) / scale)][Math.floor((this.pos.x - (Math.cos(this.rot) * MoveSpeed)) / scale)] !== 1 ) {
+        if ( World[Math.floor((this.pos.y - (Math.sin(this.rot) * -1 * MoveSpeed)) / scale)][Math.floor((this.pos.x - (Math.cos(this.rot) * MoveSpeed)) / scale)] === 0 ) {
             this.pos.x -= Math.cos(this.rot) * MoveSpeed;
             this.pos.y -= Math.sin(this.rot) * -1 * MoveSpeed;
         }

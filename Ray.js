@@ -14,6 +14,7 @@ class Ray {
             x: x,
             y: y
         };
+
         this.screen = screen;
     }
 
@@ -40,13 +41,16 @@ class Ray {
         distance = {
             x: {
                 length: Infinity,
-                x_hit: 0
-                },
+                x_hit: 0,
+                worldHit: {x: 0, y: 0}
+            },
             y: {
                 length: Infinity,
-                y_hit: 0
+                y_hit: 0,
+                worldHit: {x: 0, y: 0}
             },
-            length: 0
+            length: 0,
+            worldHit: {x: 0, y: 0}
         };
 
         // I turn run and rise into 1 or -1 to know where the line is going (left, right, up or down)
@@ -79,10 +83,11 @@ class Ray {
             // this.screen.circle(this.pos.x + (x * scale), (this.pos.y + ((y * scale)) * -1), 4, "#0000FF");
 
             if (World[worldPos.y]) {
-                if (World[worldPos.y][worldPos.x] === 1) {
+                if (World[worldPos.y][worldPos.x] !== 0) {
                     hit = true;
                     distance.x.length = Math.hypot(x, y);
                     distance.x.x_hit = x;
+                    distance.x.worldHit = worldPos;
                 }
             } else {
                 break;
@@ -110,10 +115,11 @@ class Ray {
 
             if (World[worldPos.y]) {
 
-                if (World[worldPos.y][worldPos.x] === 1) {
+                if (World[worldPos.y][worldPos.x] !== 0) {
                     hit = true;
                     distance.y.length = Math.hypot(x, y);
                     distance.y.y_hit = y;
+                    distance.y.worldHit = worldPos;
                 }
 
             } else {
@@ -127,17 +133,20 @@ class Ray {
             x = distance.x.x_hit;
             y = x * slope;
             distance.length = distance.x.length;
+            distance.worldHit = distance.x.worldHit;
             xHit = true;
         } else {
             y = distance.y.y_hit;
             x = y / slope;
             distance.length = distance.y.length;
+            distance.worldHit = distance.y.worldHit;
             xHit = false;
         }
 
         this.screen.line(this.pos.x, this.pos.y, this.pos.x + (x * scale), this.pos.y + (y * scale * -1), 2, '#FFFF00');
 
         // console.log(this.dir * (180 / Math.PI), distance.length, Math.sin(this.dir),  distance.length * Math.sin(this.dir));
-        return [distance.length * Math.cos(this.dir - player.rot), xHit];
+
+        return [distance.length * Math.cos(this.dir - player.rot), xHit, distance.worldHit,  !xHit ? x - Math.floor(x) : y - Math.floor(y)];
     }
 }
