@@ -13,7 +13,7 @@ class Game {
         const width = this.screen.width / distances.length;
 
         for (let i = 0; i < distances.length; i++) {
-            const height = 150 / distances[i][0];
+            const height = 300 / distances[i][0];
             let image = World[distances[i][2].y][distances[i][2].x] - 1;
             let color = "#2233FF";
 
