@@ -16,9 +16,8 @@ class Game {
             const height = 150 / distances[i][0];
             let image = World[distances[i][2].y][distances[i][2].x] - 1;
             let color = "#2233FF";
-            let statement = distances[i][1] ? roofWorld[distances[i][2].y][distances[i][2].x].x : roofWorld[distances[i][2].y][distances[i][2].x].y;
 
-            switch (statement) {
+            switch (roofWorld[distances[i][2].y][distances[i][2].x]) {
                 case 1:
                     color = "#2233FF";
                     break;
@@ -35,6 +34,7 @@ class Game {
 
             // color = `rgb(${200 / distances[i][0]}, ${200 / distances[i][0]}, ${200 / distances[i][0]})`;
 
+            // getImage(i * width , 0, distances[i][3], width, (this.screen.height / 2) - (height / 2), image + 2);
             this.screen.rect(i * width, 0, width + 1, (this.screen.height / 2) - (height / 2), color);
             this.screen.rect(i * width, ((this.screen.height / 2) - (height / 2) ) + height - 1, width + 1, (this.screen.height / 2) - (height / 2) + 2, "#55AA55");
             // this.screen.rect(i * width + width / 2 , this.screen.height / 2, width + 1, height + 1, color, true);
