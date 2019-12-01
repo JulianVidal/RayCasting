@@ -38,8 +38,6 @@ class Game {
 
             // color = `rgb(${200 / distances[i][0]}, ${200 / distances[i][0]}, ${200 / distances[i][0]})`;
 
-            // console.log(distances[i][3])
-
             this.screen.rect(i * width, 0, width + 1, (this.screen.height / 2) - (height / 2), "#2233FF");
             this.screen.rect(i * width, ((this.screen.height / 2) - (height / 2) ) + height - 1, width + 1, (this.screen.height / 2) - (height / 2) + 2, "#55AA55");
             this.screen.rect(i * width + width / 2 , this.screen.height / 2, width + 1, height + 1, color, true);

@@ -145,8 +145,6 @@ class Ray {
 
         this.screen.line(this.pos.x, this.pos.y, this.pos.x + (x * scale), this.pos.y + (y * scale * -1), 2, '#FFFF00');
 
-        // console.log(this.dir * (180 / Math.PI), distance.length, Math.sin(this.dir),  distance.length * Math.sin(this.dir));
-        // console.log(!xHit ? x - Math.floor(x) : y - Math.floor(y))
-        return [distance.length * Math.cos(this.dir - player.rot), xHit, distance.worldHit,  !xHit ? x - Math.floor(x) : y - Math.floor(y)];
+        return [distance.length * Math.cos(this.dir - player.rot), xHit, distance.worldHit,  !xHit ? (x + (this.pos.x / scale)) - Math.floor(x + (this.pos.x / scale)) : (y - (this.pos.y / scale)) - Math.floor(y - (this.pos.y / scale))];
     }
 }
