@@ -1,7 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="8e0546fc-cf5b-430e-854c-ae2e745f8984" name="Default Changelist" comment="" />
+    <list default="true" id="8e0546fc-cf5b-430e-854c-ae2e745f8984" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/Old/Roof_1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Old/Wall_1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Old/Wall_2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Old/Wall_3.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Old/brick.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Game.js" beforeDir="false" afterPath="$PROJECT_DIR$/Game.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Main.js" beforeDir="false" afterPath="$PROJECT_DIR$/Main.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Ray.js" beforeDir="false" afterPath="$PROJECT_DIR$/Ray.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Roof_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Wall_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Wall_2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Wall_3.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/brick.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -97,6 +113,7 @@
       <workItem from="1575135926281" duration="5045000" />
       <workItem from="1575178986437" duration="27216000" />
       <workItem from="1575732527461" duration="28000" />
+      <workItem from="1576420258473" duration="4280000" />
     </task>
     <servers />
   </component>
@@ -203,5 +220,9 @@
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state x="144" y="254" key="run.anything.popup/0.0.1920.1080@0.0.1920.1080" timestamp="1575136871642" />
+    <state x="1096" y="200" width="670" height="676" key="search.everywhere.popup" timestamp="1576420797208">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state x="1096" y="200" width="670" height="676" key="search.everywhere.popup/0.0.1920.1080/-1920.0.1920.1080@0.0.1920.1080" timestamp="1576420797208" />
   </component>
 </project>

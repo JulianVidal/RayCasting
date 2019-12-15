@@ -1,10 +1,10 @@
 const fps = 30;
-const scale = 30;
-const MoveSpeed = 2;
+const scale = 10;
+const MoveSpeed = 1;
 const rotateSpeed = 0.1;
 
-const Gamewidth = 1024;
-const Gameheight = 768;
+const Gamewidth = 512;
+const Gameheight = 384;
 
 let moving = "";
 let rotating = "";
@@ -41,6 +41,11 @@ const roofWorld = [
     [1, 0, 0, 0, 0, 0, 1, 3, 0, 3],
     [1, 1, 1, 1, 1, 1, 3, 3, 3, 3]
 ];
+
+const barrel = {
+    x: 5,
+    y: 3
+};
 
 let map;
 let game;
@@ -138,9 +143,8 @@ function keyUp(event) {
     }
 }
 
-function getImage(x, y, xImg, w, h, i) {
-    const images = document.images;
-    const image = images[i];
+function getImage(x, y, xImg, w, h, id) {
+    const image = document.getElementById(id);
 
     const width = image.width;
     const height = image.height;
