@@ -2,12 +2,19 @@ const fps = 30;
 const scale = 30;
 const MoveSpeed = 2;
 const rotateSpeed = 0.1;
+
+const Gamewidth = 1024;
+const Gameheight = 768;
+
 let moving = "";
 let rotating = "";
 
 
 document.addEventListener('keydown', keyPressed);
 document.addEventListener('keyup', keyUp);
+document.addEventListener('click', mouseDown);
+document.addEventListener('pointerlockchange', test, false);
+
 
 const World = [
     [2, 2, 2, 2, 1, 1, 1, 1, 1, 1],
@@ -25,7 +32,7 @@ const World = [
 const roofWorld = [
     [2, 2, 2, 2, 1, 1, 1, 1, 1, 1],
     [2, 0, 0, 2, 1, 0, 0, 0, 0, 1],
-    [2, 0, 0, 2, 1, 0, 0, 0, 0, 1],
+    [2, 0, 0, 2, 1, 0, 0, 1, 0, 1],
     [2, 0, 0, 2, 1, 0, 0, 0, 0, 1],
     [2, 0, 0, 0, 0, 0, 1, 1, 1, 1],
     [2, 2, 2, 2, 1, 0, 1, 3, 3, 3],
@@ -51,11 +58,11 @@ function setup() {
 
     // Changes the size of the canvas
     map.screen.setSize(World[0].length * scale, World.length * scale);
-    game.screen.setSize(600, 200);
+    game.screen.setSize(Gamewidth, Gameheight);
 
     // Changes the background of the canvas
     map.screen.background("#555");
-    game.screen.background("#000");
+    game.screen.background("#FFF");
 
     // Initialises player
     player = new Player(map.screen, ((World[0].length * scale) / 2 )+ 10, scale * (3 / 2));
@@ -140,4 +147,13 @@ function getImage(x, y, xImg, w, h, i) {
 
     game.screen.canvas.drawImage(image, xImg * width, 0, w, height, x, y, w + 100, h);
 
+}
+
+function mouseDown(event) {
+
+    const loop = setInterval( () => {game.gunAnimation(loop)}, 1000 / 15);
+}
+
+function test(event) {
+    console.log("hey")
 }

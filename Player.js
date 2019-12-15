@@ -7,7 +7,7 @@ class Player {
         this.screen = screen;
         this.FOV = (Math.PI / 3);
         this.ray = new Ray(screen, x, y, (Math.PI) / 6);
-        this.rayAmount = 599;
+        this.rayAmount = Gamewidth;
         this.rays = [];
 
         this.rot = rotateSpeed * 110;
