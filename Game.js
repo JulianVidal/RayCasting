@@ -52,16 +52,44 @@ class Game {
             this.screen.rect(i * width, 0, width, (this.screen.height / 2) - (height / 2), color);
             this.screen.rect(i * width, ((this.screen.height / 2) - (height / 2) ) + height, width, (this.screen.height / 2) - (height / 2) + 2, "#666"/*"#55AA55"*/);
             // this.screen.rect(i * width + width / 2 , this.screen.height / 2, width + 1, height + 1, color, true);
-            getImage(i * width, (this.screen.height / 2) - height / 2, distances[i][3], width, height, image);
+            getImage(i * width, (this.screen.height / 2) - height / 2, distances[i][3], width, width + 100, height, image);
             if (distances[i][1]) this.screen.rect(i * width + (width / 2 ), (this.screen.height / 2), width, height, "#00000066"/*`rgba(0, 0, 0, ${distances[i][0] / 7})`*/, true)
-
-
-            if (distances[i][2].x === barrel.x && (player.pos.y / scale) < barrel.y)  getImage(i * width, (this.screen.height / 2) - height / 2, distances[i][3], width, (Gameheight / distances[i][0]), "barrel") //console.log(distances[i][2])
-
         }
 
-        getImage((this.screen.width / 2) - 64, this.screen.height - 256, 0, 64, 256, "gun_" + this.gunFrame);
-        // getImage(260, this.screen.height - 330, 0, 128, 100, 3);
+
+        const playerX =  player.pos.x / scale;
+        const playerY =  player.pos.y / scale;
+
+        if (playerY < barrel.y) {
+
+
+            const spriteX = barrel.x - playerX;
+            const spriteY = barrel.y - playerY;
+
+            let spriteAng = Math.atan2(-spriteY, spriteX);
+            while (spriteAng > Math.PI * 2) spriteAng -= Math.PI * 2;
+            while (spriteAng < 0) spriteAng += Math.PI * 2;
+
+
+            let theta = spriteAng - player.rot;
+            while (theta > Math.PI * 2) theta -= Math.PI * 2;
+
+            const spriteScreenX  = (  ( 1 - (theta / (Math.PI / 6)) ) * (Gamewidth / 2)   );
+
+            while (theta < 0) theta += Math.PI * 2;
+
+
+            const distance = Math.sqrt( spriteX * spriteX  +  spriteY * spriteY );
+            const height   = (Gameheight / 2) / distance;
+
+
+            getImage(spriteScreenX, (((5 * (this.screen.height) )/ 8) - (height / 2)), 0, 64, height, height, "barrel")
+            
+
+            console.log(theta * (180 / Math.PI), player.rot* (180 / Math.PI), spriteAng * (180 / Math.PI), distance)
+        }
+            getImage((this.screen.width / 2) - 64, this.screen.height - 256, 0, 64, 64 + 100, 256, "gun_" + this.gunFrame);
+            // getImage(260, this.screen.height - 330, 0, 128, 100, 3);
 
     }
 

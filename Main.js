@@ -43,8 +43,8 @@ const roofWorld = [
 ];
 
 const barrel = {
-    x: 5,
-    y: 3
+    x: 5.5,
+    y: 4.5
 };
 
 let map;
@@ -75,6 +75,10 @@ function setup() {
     // Begins the game
     setInterval(draw, 1000 / fps);
     // draw();
+
+    // setTimeout(() => {
+    //     draw();
+    // }, 2000);
 
     // window.onload needs a return
     return null;
@@ -143,13 +147,13 @@ function keyUp(event) {
     }
 }
 
-function getImage(x, y, xImg, w, h, id) {
+function getImage(x, y, xImg, w, wImg, h, id) {
     const image = document.getElementById(id);
 
     const width = image.width;
     const height = image.height;
 
-    game.screen.canvas.drawImage(image, xImg * width, 0, w, height, x, y, w + 100, h);
+    game.screen.canvas.drawImage(image, xImg * width, 0, w, height, x, y, wImg, h);
 
 }
 

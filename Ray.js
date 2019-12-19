@@ -148,6 +148,6 @@ class Ray {
         const perpDistance = distance.length * Math.cos(this.dir - player.rot);
         const xImg = !xHit ? (x + (this.pos.x / scale)) - Math.floor(x + (this.pos.x / scale)) : (y - (this.pos.y / scale)) - Math.floor(y - (this.pos.y / scale));
 
-        return [perpDistance, xHit, distance.worldHit, xImg ];
+        return [perpDistance, xHit, distance.worldHit, xImg, this.dir];
     }
 }
