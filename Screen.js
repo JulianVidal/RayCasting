@@ -1,6 +1,7 @@
 class Screen {
     constructor(element) {
         this.canvas = element.getContext("2d");
+        this.element = element;
 
         this.width  = this.canvas.canvas.width;
         this.height = this.canvas.canvas.height;

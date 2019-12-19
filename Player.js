@@ -7,7 +7,7 @@ class Player {
         this.screen = screen;
         this.FOV = (Math.PI / 3);
         this.ray = new Ray(screen, x, y, (Math.PI) / 6);
-        this.rayAmount = Gamewidth;
+        this.rayAmount = Gamewidth / resolution;
         this.rays = [];
 
         this.rot = 0;
@@ -72,6 +72,10 @@ class Player {
         if ( World[Math.floor((this.pos.y + (Math.sin(this.rot) * -1 * MoveSpeed)) / scale)][Math.floor((this.pos.x + (Math.cos(this.rot) * MoveSpeed)) / scale)] === 0 ) {
             this.pos.x += Math.cos(this.rot) * MoveSpeed;
             this.pos.y += Math.sin(this.rot) * -1 * MoveSpeed;
+        } else if ( World[Math.floor((this.pos.y + (Math.sin(this.rot) * -1 * MoveSpeed)) / scale)][Math.floor((this.pos.x) / scale)] === 0 ) {
+            this.pos.y += Math.sin(this.rot) * -1 * MoveSpeed;
+        } else  if ( World[Math.floor((this.pos.y) / scale)][Math.floor((this.pos.x + (Math.cos(this.rot) * MoveSpeed)) / scale)] === 0 ) {
+            this.pos.x += Math.cos(this.rot) * MoveSpeed;
         }
     }
 
@@ -79,6 +83,10 @@ class Player {
         if ( World[Math.floor((this.pos.y - (Math.sin(this.rot) * -1 * MoveSpeed)) / scale)][Math.floor((this.pos.x - (Math.cos(this.rot) * MoveSpeed)) / scale)] === 0 ) {
             this.pos.x -= Math.cos(this.rot) * MoveSpeed;
             this.pos.y -= Math.sin(this.rot) * -1 * MoveSpeed;
+        } else if ( World[Math.floor((this.pos.y - (Math.sin(this.rot) * -1 * MoveSpeed)) / scale)][Math.floor((this.pos.x) / scale)] === 0 ) {
+            this.pos.y -= Math.sin(this.rot) * -1 * MoveSpeed;
+        } else  if ( World[Math.floor((this.pos.y) / scale)][Math.floor((this.pos.x - (Math.cos(this.rot) * MoveSpeed)) / scale)] === 0 ) {
+            this.pos.x -= Math.cos(this.rot) * MoveSpeed;
         }
     }
 

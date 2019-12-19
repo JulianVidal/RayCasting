@@ -15,16 +15,16 @@ class Map {
 
                 switch (World[y][x]) {
                     case 0:
-                        color = "#55AA55";
+                        color = "#000";
                         break;
                     case 1:
                         color = "#888";
                         break;
                     case 2:
-                        color = "#AA5555";
+                        color = "#AA8855";
                         break;
                     case 3:
-                        color = "#AAAA55";
+                        color = "#5555AA";
                         break;
                     default:
                         color = "#888";
