@@ -69,23 +69,44 @@ class Player {
     }
 
     forward() {
-        if ( World[Math.floor((this.pos.y + (Math.sin(this.rot) * -1 * MoveSpeed)) / scale)][Math.floor((this.pos.x + (Math.cos(this.rot) * MoveSpeed)) / scale)] === 0 ) {
+        const newMapPosX = Math.floor((this.pos.x + (Math.cos(this.rot) * MoveSpeed)) / scale);
+        const newMapPosY = Math.floor((this.pos.y + (Math.sin(this.rot) * -1 * MoveSpeed)) / scale);
+
+        const mapPosX = Math.floor((this.pos.x) / scale);
+        const mapPosY = Math.floor((this.pos.y) / scale);
+
+        const wall = World[newMapPosY][newMapPosX];
+
+        if ( (wall === 0) || (wall === 4  && Math.round(Doors[newMapPosY][newMapPosX]) === 0) ) {
             this.pos.x += Math.cos(this.rot) * MoveSpeed;
             this.pos.y += Math.sin(this.rot) * -1 * MoveSpeed;
-        } else if ( World[Math.floor((this.pos.y + (Math.sin(this.rot) * -1 * MoveSpeed)) / scale)][Math.floor((this.pos.x) / scale)] === 0 ) {
+
+        } else if ( World[newMapPosY][mapPosX] === 0 ) {
             this.pos.y += Math.sin(this.rot) * -1 * MoveSpeed;
-        } else  if ( World[Math.floor((this.pos.y) / scale)][Math.floor((this.pos.x + (Math.cos(this.rot) * MoveSpeed)) / scale)] === 0 ) {
+
+        } else  if ( World[mapPosY][newMapPosX] === 0 ) {
             this.pos.x += Math.cos(this.rot) * MoveSpeed;
         }
     }
 
     backward() {
-        if ( World[Math.floor((this.pos.y - (Math.sin(this.rot) * -1 * MoveSpeed)) / scale)][Math.floor((this.pos.x - (Math.cos(this.rot) * MoveSpeed)) / scale)] === 0 ) {
+        const newMapPosX = Math.floor((this.pos.x - (Math.cos(this.rot) * MoveSpeed)) / scale);
+        const newMapPosY = Math.floor((this.pos.y - (Math.sin(this.rot) * -1 * MoveSpeed)) / scale);
+
+        const mapPosX = Math.floor((this.pos.x) / scale);
+        const mapPosY = Math.floor((this.pos.y) / scale);
+
+        const wall = World[newMapPosY][newMapPosX];
+
+        if ( (wall === 0) || (wall === 4 && Math.round(Doors[newMapPosY][newMapPosX]) === 0)) {
+
             this.pos.x -= Math.cos(this.rot) * MoveSpeed;
             this.pos.y -= Math.sin(this.rot) * -1 * MoveSpeed;
-        } else if ( World[Math.floor((this.pos.y - (Math.sin(this.rot) * -1 * MoveSpeed)) / scale)][Math.floor((this.pos.x) / scale)] === 0 ) {
+
+        } else if ( World[newMapPosY][mapPosX] === 0 ) {
             this.pos.y -= Math.sin(this.rot) * -1 * MoveSpeed;
-        } else  if ( World[Math.floor((this.pos.y) / scale)][Math.floor((this.pos.x - (Math.cos(this.rot) * MoveSpeed)) / scale)] === 0 ) {
+
+        } else  if ( World[mapPosY][newMapPosX] === 0 ) {
             this.pos.x -= Math.cos(this.rot) * MoveSpeed;
         }
     }
@@ -96,5 +117,42 @@ class Player {
 
     turn_left() {
         this.rot += rotateSpeed;
+    }
+
+    open() {
+        for (const ray of player.rays) {
+            if (World[ray.distance()[2].y][ray.distance()[2].x] === 4) {
+                const x = ray.distance()[2].x;
+                const y = ray.distance()[2].y;
+                const loop = setInterval( () => {
+                    this.opening(y, x, loop)
+                },
+                1000 / fps
+                );
+                break;
+            }
+        }
+    }
+
+    opening(y, x, loop) {
+        Doors[y][x] -= doorSpeed;
+
+        if (Doors[y][x] <= 0) {
+            clearInterval(loop);
+            setTimeout(() => {
+                const newLoop = setInterval(() => {
+                    this.closing(x, y, newLoop);
+                })
+            },
+                1000)
+        }
+    }
+
+    closing(x, y, loop) {
+        Doors[y][x] += doorSpeed;
+
+        if (Doors[y][x] >= 1) {
+            clearInterval(loop);
+        }
     }
 }

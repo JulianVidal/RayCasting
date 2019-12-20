@@ -84,10 +84,23 @@ class Ray {
 
             if (World[worldPos.y]) {
                 if (World[worldPos.y][worldPos.x] !== 0) {
-                    hit = true;
-                    distance.x.length = Math.hypot(x, y);
-                    distance.x.x_hit = x;
-                    distance.x.worldHit = worldPos;
+
+                    if (World[worldPos.y][worldPos.x] === 4) {
+                        const halfX = x + run/2;
+                        const halfY = halfX * slope;
+
+                        if ((halfY - (this.pos.y / scale)) - Math.floor(halfY - (this.pos.y / scale)) <= Doors[worldPos.y][worldPos.x]) {
+                            hit = true;
+                            distance.x.length = Math.hypot(halfX, halfY);
+                            distance.x.x_hit = halfX;
+                            distance.x.worldHit = worldPos;
+                        }
+                    } else {
+                        hit = true;
+                        distance.x.length = Math.hypot(x, y);
+                        distance.x.x_hit = x;
+                        distance.x.worldHit = worldPos;
+                    }
                 }
             } else {
                 break;
@@ -116,10 +129,22 @@ class Ray {
             if (World[worldPos.y]) {
 
                 if (World[worldPos.y][worldPos.x] !== 0) {
-                    hit = true;
-                    distance.y.length = Math.hypot(x, y);
-                    distance.y.y_hit = y;
-                    distance.y.worldHit = worldPos;
+                    const halfY = y + rise / 2;
+                    const halfX = halfY / slope;
+                    if (World[worldPos.y][worldPos.x] === 4) {
+                        if ((halfX + (this.pos.x / scale)) - Math.floor(halfX + (this.pos.x / scale))  <= Doors[worldPos.y][worldPos.x]) {
+                            hit = true;
+                            distance.y.length = Math.hypot(halfX, halfY);
+                            distance.y.y_hit = halfY;
+                            distance.y.worldHit = worldPos;
+                        }
+                    } else {
+                        hit = true;
+                        distance.y.length = Math.hypot(x, y);
+                        distance.y.y_hit = y;
+                        distance.y.worldHit = worldPos;
+                    }
+
                 }
 
             } else {
@@ -146,7 +171,17 @@ class Ray {
         this.screen.line(this.pos.x, this.pos.y, this.pos.x + (x * scale), this.pos.y + (y * scale * -1), 2, '#FFFF00');
 
         const perpDistance = distance.length * Math.cos(this.dir - player.rot);
-        const xImg = !xHit ? (x + (this.pos.x / scale)) - Math.floor(x + (this.pos.x / scale)) : (y - (this.pos.y / scale)) - Math.floor(y - (this.pos.y / scale));
+        let xImg;
+
+        if (World[distance.worldHit.y][distance.worldHit.x] === 4) {
+            const xPer = (x + (this.pos.x / scale)) - Math.floor(x + (this.pos.x / scale)) + (1 - (Doors[distance.worldHit.y][distance.worldHit.x]));
+            const yPer = (y - (this.pos.y / scale)) - Math.floor(y - (this.pos.y / scale)) + (1 - (Doors[distance.worldHit.y][distance.worldHit.x]));
+            xImg = !xHit ? xPer: yPer;
+        } else {
+            const xPer = (x + (this.pos.x / scale)) - Math.floor(x + (this.pos.x / scale));
+            const yPer = (y - (this.pos.y / scale)) - Math.floor(y - (this.pos.y / scale));
+            xImg = !xHit ? xPer: yPer;
+        }
 
         return [perpDistance, xHit, distance.worldHit, xImg, this.dir];
     }
