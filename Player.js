@@ -121,7 +121,7 @@ class Player {
 
     open() {
         for (const ray of player.rays) {
-            if (World[ray.distance()[2].y][ray.distance()[2].x] === 4) {
+            if (World[ray.distance()[2].y][ray.distance()[2].x] === 4 && ray.distance()[0] < 2) {
                 const x = ray.distance()[2].x;
                 const y = ray.distance()[2].y;
                 const loop = setInterval( () => {
