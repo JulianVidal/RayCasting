@@ -16,46 +16,53 @@ class Game {
 
         for (let i = 0; i < distances.length; i++) {
             const height = Gameheight / distances[i][0];
-            let image = "brick";
+            let image = "greyStone";
             let color = "#2233FF";
 
             switch (World[distances[i][2].y][distances[i][2].x]) {
                 case 1:
-                    image = "brick";
+                    image = "greyStone";
                     break;
+                case 11:
+                    image = "greyStonePortrait";
+                    break;
+                case 12:
+                    image = "greyStoneEagle";
+                    break;
+                case 13:
+                    image = "greyStoneBanner";
+                    break;
+
+
                 case 2:
                     image = "wood";
                     break;
+                case 21:
+                    image = "woodEagle";
+                    break;
+
+
                 case 3:
                     image = "blueBrick";
                     break;
+                case 31:
+                    image = "blueBrickCell";
+                    break;
+                case 32:
+                    image = "blueBrickCellBone";
+                    break;
+
+
                 case 4:
                     image = "Door";
                     break;
             }
 
-            // switch (roofWorld[distances[i][2].y][distances[i][2].x]) {
-            //     case 1:
-            //         color = "#333"/*"#2233FF"*/;
-            //         break;
-            //     case 2:
-            //         color = "#AA5555";
-            //         break;
-            //     case 3:
-            //         color = "#AAAA55";
-            //         break;
-            //     default:
-            //         color = "#888";
-            //         break;
-            // }
             color = "#333";
 
-            // color = `rgb(${200 / distances[i][0]}, ${200 / distances[i][0]}, ${200 / distances[i][0]})`;
-
-            // getImage(i * width , 0, distances[i][3], width, (this.screen.height / 2) - (height / 2), image + 2);
             this.screen.rect(i * width, 0, width, (this.screen.height / 2) - (height / 2), color);
             this.screen.rect(Math.round(i * width), ((this.screen.height / 2) - (height / 2) ) + height, width, (this.screen.height / 2) - (height / 2) + 2, "#666"/*"#55AA55"*/);
-            // this.screen.rect(i * width + width / 2 , this.screen.height / 2, width + 1, height + 1, color, true);
+
             getImage(i * width, (this.screen.height / 2) - height / 2, distances[i][3], width, width + 100, height, image);
 
             if (distances[i][1]) this.screen.rect(i * width + (width / 2 ), (this.screen.height / 2), width, height, "#00000066"/*`rgba(0, 0, 0, ${distances[i][0] / 7})`*/, true)
@@ -63,6 +70,18 @@ class Game {
 
         const playerX =  player.pos.x / scale;
         const playerY =  player.pos.y / scale;
+
+        sprites.sort(
+            (a, b) => {
+                const spriteXA = a.x - playerX;
+                const spriteYA = a.y - playerY;
+
+                const spriteXB = b.x - playerX;
+                const spriteYB = b.y - playerY;
+
+                return (Math.sqrt( spriteXB * spriteXB  +  spriteYB * spriteYB )) - (Math.sqrt( spriteXA * spriteXA  +  spriteYA * spriteYA ))
+            }
+        );
 
         for (let i = 0; i < sprites.length; i++) {
 
@@ -92,31 +111,16 @@ class Game {
 
 
             const distance = Math.sqrt( spriteX * spriteX  +  spriteY * spriteY );
-            let height   = Math.round((Gameheight/ 2) / distance);
+            let height   = Math.round((Gameheight) / distance);
 
-            if (sprites[i].id === "light") {
-                height   = Math.round((Gameheight ) / distance);
-            } else if (sprites[i].id === "barrel") {
-                height   = Math.round((Gameheight/ 2) / distance);
-            }else if (sprites[i].id === "stand") {
-                height   = Math.round((Gameheight) / distance);
-            }else if (sprites[i].id === "dead") {
-                height   = Math.round((Gameheight) / distance);
-            }
+
+
 
             for (let j = 0; j < height; j++) {
                 const columnX = Math.round((spriteScreenX + j) - height / 2);
                 if (distances[columnX / resolution]){
                     if (distances[columnX / resolution][0] > distance) {
-                        if (sprites[i].id === "light") {
-                            getImage(columnX, (this.screen.height / 2) - (height  / 2), j / height, resolution, resolution, height, sprites[i].id);
-                        } else if (sprites[i].id === "barrel") {
-                            getImage(columnX, (this.screen.height / 2), j / height, resolution, resolution + 10, height, sprites[i].id);
-                        }else if (sprites[i].id === "stand") {
-                            getImage(columnX, (this.screen.height / 2) - height / 2, j / height, resolution, resolution, height, sprites[i].id);
-                        }else if (sprites[i].id === "dead") {
-                            getImage(columnX, (this.screen.height / 2) - height / 2, j / height, resolution, resolution, height, sprites[i].id);
-                        }
+                        getImage(columnX, (this.screen.height / 2) - height / 2, j / height, resolution, resolution, height, sprites[i].id);
                     }
                 }
 
@@ -124,7 +128,7 @@ class Game {
 
         }
 
-        getImage((this.screen.width / 2) - 64, this.screen.height - 256, 0, 64, 64 + 100, 256, "gun_" + this.gunFrame);
+        getImage((this.screen.width / 2) - (64 * 2), this.screen.height - 256, 0, 64, 64 * 4, 256, "gun_" + this.gunFrame);
         // getImage(260, this.screen.height - 330, 0, 128, 100, 3);
 
     }

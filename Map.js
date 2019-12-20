@@ -26,12 +26,17 @@ class Map {
                     case 3:
                         color = "#5555AA";
                         break;
+                    case 4:
+                        color = "#FF0000";
+                        break;
                     default:
                         color = "#888";
                         break;
                 }
 
+
                 this.screen.square(x * scale, y * scale, scale, color);
+
                 this.screen.line((x + 1) * scale, (y + 1) * scale, (x + 1) * scale, (y + 1), 2, "#000");
                 this.screen.line((x + 1) * scale, (y + 1) * scale, (x + 1), (y + 1) * scale, 2, "#000");
             }

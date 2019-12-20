@@ -2,15 +2,59 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="8e0546fc-cf5b-430e-854c-ae2e745f8984" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/Texture/walls/bluestone/bluestone.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Texture/walls/bluestone/bluestonecell.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Texture/walls/bluestone/bluestonecellbone.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Texture/walls/greystone/greystone.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Texture/walls/greystone/greystonebanner.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Texture/walls/greystone/greystoneeagle.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Texture/walls/greystone/greystoneportrait.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Texture/walls/wood/wood.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Texture/walls/wood/woodeagle.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/WolfensteinMap.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/sprites/objects/blueplant.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/sprites/objects/chandelier.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/sprites/objects/skeleton/skeletonLaying.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/sprites/objects/skeleton/skeletonPile.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/sprites/pickups/ammopack.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/sprites/pickups/foodpack.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/sprites/pickups/medpack.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/wolftex/colorstone.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/wolftex/eagle.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/wolftex/greenlightOld.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/wolftex/greenlightOldOld.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/wolftex/mossy.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/wolftex/oldBarrel.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/wolftex/pillar.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/wolftex/purplestone.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/wolftex/redbrick.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Game.js" beforeDir="false" afterPath="$PROJECT_DIR$/Game.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Main.js" beforeDir="false" afterPath="$PROJECT_DIR$/Main.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Map.js" beforeDir="false" afterPath="$PROJECT_DIR$/Map.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Player.js" beforeDir="false" afterPath="$PROJECT_DIR$/Player.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Ray.js" beforeDir="false" afterPath="$PROJECT_DIR$/Ray.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Texture/walls/bluestone.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Texture/walls/greystone.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Texture/walls/wood.png" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sprites/enemies/Guard/standing/guard.png" beforeDir="false" afterPath="$PROJECT_DIR$/sprites/enemies/Guard/standing/guard.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sprites/wolftex/colorstone.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sprites/wolftex/eagle.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sprites/wolftex/greenlightOld.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sprites/wolftex/greenlightOldOld.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sprites/wolftex/mossy.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sprites/wolftex/oldBarrel.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sprites/wolftex/pillar.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sprites/wolftex/purplestone.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sprites/wolftex/redbrick.png" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FavoritesManager">
+    <favorites_list name="RayCasting" />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -107,7 +151,7 @@
       <workItem from="1576429987909" duration="579000" />
       <workItem from="1576768589051" duration="21153000" />
       <workItem from="1576838063827" duration="16789000" />
-      <workItem from="1576857471093" duration="581000" />
+      <workItem from="1576857471093" duration="11921000" />
     </task>
     <servers />
   </component>
@@ -230,9 +274,9 @@
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state x="144" y="254" key="run.anything.popup/0.0.1920.1080@0.0.1920.1080" timestamp="1575136871642" />
-    <state x="1096" y="200" width="670" height="676" key="search.everywhere.popup" timestamp="1576420797208">
+    <state x="1096" y="200" width="672" height="676" key="search.everywhere.popup" timestamp="1576870255274">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state x="1096" y="200" width="670" height="676" key="search.everywhere.popup/0.0.1920.1080/-1920.0.1920.1080@0.0.1920.1080" timestamp="1576420797208" />
+    <state x="1096" y="200" width="672" height="676" key="search.everywhere.popup/0.0.1920.1080/-1920.0.1920.1080@0.0.1920.1080" timestamp="1576870255274" />
   </component>
 </project>

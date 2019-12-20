@@ -4,13 +4,14 @@ class Player {
             x: x,
             y: y
         };
+        this.speed = MoveSpeed / 2;
         this.screen = screen;
         this.FOV = (Math.PI / 3);
         this.ray = new Ray(screen, x, y, (Math.PI) / 6);
         this.rayAmount = Gamewidth / resolution;
         this.rays = [];
 
-        this.rot = 0;
+        this.rot = 5.664453971523917;
 
         for (let i = -(this.FOV) / 2 + this.rot; i < (this.FOV) / 2 + this.rot; i += (this.FOV / this.rayAmount)) {
             this.rays.push(new Ray(screen, x, y, i));
@@ -29,12 +30,21 @@ class Player {
 
     move() {
 
+        if (this.speed > MoveSpeed) this.speed = MoveSpeed;
+
         switch (moving) {
             case "forward":
+                this.speed += 0.1;
                 this.forward();
                 break;
             case "backward":
+                this.speed += 0.1;
                 this.backward();
+                break;
+            default:
+                if (this.speed > MoveSpeed / 2) {
+                    this.speed -= 0.1;
+                }
                 break;
         }
 
@@ -78,14 +88,17 @@ class Player {
         const wall = World[newMapPosY][newMapPosX];
 
         if ( (wall === 0) || (wall === 4  && Math.round(Doors[newMapPosY][newMapPosX]) === 0) ) {
-            this.pos.x += Math.cos(this.rot) * MoveSpeed;
-            this.pos.y += Math.sin(this.rot) * -1 * MoveSpeed;
+            this.pos.x += Math.cos(this.rot) * this.speed;
+            this.pos.y += Math.sin(this.rot) * -1 * this.speed;
 
         } else if ( World[newMapPosY][mapPosX] === 0 ) {
-            this.pos.y += Math.sin(this.rot) * -1 * MoveSpeed;
+            this.pos.y += Math.sin(this.rot) * -1 * this.speed;
 
         } else  if ( World[mapPosY][newMapPosX] === 0 ) {
-            this.pos.x += Math.cos(this.rot) * MoveSpeed;
+            this.pos.x += Math.cos(this.rot) * this.speed;
+
+        } else {
+            this.speed = MoveSpeed / 2;
         }
     }
 
@@ -100,14 +113,18 @@ class Player {
 
         if ( (wall === 0) || (wall === 4 && Math.round(Doors[newMapPosY][newMapPosX]) === 0)) {
 
-            this.pos.x -= Math.cos(this.rot) * MoveSpeed;
-            this.pos.y -= Math.sin(this.rot) * -1 * MoveSpeed;
+            this.pos.x -= Math.cos(this.rot) * this.speed;
+            this.pos.y -= Math.sin(this.rot) * -1 * this.speed;
+            this.speed += 0.1;
 
         } else if ( World[newMapPosY][mapPosX] === 0 ) {
-            this.pos.y -= Math.sin(this.rot) * -1 * MoveSpeed;
+            this.pos.y -= Math.sin(this.rot) * -1 * this.speed;
 
         } else  if ( World[mapPosY][newMapPosX] === 0 ) {
-            this.pos.x -= Math.cos(this.rot) * MoveSpeed;
+            this.pos.x -= Math.cos(this.rot) * this.speed;
+
+        } else {
+            this.speed = MoveSpeed / 2;
         }
     }
 
