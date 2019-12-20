@@ -29,6 +29,9 @@ class Game {
                 case 3:
                     image = "blueBrick";
                     break;
+                case 4:
+                    image = "Door";
+                    break;
             }
 
             // switch (roofWorld[distances[i][2].y][distances[i][2].x]) {
@@ -51,7 +54,7 @@ class Game {
 
             // getImage(i * width , 0, distances[i][3], width, (this.screen.height / 2) - (height / 2), image + 2);
             this.screen.rect(i * width, 0, width, (this.screen.height / 2) - (height / 2), color);
-            this.screen.rect(Math.round(i * width), ((this.screen.height / 2) - (height / 2) ) + height, width, (this.screen.height / 2) - (height / 2) + 2, "#888"/*"#55AA55"*/);
+            this.screen.rect(Math.round(i * width), ((this.screen.height / 2) - (height / 2) ) + height, width, (this.screen.height / 2) - (height / 2) + 2, "#666"/*"#55AA55"*/);
             // this.screen.rect(i * width + width / 2 , this.screen.height / 2, width + 1, height + 1, color, true);
             getImage(i * width, (this.screen.height / 2) - height / 2, distances[i][3], width, width + 100, height, image);
 
@@ -92,7 +95,7 @@ class Game {
             let height   = Math.round((Gameheight/ 2) / distance);
 
             if (sprites[i].id === "light") {
-                height   = Math.round((Gameheight) / distance);
+                height   = Math.round((Gameheight ) / distance);
             } else if (sprites[i].id === "barrel") {
                 height   = Math.round((Gameheight/ 2) / distance);
             }else if (sprites[i].id === "stand") {
@@ -106,7 +109,7 @@ class Game {
                 if (distances[columnX / resolution]){
                     if (distances[columnX / resolution][0] > distance) {
                         if (sprites[i].id === "light") {
-                            getImage(columnX, (this.screen.height / 2) - (height), j / height, resolution, resolution, height, sprites[i].id);
+                            getImage(columnX, (this.screen.height / 2) - (height  / 2), j / height, resolution, resolution, height, sprites[i].id);
                         } else if (sprites[i].id === "barrel") {
                             getImage(columnX, (this.screen.height / 2), j / height, resolution, resolution + 10, height, sprites[i].id);
                         }else if (sprites[i].id === "stand") {

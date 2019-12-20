@@ -2,16 +2,41 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="8e0546fc-cf5b-430e-854c-ae2e745f8984" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/EnemyDead.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/EnemyStand.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/wolftex/greenlightOld.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Texture/walls/bluestone.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Texture/walls/greystone.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Texture/walls/wood.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/sprites/enemies/guard.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/sprites/guns/pistol/pistol_1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/sprites/guns/pistol/pistol_2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/sprites/guns/pistol/pistol_3.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/sprites/guns/pistol/pistol_4.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/sprites/guns/pistol/pistol_5.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/sprites/objects/barrel.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/sprites/objects/greenlight.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/sprites/wolftex/greenlightOldOld.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Door.png" beforeDir="false" afterPath="$PROJECT_DIR$/Door.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Game.js" beforeDir="false" afterPath="$PROJECT_DIR$/Game.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Main.js" beforeDir="false" afterPath="$PROJECT_DIR$/Main.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Player.js" beforeDir="false" afterPath="$PROJECT_DIR$/Player.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Ray.js" beforeDir="false" afterPath="$PROJECT_DIR$/Ray.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wolftex/greenlight.png" beforeDir="false" afterPath="$PROJECT_DIR$/wolftex/greenlight.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/player/Gun_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/player/Gun_2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/player/Gun_3.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/player/Gun_4.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/player/Gun_5.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wolftex/barrel.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wolftex/bluestone.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wolftex/colorstone.png" beforeDir="false" afterPath="$PROJECT_DIR$/sprites/wolftex/colorstone.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/wolftex/eagle.png" beforeDir="false" afterPath="$PROJECT_DIR$/sprites/wolftex/eagle.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/wolftex/greenlight.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wolftex/greenlightOld.png" beforeDir="false" afterPath="$PROJECT_DIR$/sprites/wolftex/greenlightOld.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/wolftex/greystone.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wolftex/mossy.png" beforeDir="false" afterPath="$PROJECT_DIR$/sprites/wolftex/mossy.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/wolftex/oldBarrel.png" beforeDir="false" afterPath="$PROJECT_DIR$/sprites/wolftex/oldBarrel.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/wolftex/pillar.png" beforeDir="false" afterPath="$PROJECT_DIR$/sprites/wolftex/pillar.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/wolftex/purplestone.png" beforeDir="false" afterPath="$PROJECT_DIR$/sprites/wolftex/purplestone.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/wolftex/redbrick.png" beforeDir="false" afterPath="$PROJECT_DIR$/sprites/wolftex/redbrick.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/wolftex/wood.png" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -111,7 +136,7 @@
       <workItem from="1576420258473" duration="4280000" />
       <workItem from="1576429987909" duration="579000" />
       <workItem from="1576768589051" duration="21153000" />
-      <workItem from="1576838063827" duration="13769000" />
+      <workItem from="1576838063827" duration="16201000" />
     </task>
     <servers />
   </component>
