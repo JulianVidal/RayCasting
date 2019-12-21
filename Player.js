@@ -11,7 +11,7 @@ class Player {
         this.rayAmount = Gamewidth / resolution;
         this.rays = [];
 
-        this.rot = 5.664453971523917;
+        this.rot = 0;
 
         for (let i = -(this.FOV) / 2 + this.rot; i < (this.FOV) / 2 + this.rot; i += (this.FOV / this.rayAmount)) {
             this.rays.push(new Ray(screen, x, y, i));

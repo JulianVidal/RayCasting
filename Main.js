@@ -69,7 +69,7 @@ function setup() {
     game.screen.background("#FFF");
 
     // Initialises player
-    player = new Player(map.screen, 367.60251588848536, 501.9360932387106);
+    player = new Player(map.screen, 340, 50);
 
     // Begins the game
     setInterval(draw, 1000 / fps);

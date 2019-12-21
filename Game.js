@@ -40,7 +40,9 @@ class Game {
                 case 21:
                     image = "woodEagle";
                     break;
-
+                case 22:
+                    image = "woodPortrait";
+                    break;
 
                 case 3:
                     image = "blueBrick";
@@ -90,11 +92,12 @@ class Game {
             const spriteY = sprites[i].y - playerY;
 
             let spriteAng = Math.atan2(-spriteY, spriteX);
-            while (spriteAng > Math.PI * 2) spriteAng -= Math.PI * 2;
+            // while (spriteAng > Math.PI * 2) spriteAng -= Math.PI * 2;
             while (spriteAng < 0) spriteAng += Math.PI * 2;
 
 
             let theta;
+
 
             if ((player.rot + (Math.PI / 6)) > Math.PI * 2 && spriteAng > 0 && spriteAng < Math.PI / 3) {
                 theta = spriteAng - (player.rot - (Math.PI * 2));
@@ -103,6 +106,7 @@ class Game {
             } else {
                 theta = spriteAng - player.rot;
             }
+
             while (theta > Math.PI * 2) theta -= Math.PI * 2;
 
             const spriteScreenX  = Math.round(( 1 - (theta / (Math.PI / 6)) ) * (Gamewidth / 2));
@@ -111,10 +115,7 @@ class Game {
 
 
             const distance = Math.sqrt( spriteX * spriteX  +  spriteY * spriteY );
-            let height   = Math.round((Gameheight) / distance);
-
-
-
+            const height   = Math.round(Gameheight / distance);
 
             for (let j = 0; j < height; j++) {
                 const columnX = Math.round((spriteScreenX + j) - height / 2);
