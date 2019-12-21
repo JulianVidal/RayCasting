@@ -19,7 +19,11 @@ class Game {
             let image = "greyStone";
             let color = "#2233FF";
 
-            switch (World[distances[i][2].y][distances[i][2].x]) {
+            let wallHit = World[distances[i][2].y][distances[i][2].x];
+
+            if (distances[i][5]) wallHit = 42;
+
+            switch (wallHit) {
                 case 1:
                     image = "greyStone";
                     break;
@@ -61,6 +65,9 @@ class Game {
                 case 41:
                     image = "doorElevator";
                     break;
+                case 42:
+                    image = "doorSide";
+                    break;
 
                 case 5:
                     image = "elevatorSwitch";
@@ -75,7 +82,7 @@ class Game {
             this.screen.rect(i * width, 0, width, (this.screen.height / 2) - (height / 2), color);
             this.screen.rect(Math.round(i * width), ((this.screen.height / 2) - (height / 2) ) + height, width, (this.screen.height / 2) - (height / 2) + 2, "#666"/*"#55AA55"*/);
 
-            getImage(i * width, (this.screen.height / 2) - height / 2, distances[i][3], width, width + 100, height, image);
+            getImage(Math.round(i * width * 10) / 10, Math.round(((this.screen.height / 2) - height / 2) * 10 ) / 10, distances[i][3], width, width + 100, height, image);
 
             if (distances[i][1]) this.screen.rect(i * width + (width / 2 ), (this.screen.height / 2), width, height, "#00000066"/*`rgba(0, 0, 0, ${distances[i][0] / 7})`*/, true)
         }

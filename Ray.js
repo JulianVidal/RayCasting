@@ -76,8 +76,8 @@ class Ray {
             y = x * slope;
 
             worldPos = {
-                x: Math.floor(this.pos.x / scale) + count + 1 + ( run < 0 ? -1 : 0),
-                y: Math.floor(this.pos.y / scale) - (Math.floor((x / ( 1 / slope)) - posOff.y) + 1)
+                x: Math.floor(this.pos.x / scale) + count + 1 + (run < 0 ? -1 : 0),
+                y: Math.floor(this.pos.y / scale) - (Math.floor((x / (1 / slope)) - posOff.y) + 1)
             };
 
             // this.screen.circle(this.pos.x + (x * scale), (this.pos.y + ((y * scale)) * -1), 4, "#0000FF");
@@ -86,7 +86,7 @@ class Ray {
                 if (World[worldPos.y][worldPos.x] !== 0) {
 
                     if (`${World[worldPos.y][worldPos.x]}`[0] === '4') {
-                        const halfX = x + run/2;
+                        const halfX = x + run / 2;
                         const halfY = halfX * slope;
 
                         if ((halfY - (this.pos.y / scale)) - Math.floor(halfY - (this.pos.y / scale)) <= Doors[worldPos.y][worldPos.x]) {
@@ -95,6 +95,38 @@ class Ray {
                             distance.x.x_hit = halfX;
                             distance.x.worldHit = worldPos;
                         }
+                    } else if (Push[worldPos.y]) {
+
+                        if (Push[worldPos.y][worldPos.x]) {
+                            const newX = x + (Push[worldPos.y][worldPos.x][0] * run);
+                            const newY = newX * slope;
+
+                            let newWorldPos = {
+                                x: Math.floor(this.pos.x / scale) + Math.floor(count + Push[worldPos.y][worldPos.x][0]) + 1 + (run < 0 ? -1 : 0),
+                                y: Math.floor(this.pos.y / scale) - (Math.floor((newX / (1 / slope)) - posOff.y) + 1)
+                            };
+
+                            if (World[newWorldPos.y][newWorldPos.x] === 0 || World[newWorldPos.y][newWorldPos.x] === World[worldPos.y][worldPos.x]) {
+
+                                distance.x.length = Math.hypot(newX, newY);
+                                distance.x.x_hit = newX;
+                                distance.x.worldHit = worldPos;
+                                hit = true;
+                            }
+
+                            if (Push[worldPos.y][worldPos.x][0] >= Push[worldPos.y][worldPos.x][1]) {
+                                World[worldPos.y][worldPos.x - Math.floor(Push[worldPos.y][worldPos.x][0])] = World[worldPos.y][worldPos.x];
+                                World[worldPos.y][worldPos.x] = 0;
+                            }
+
+
+                        } else {
+                            hit = true;
+                            distance.x.length = Math.hypot(x, y);
+                            distance.x.x_hit = x;
+                            distance.x.worldHit = worldPos;
+                        }
+
                     } else {
                         hit = true;
                         distance.x.length = Math.hypot(x, y);
@@ -121,7 +153,7 @@ class Ray {
 
             worldPos = {
                 x: Math.floor(this.pos.x / scale) + (Math.floor((y / slope) - posOff.x) + 1),
-                y: (Math.floor(this.pos.y / scale) + count * -1) + ( rise < 0 ? 0 : -1)
+                y: (Math.floor(this.pos.y / scale) + count * -1) + (rise < 0 ? 0 : -1)
             };
 
             // this.screen.circle(this.pos.x + (x * scale), (this.pos.y + ((y * scale)) * -1), 4, "#00FF00");
@@ -129,21 +161,62 @@ class Ray {
             if (World[worldPos.y]) {
 
                 if (World[worldPos.y][worldPos.x] !== 0) {
-                    const halfY = y + rise / 2;
-                    const halfX = halfY / slope;
+
                     if (`${World[worldPos.y][worldPos.x]}`[0] === '4') {
-                        if ((halfX + (this.pos.x / scale)) - Math.floor(halfX + (this.pos.x / scale))  <= Doors[worldPos.y][worldPos.x]) {
+                        const halfY = y + rise / 2;
+                        const halfX = halfY / slope;
+
+                        if ((halfX + (this.pos.x / scale)) - Math.floor(halfX + (this.pos.x / scale)) <= Doors[worldPos.y][worldPos.x]) {
                             hit = true;
                             distance.y.length = Math.hypot(halfX, halfY);
                             distance.y.y_hit = halfY;
                             distance.y.worldHit = worldPos;
                         }
-                    } else {
+
+                    } else if (Push[worldPos.y]) {
+
+                        if (Push[worldPos.y][worldPos.x] && Push) {
+                            const newY = y + (Push[worldPos.y][worldPos.x][0] * rise);
+                            const newX = newY / slope;
+
+                            let newWorldPos = {
+                                x: Math.floor(this.pos.x / scale) + (Math.floor((newY / slope) - posOff.x) + 1),
+                                y: (Math.floor(this.pos.y / scale) + Math.floor(count - Push[worldPos.y][worldPos.x][0]) * Math.sign(rise)) + (rise < 0 ? 0 : -1)
+                            };
+
+                            // worldPos = {
+                            //     x: Math.floor(this.pos.x / scale) + (Math.floor((y / slope) - posOff.x) + 1),
+                            //     y: (Math.floor(this.pos.y / scale) + count * -1) + (rise < 0 ? 0 : -1)
+                            // };
+
+                            if (World[newWorldPos.y][newWorldPos.x] === 0 || World[newWorldPos.y][newWorldPos.x] === World[worldPos.y][worldPos.x]) {
+
+                                hit = true;
+                                distance.y.length = Math.hypot(newX, newY);
+                                distance.y.y_hit = newY;
+                                distance.y.worldHit = worldPos;
+                            }
+                            if (Push[worldPos.y][worldPos.x][0] >= Push[worldPos.y][worldPos.x][1]) {
+                                World[worldPos.y - Math.floor(Push[worldPos.y][worldPos.x][0])][worldPos.x] = World[worldPos.y][worldPos.x];
+                                World[worldPos.y][worldPos.x] = 0;
+                            }
+
+
+                        } else {
+                            hit = true;
+                            distance.y.length = Math.hypot(x, y);
+                            distance.y.y_hit = y;
+                            distance.y.worldHit = worldPos;
+                        }
+
+                    }else {
                         hit = true;
                         distance.y.length = Math.hypot(x, y);
                         distance.y.y_hit = y;
                         distance.y.worldHit = worldPos;
+
                     }
+
 
                 }
 
@@ -176,13 +249,23 @@ class Ray {
         if (`${World[distance.worldHit.y][distance.worldHit.x]}`[0] === '4') {
             const xPer = (x + (this.pos.x / scale)) - Math.floor(x + (this.pos.x / scale)) + (1 - (Doors[distance.worldHit.y][distance.worldHit.x]));
             const yPer = (y - (this.pos.y / scale)) - Math.floor(y - (this.pos.y / scale)) + (1 - (Doors[distance.worldHit.y][distance.worldHit.x]));
-            xImg = !xHit ? xPer: yPer;
-        } else {
+            xImg = !xHit ? xPer : yPer;
+        } else{
             const xPer = (x + (this.pos.x / scale)) - Math.floor(x + (this.pos.x / scale));
             const yPer = (y - (this.pos.y / scale)) - Math.floor(y - (this.pos.y / scale));
             xImg = !xHit ? xPer: yPer;
         }
 
-        return [perpDistance, xHit, distance.worldHit, xImg, this.dir];
+        let doorSide;
+
+        if (!xHit && World[distance.worldHit.y + 1] && World[distance.worldHit.y - 1] ) {
+            doorSide = (World[distance.worldHit.y + 1][distance.worldHit.x] === 4 || World[distance.worldHit.y - 1][distance.worldHit.x] === 4);
+
+        } else {
+            doorSide = (World[distance.worldHit.y][distance.worldHit.x + 1] === 4 || World[distance.worldHit.y][distance.worldHit.x - 1] === 4);
+        }
+
+        return [perpDistance, xHit, distance.worldHit, xImg, this.dir, doorSide];
+
     }
 }

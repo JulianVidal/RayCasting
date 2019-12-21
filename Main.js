@@ -4,6 +4,7 @@ const MoveSpeed = 3;
 const rotateSpeed = 0.12;
 
 const doorSpeed = 0.05;
+const pushSpeed = 0.05;
 
 const resolution = 1;
 
@@ -69,7 +70,7 @@ function setup() {
     game.screen.background("#FFF");
 
     // Initialises player
-    player = new Player(map.screen,  200, 400);
+    player = new Player(map.screen,  105, 80);
 
     // Begins the game
     setInterval(draw, 1000 / fps);
@@ -134,6 +135,7 @@ function keyPressed(event) {
         case "e":
             console.log("Interact");
             player.open();
+            player.push();
             break;
 
         default:

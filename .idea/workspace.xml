@@ -2,23 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="8e0546fc-cf5b-430e-854c-ae2e745f8984" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/Texture/walls/elevator/doorElevator.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Texture/walls/elevator/elevatorhandle.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Texture/walls/elevator/elevatorswitch.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sprites/objects/barrelGreen.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sprites/objects/flag.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sprites/objects/greenlamp.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sprites/objects/orb.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sprites/objects/treasure/chest.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sprites/objects/treasure/crown.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sprites/objects/yellowplant.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Texture/walls/doorside.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/sprites/objects/Textures.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Game.js" beforeDir="false" afterPath="$PROJECT_DIR$/Game.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Main.js" beforeDir="false" afterPath="$PROJECT_DIR$/Main.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Map.js" beforeDir="false" afterPath="$PROJECT_DIR$/Map.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Player.js" beforeDir="false" afterPath="$PROJECT_DIR$/Player.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Ray.js" beforeDir="false" afterPath="$PROJECT_DIR$/Ray.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Texture/walls/Door.png" beforeDir="false" afterPath="$PROJECT_DIR$/Texture/walls/door.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/WolfensteinMap.js" beforeDir="false" afterPath="$PROJECT_DIR$/WolfensteinMap.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
     </list>
@@ -127,7 +117,7 @@
       <workItem from="1576768589051" duration="21153000" />
       <workItem from="1576838063827" duration="16789000" />
       <workItem from="1576857471093" duration="11921000" />
-      <workItem from="1576912221212" duration="18622000" />
+      <workItem from="1576912221212" duration="38549000" />
     </task>
     <servers />
   </component>

@@ -11,7 +11,7 @@ class Player {
         this.rayAmount = Gamewidth / resolution;
         this.rays = [];
 
-        this.rot = (3 * Math.PI) / 2;
+        this.rot = Math.PI /2;
 
         for (let i = -(this.FOV) / 2 + this.rot; i < (this.FOV) / 2 + this.rot; i += (this.FOV / this.rayAmount)) {
             this.rays.push(new Ray(screen, x, y, i));
@@ -72,8 +72,8 @@ class Player {
     }
 
     forward() {
-        const newMapPosX = Math.floor((this.pos.x + (Math.cos(this.rot) * MoveSpeed)) / scale);
-        const newMapPosY = Math.floor((this.pos.y + (Math.sin(this.rot) * -1 * MoveSpeed)) / scale);
+        const newMapPosX = Math.floor((this.pos.x + (Math.cos(this.rot) * MoveSpeed) * 2) / scale);
+        const newMapPosY = Math.floor((this.pos.y + (Math.sin(this.rot) * -1 * MoveSpeed) * 2) / scale);
 
         const mapPosX = Math.floor((this.pos.x) / scale);
         const mapPosY = Math.floor((this.pos.y) / scale);
@@ -94,8 +94,8 @@ class Player {
     }
 
     backward() {
-        const newMapPosX = Math.floor((this.pos.x - (Math.cos(this.rot) * MoveSpeed)) / scale);
-        const newMapPosY = Math.floor((this.pos.y - (Math.sin(this.rot) * -1 * MoveSpeed)) / scale);
+        const newMapPosX = Math.floor((this.pos.x - (Math.cos(this.rot) * MoveSpeed) * 2) / scale);
+        const newMapPosY = Math.floor((this.pos.y - (Math.sin(this.rot) * -1 * MoveSpeed) * 2) / scale);
 
         const mapPosX = Math.floor((this.pos.x) / scale);
         const mapPosY = Math.floor((this.pos.y) / scale);
@@ -150,6 +150,33 @@ class Player {
                 })
             },
                 1000)
+        }
+    }
+
+    push() {
+        for (const ray of player.rays) {
+            if (Push[ray.distance()[2].y]) {
+                if (Push[ray.distance()[2].y][ray.distance()[2].x]) {
+                    if (ray.distance()[0] < 2 && (Push[ray.distance()[2].y][ray.distance()[2].x][0] < Push[ray.distance()[2].y][ray.distance()[2].x][1])) {
+                        const x = ray.distance()[2].x;
+                        const y = ray.distance()[2].y;
+                        const loop = setInterval(() => {
+                                this.pushing(y, x, loop)
+                            },
+                            1000 / fps
+                        );
+                        break;
+                     }
+                }
+            }
+        }
+    }
+
+    pushing(y, x, loop) {
+        Push[y][x][0] += pushSpeed;
+        console.log("pushing");
+        if (Push[y][x][0] >=  Push[y][x][1]) {
+            clearInterval(loop);
         }
     }
 
