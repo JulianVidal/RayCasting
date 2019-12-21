@@ -29,6 +29,9 @@ class Map {
                     case 4:
                         color = "#FF0000";
                         break;
+                    case 41:
+                        color = "#FF0000";
+                        break;
                     default:
                         color = "#888";
                         break;

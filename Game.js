@@ -56,7 +56,17 @@ class Game {
 
 
                 case 4:
-                    image = "Door";
+                    image = "door";
+                    break;
+                case 41:
+                    image = "doorElevator";
+                    break;
+
+                case 5:
+                    image = "elevatorSwitch";
+                    break;
+                case 52:
+                    image = "elevatorHandle";
                     break;
             }
 

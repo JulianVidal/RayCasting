@@ -4,14 +4,14 @@ class Player {
             x: x,
             y: y
         };
-        this.speed = MoveSpeed / 2;
+        this.speed = MoveSpeed;
         this.screen = screen;
         this.FOV = (Math.PI / 3);
         this.ray = new Ray(screen, x, y, (Math.PI) / 6);
         this.rayAmount = Gamewidth / resolution;
         this.rays = [];
 
-        this.rot = 0;
+        this.rot = (3 * Math.PI) / 2;
 
         for (let i = -(this.FOV) / 2 + this.rot; i < (this.FOV) / 2 + this.rot; i += (this.FOV / this.rayAmount)) {
             this.rays.push(new Ray(screen, x, y, i));
@@ -30,21 +30,14 @@ class Player {
 
     move() {
 
-        if (this.speed > MoveSpeed) this.speed = MoveSpeed;
-
         switch (moving) {
             case "forward":
-                this.speed += 0.1;
                 this.forward();
                 break;
             case "backward":
-                this.speed += 0.1;
                 this.backward();
                 break;
             default:
-                if (this.speed > MoveSpeed / 2) {
-                    this.speed -= 0.1;
-                }
                 break;
         }
 
@@ -85,7 +78,7 @@ class Player {
         const mapPosX = Math.floor((this.pos.x) / scale);
         const mapPosY = Math.floor((this.pos.y) / scale);
 
-        const wall = World[newMapPosY][newMapPosX];
+        const wall = parseInt(`${World[newMapPosY][newMapPosX]}`[0]);
 
         if ( (wall === 0) || (wall === 4  && Math.round(Doors[newMapPosY][newMapPosX]) === 0) ) {
             this.pos.x += Math.cos(this.rot) * this.speed;
@@ -97,8 +90,6 @@ class Player {
         } else  if ( World[mapPosY][newMapPosX] === 0 ) {
             this.pos.x += Math.cos(this.rot) * this.speed;
 
-        } else {
-            this.speed = MoveSpeed / 2;
         }
     }
 
@@ -109,13 +100,12 @@ class Player {
         const mapPosX = Math.floor((this.pos.x) / scale);
         const mapPosY = Math.floor((this.pos.y) / scale);
 
-        const wall = World[newMapPosY][newMapPosX];
+        const wall = parseInt(`${World[newMapPosY][newMapPosX]}`[0]);
 
         if ( (wall === 0) || (wall === 4 && Math.round(Doors[newMapPosY][newMapPosX]) === 0)) {
 
             this.pos.x -= Math.cos(this.rot) * this.speed;
             this.pos.y -= Math.sin(this.rot) * -1 * this.speed;
-            this.speed += 0.1;
 
         } else if ( World[newMapPosY][mapPosX] === 0 ) {
             this.pos.y -= Math.sin(this.rot) * -1 * this.speed;
@@ -123,8 +113,6 @@ class Player {
         } else  if ( World[mapPosY][newMapPosX] === 0 ) {
             this.pos.x -= Math.cos(this.rot) * this.speed;
 
-        } else {
-            this.speed = MoveSpeed / 2;
         }
     }
 
@@ -138,7 +126,7 @@ class Player {
 
     open() {
         for (const ray of player.rays) {
-            if (World[ray.distance()[2].y][ray.distance()[2].x] === 4 && ray.distance()[0] < 2) {
+            if (`${World[ray.distance()[2].y][ray.distance()[2].x]}`[0] === '4' && ray.distance()[0] < 2) {
                 const x = ray.distance()[2].x;
                 const y = ray.distance()[2].y;
                 const loop = setInterval( () => {

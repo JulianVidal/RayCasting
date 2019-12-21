@@ -1,7 +1,7 @@
 const fps = 30;
 const scale = 10;
 const MoveSpeed = 3;
-const rotateSpeed = 0.1;
+const rotateSpeed = 0.12;
 
 const doorSpeed = 0.05;
 
@@ -69,7 +69,7 @@ function setup() {
     game.screen.background("#FFF");
 
     // Initialises player
-    player = new Player(map.screen, 340, 50);
+    player = new Player(map.screen,  200, 400);
 
     // Begins the game
     setInterval(draw, 1000 / fps);
@@ -83,7 +83,7 @@ function setup() {
     for (let y = 0; y < World.length; y++) {
         for (let x = 0; x < World[y].length; x++) {
 
-            if (World[y][x] === 4) {
+            if (`${World[y][x]}`[0] === '4') {
                 if (!Doors[y]) {
                     Doors[y] = {};
                 }
@@ -145,12 +145,10 @@ function keyUp(event) {
 
     switch (event.key) {
         case "w":
-            player.speed *= player.speed /(1.5 * MoveSpeed);
             moving = "";
             break;
 
         case "s":
-            player.speed *= player.speed /(1.5 * MoveSpeed);
             moving = "";
             break;
 

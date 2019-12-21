@@ -85,7 +85,7 @@ class Ray {
             if (World[worldPos.y]) {
                 if (World[worldPos.y][worldPos.x] !== 0) {
 
-                    if (World[worldPos.y][worldPos.x] === 4) {
+                    if (`${World[worldPos.y][worldPos.x]}`[0] === '4') {
                         const halfX = x + run/2;
                         const halfY = halfX * slope;
 
@@ -131,7 +131,7 @@ class Ray {
                 if (World[worldPos.y][worldPos.x] !== 0) {
                     const halfY = y + rise / 2;
                     const halfX = halfY / slope;
-                    if (World[worldPos.y][worldPos.x] === 4) {
+                    if (`${World[worldPos.y][worldPos.x]}`[0] === '4') {
                         if ((halfX + (this.pos.x / scale)) - Math.floor(halfX + (this.pos.x / scale))  <= Doors[worldPos.y][worldPos.x]) {
                             hit = true;
                             distance.y.length = Math.hypot(halfX, halfY);
@@ -173,7 +173,7 @@ class Ray {
         const perpDistance = distance.length * Math.cos(this.dir - player.rot);
         let xImg;
 
-        if (World[distance.worldHit.y][distance.worldHit.x] === 4) {
+        if (`${World[distance.worldHit.y][distance.worldHit.x]}`[0] === '4') {
             const xPer = (x + (this.pos.x / scale)) - Math.floor(x + (this.pos.x / scale)) + (1 - (Doors[distance.worldHit.y][distance.worldHit.x]));
             const yPer = (y - (this.pos.y / scale)) - Math.floor(y - (this.pos.y / scale)) + (1 - (Doors[distance.worldHit.y][distance.worldHit.x]));
             xImg = !xHit ? xPer: yPer;
