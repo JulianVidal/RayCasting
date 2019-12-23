@@ -11,6 +11,9 @@ const resolution = 1;
 const Gamewidth  = 640;
 const Gameheight = 480;
 
+const pistoCoolDown = fps / 2;
+let lastShot = pistoCoolDown;
+
 let moving = "";
 let rotating = "";
 
@@ -57,12 +60,15 @@ window.onload = setup();
 // Runs before at the beginning of the program
 function setup() {
 
-    // Initialises player
-    player = new Player(map.screen, 300, 265);
+
 
     // Initialises both canvases
     map  = new Map(document.getElementById("Map"));
     game = new Game(document.getElementById("Game"));
+
+    // Initialises player
+    player = new Player(map.screen, 300, 265);
+
     HUD  = new Hud(game.screen, player);
 
     // Changes the size of the canvas
@@ -78,7 +84,6 @@ function setup() {
 
     // Begins the game
     setInterval(draw, 1000 / fps);
-    // draw();
 
     // setTimeout(() => {
     //     draw();
@@ -98,11 +103,15 @@ function setup() {
         }
     }
 
+    // draw();
+
+
     // window.onload needs a return
     return null;
 }
 
 function draw() {
+    lastShot++;
     // Changes the background of the canvas
     map.screen.background("#555");
     game.screen.background("#000");
@@ -115,6 +124,8 @@ function draw() {
     // HUD 
     getImage(17, 393, 0, 604, 604, 79, "HUD");
     getImage(0, 0, 0, 640, 640, 480, "HUDCase")
+    HUD.draw();
+
 }
 
 function keyPressed(event) {
@@ -185,8 +196,11 @@ function getImage(x, y, xImg, w, wImg, h, id) {
 }
 
 function mouseDown(event) {
-
-    const loop = setInterval( () => {game.gunAnimation(loop)}, 1000 / 15);
+    if (player.ammo > 0 && lastShot > pistoCoolDown) {
+        lastShot = 0;
+        player.ammo--;
+        const loop = setInterval( () => {game.gunAnimation(loop)}, 1000 / 15);    
+    }
 }
 
 function getCords(event) {
@@ -205,22 +219,56 @@ function passable(sprite) {
             return true;
             break;
         case "foodPack":
-            player.health += 5;
+            if (player.health < 100) {
+                player.health = player.health + 10 >= 100 ? 100 : player.health + 10;
+                sprites[sprites.indexOf(sprite)].x = 0;
+            }
             return true;
             break;
         case "ammoPack":
-            player.ammo += 5;
+            if (player.ammo  < 99) {
+                player.ammo = player.ammo + 9 >= 99 ? 99 : player.ammo + 9;
+                sprites[sprites.indexOf(sprite)].x = 0;
+            }
             return true;
             break;
         case "medPack":
-            player.health += 10;
-            document.getElementById("health").textContent = "Health: " + player.health;
+            if (player.health < 100) {
+                player.health = player.health + 25 >= 100 ? 100 : player.health + 25;
+                
+                sprites[sprites.indexOf(sprite)].x = 0;
+            }
+            return true;
+            break;
+
+        case "stew":
+            if (player.health < 100) {
+                player.health = player.health + 4 >= 100 ? 100 : player.health + 4;
+                sprites[sprites.indexOf(sprite)].x = 0;
+            }
+            return true;
+            break;
+
+        case "crown":
+            player.score += 5000;
             sprites[sprites.indexOf(sprite)].x = 0;
             return true;
             break;
-        case "stew":
-            player.health += 3;
-            document.getElementById("health").textContent = "Health: " + player.health;
+
+        case "chest":
+            player.score += 1000;
+            sprites[sprites.indexOf(sprite)].x = 0;
+            return true;
+            break;
+
+        case "cross":
+            player.score += 100;
+            sprites[sprites.indexOf(sprite)].x = 0;
+            return true;
+            break;
+
+        case "chalice":
+            player.score += 500;
             sprites[sprites.indexOf(sprite)].x = 0;
             return true;
             break;

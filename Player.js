@@ -18,7 +18,8 @@ class Player {
         }
 
 
-        this.health = 0;
+        this.health = 100;
+        this.lives  = 3;
         this.ammo   = 8;
         this.score  = 0;
 
@@ -197,7 +198,8 @@ class Player {
     }
 
     open() {
-        for (const ray of player.rays) {
+        for (let i = Math.floor(player.rays.length / 3); i < Math.floor(2 * player.rays.length / 3); i++) {
+            const ray = player.rays[i];
             if (`${World[ray.distance()[2].y][ray.distance()[2].x]}`[0] === '4' && ray.distance()[0] < 2) {
                 const x = ray.distance()[2].x;
                 const y = ray.distance()[2].y;
