@@ -3,6 +3,8 @@ class Screen {
         this.canvas = element.getContext("2d");
         this.element = element;
 
+        this.canvas.imageSmoothingEnabled = false;
+
         this.width  = this.canvas.canvas.width;
         this.height = this.canvas.canvas.height;
     }

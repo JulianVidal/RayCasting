@@ -11,11 +11,19 @@ class Player {
         this.rayAmount = Gamewidth / resolution;
         this.rays = [];
 
-        this.rot = Math.PI /2;
+        this.rot = 0 * Math.PI /2;
 
         for (let i = -(this.FOV) / 2 + this.rot; i < (this.FOV) / 2 + this.rot; i += (this.FOV / this.rayAmount)) {
             this.rays.push(new Ray(screen, x, y, i));
         }
+
+
+        this.health = 0;
+        this.ammo   = 8;
+        this.score  = 0;
+
+        this.spriteDir = 1;
+
     }
 
     draw() {
@@ -69,6 +77,16 @@ class Player {
         }
 
         this.ray.pos = this.pos;
+
+        if (this.rot < Math.PI / 4 || this.rot > 7 * Math.PI / 4) {
+            this.spriteDir = 1;
+        } else if (this.rot >= Math.PI / 4 && this.rot < 3 * Math.PI / 4) {
+            this.spriteDir = 2;
+        } else if (this.rot >= 3 * Math.PI / 4 && this.rot < 4 * Math.PI / 4) {
+            this.spriteDir = 3;
+        } else {
+            this.spriteDir = 4;
+        }
     }
 
     forward() {
@@ -80,14 +98,41 @@ class Player {
 
         const wall = parseInt(`${World[newMapPosY][newMapPosX]}`[0]);
 
-        if ( (wall === 0) || (wall === 4  && Math.round(Doors[newMapPosY][newMapPosX]) === 0) ) {
+        let spriteHitY;
+        let spriteHitX;
+
+
+        for (const sprite of sprites) {
+            
+            if (Math.floor(sprite.x) === newMapPosX && Math.floor(sprite.y) === newMapPosY && !passable(sprite)) {
+                spriteHitY = true;
+                spriteHitX = true;
+            } 
+            
+            if (Math.floor(sprite.x) === mapPosX && Math.floor(sprite.y) === newMapPosY && !passable(sprite)) {
+                spriteHitY = true;
+                spriteHitX = false;
+                break;
+
+            }
+            
+            if (Math.floor(sprite.x) === newMapPosX && Math.floor(sprite.y) === mapPosY && !passable(sprite)) {
+                spriteHitX = true;
+                spriteHitY = false;
+                break;
+            } 
+
+            if (spriteHitX && spriteHitY) break;
+        }
+
+        if ( ((wall === 0) || (wall === 4  && Math.round(Doors[newMapPosY][newMapPosX]) === 0) ) && (!spriteHitX && !spriteHitY)) {
             this.pos.x += Math.cos(this.rot) * this.speed;
             this.pos.y += Math.sin(this.rot) * -1 * this.speed;
 
-        } else if ( World[newMapPosY][mapPosX] === 0 ) {
+        } else if ( World[newMapPosY][mapPosX] === 0 && !spriteHitY) {
             this.pos.y += Math.sin(this.rot) * -1 * this.speed;
 
-        } else  if ( World[mapPosY][newMapPosX] === 0 ) {
+        } else  if ( World[mapPosY][newMapPosX] === 0 && !spriteHitX) {
             this.pos.x += Math.cos(this.rot) * this.speed;
 
         }
@@ -101,16 +146,43 @@ class Player {
         const mapPosY = Math.floor((this.pos.y) / scale);
 
         const wall = parseInt(`${World[newMapPosY][newMapPosX]}`[0]);
+        
+        let spriteHitY;
+        let spriteHitX;
 
-        if ( (wall === 0) || (wall === 4 && Math.round(Doors[newMapPosY][newMapPosX]) === 0)) {
+
+        for (const sprite of sprites) {
+            if (Math.floor(sprite.x) === newMapPosX && Math.floor(sprite.y) === newMapPosY && !passable(sprite)) {
+                spriteHitY = true;
+                spriteHitX = true;
+            } 
+            
+            if (Math.floor(sprite.x) === mapPosX && Math.floor(sprite.y) === newMapPosY && !passable(sprite)) {
+                spriteHitY = true;
+                spriteHitX = false;
+                break;
+
+            }
+            
+            if (Math.floor(sprite.x) === newMapPosX && Math.floor(sprite.y) === mapPosY && !passable(sprite)) {
+                spriteHitX = true;
+                spriteHitY = false;
+                break;
+            } 
+
+            if (spriteHitX && spriteHitY) break;
+        }
+
+
+        if ( (wall === 0 || (wall === 4 && Math.round(Doors[newMapPosY][newMapPosX]) === 0)) && (!spriteHitX && !spriteHitY)) {
 
             this.pos.x -= Math.cos(this.rot) * this.speed;
             this.pos.y -= Math.sin(this.rot) * -1 * this.speed;
 
-        } else if ( World[newMapPosY][mapPosX] === 0 ) {
+        } else if ( World[newMapPosY][mapPosX] === 0  && !spriteHitY) {
             this.pos.y -= Math.sin(this.rot) * -1 * this.speed;
 
-        } else  if ( World[mapPosY][newMapPosX] === 0 ) {
+        } else  if ( World[mapPosY][newMapPosX] === 0  && !spriteHitX) {
             this.pos.x -= Math.cos(this.rot) * this.speed;
 
         }
@@ -147,7 +219,8 @@ class Player {
             setTimeout(() => {
                 const newLoop = setInterval(() => {
                     this.closing(x, y, newLoop);
-                })
+                },
+                1000 / fps)
             },
                 1000)
         }
@@ -166,7 +239,7 @@ class Player {
                             1000 / fps
                         );
                         break;
-                     }
+                    }
                 }
             }
         }

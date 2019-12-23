@@ -8,13 +8,11 @@ const pushSpeed = 0.05;
 
 const resolution = 1;
 
-const Gamewidth = 512;
-const Gameheight = 384;
+const Gamewidth  = 640;
+const Gameheight = 480;
 
 let moving = "";
 let rotating = "";
-
-let doorClose = 1;
 
 document.addEventListener('keydown', keyPressed);
 document.addEventListener('keyup', keyUp);
@@ -51,26 +49,32 @@ document.getElementById("Map").addEventListener('click', getCords);
 let map;
 let game;
 let player;
+let HUD;
 
 // Begins the program
 window.onload = setup();
 
 // Runs before at the beginning of the program
 function setup() {
+
+    // Initialises player
+    player = new Player(map.screen, 300, 265);
+
     // Initialises both canvases
-    map = new Map(document.getElementById("Map"));
+    map  = new Map(document.getElementById("Map"));
     game = new Game(document.getElementById("Game"));
+    HUD  = new Hud(game.screen, player);
 
     // Changes the size of the canvas
     map.screen.setSize(World[0].length * scale, World.length * scale);
     game.screen.setSize(Gamewidth, Gameheight);
+    
 
     // Changes the background of the canvas
     map.screen.background("#555");
     game.screen.background("#FFF");
 
-    // Initialises player
-    player = new Player(map.screen,  105, 80);
+
 
     // Begins the game
     setInterval(draw, 1000 / fps);
@@ -99,7 +103,6 @@ function setup() {
 }
 
 function draw() {
-    doorClose += doorClose > 0 ? -0.01 : 0;
     // Changes the background of the canvas
     map.screen.background("#555");
     game.screen.background("#000");
@@ -108,6 +111,10 @@ function draw() {
 
     player.move();
     player.draw();
+
+    // HUD 
+    getImage(17, 393, 0, 604, 604, 79, "HUD");
+    getImage(0, 0, 0, 640, 640, 480, "HUDCase")
 }
 
 function keyPressed(event) {
@@ -184,5 +191,44 @@ function mouseDown(event) {
 
 function getCords(event) {
     const rect = game.screen.element.getBoundingClientRect();
-    console.log( event.clientX - game.screen.canvas.canvas.offsetLeft, event.clientY - 80);
+    // console.log( event.clientX - game.screen.canvas.canvas.offsetLeft, event.clientY - 80);
+}
+
+function passable(sprite) {
+
+        
+    switch (sprite.id) {
+        case "greenLight":
+            return true;
+            break;
+        case "chandelier":
+            return true;
+            break;
+        case "foodPack":
+            player.health += 5;
+            return true;
+            break;
+        case "ammoPack":
+            player.ammo += 5;
+            return true;
+            break;
+        case "medPack":
+            player.health += 10;
+            document.getElementById("health").textContent = "Health: " + player.health;
+            sprites[sprites.indexOf(sprite)].x = 0;
+            return true;
+            break;
+        case "stew":
+            player.health += 3;
+            document.getElementById("health").textContent = "Health: " + player.health;
+            sprites[sprites.indexOf(sprite)].x = 0;
+            return true;
+            break;
+
+        default:
+            return false;
+    }
+
+
+    
 }

@@ -87,6 +87,7 @@ class Game {
             if (distances[i][1]) this.screen.rect(i * width + (width / 2 ), (this.screen.height / 2), width, height, "#00000066"/*`rgba(0, 0, 0, ${distances[i][0] / 7})`*/, true)
         }
 
+
         const playerX =  player.pos.x / scale;
         const playerY =  player.pos.y / scale;
 
@@ -94,19 +95,33 @@ class Game {
             (a, b) => {
                 const spriteXA = a.x - playerX;
                 const spriteYA = a.y - playerY;
-
+    
                 const spriteXB = b.x - playerX;
                 const spriteYB = b.y - playerY;
-
-                return (Math.sqrt( spriteXB * spriteXB  +  spriteYB * spriteYB )) - (Math.sqrt( spriteXA * spriteXA  +  spriteYA * spriteYA ))
+    
+                return ( spriteXB * spriteXB  +  spriteYB * spriteYB ) - (spriteXA * spriteXA  +  spriteYA * spriteYA )
             }
         );
 
-        for (let i = 0; i < sprites.length; i++) {
+        distances.sort(
+            (a, b) => {
+                return b.length - a.length
+            }
+        )
 
+        for (let i = 0; i < sprites.length; i++) {
 
             const spriteX = sprites[i].x - playerX;
             const spriteY = sprites[i].y - playerY;
+
+            const distance = Math.sqrt( spriteX * spriteX  +  spriteY * spriteY );
+
+            if (distance > distances[0]) {
+                break;
+            }
+
+            const height   = Math.round(Gameheight / distance);
+
 
             let spriteAng = Math.atan2(-spriteY, spriteX);
             // while (spriteAng > Math.PI * 2) spriteAng -= Math.PI * 2;
@@ -128,17 +143,33 @@ class Game {
 
             const spriteScreenX  = Math.round(( 1 - (theta / (Math.PI / 6)) ) * (Gamewidth / 2));
 
+            // if (spriteScreenX < -3000 || spriteScreenX > 3000) {
+            //     break;
+            // }
+
             while (theta < 0) theta += Math.PI * 2;
-
-
-            const distance = Math.sqrt( spriteX * spriteX  +  spriteY * spriteY );
-            const height   = Math.round(Gameheight / distance);
 
             for (let j = 0; j < height; j++) {
                 const columnX = Math.round((spriteScreenX + j) - height / 2);
-                if (distances[columnX / resolution]){
-                    if (distances[columnX / resolution][0] > distance) {
-                        getImage(columnX, (this.screen.height / 2) - height / 2, j / height, resolution, resolution, height, sprites[i].id);
+                const distIndex = Math.round(columnX / resolution);
+
+                if (distances[distIndex]){
+                    if (distances[distIndex][0] > distance) {
+                        let imageId = sprites[i].id;
+
+                        if (imageId === 'guard') {
+                            if (player.spriteDir === sprites[i].dir) {
+                                imageId = 'guardStandBack'
+                            } else if (player.spriteDir - 1 === sprites[i].dir) {
+                                imageId = 'guardStandRight'
+                            } else if (player.spriteDir === sprites[i].dir + 3) {
+                                imageId = 'guardStandLeft'
+                            }  else {
+                                imageId = 'guardStandFront'
+                            }
+                        }
+
+                        getImage(columnX, (this.screen.height / 2) - height / 2, j / height, resolution, resolution, height, imageId);
                     }
                 }
 
@@ -146,7 +177,8 @@ class Game {
 
         }
 
-        getImage((this.screen.width / 2) - (64 * 2), this.screen.height - 256, 0, 64, 64 * 4, 256, "gun_" + this.gunFrame);
+
+        getImage((this.screen.width / 2) - 150, this.screen.height - 400, 0, 64, 300, 300, "gun_" + this.gunFrame);
         // getImage(260, this.screen.height - 330, 0, 128, 100, 3);
 
     }

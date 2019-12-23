@@ -106,7 +106,7 @@ class Ray {
                                 y: Math.floor(this.pos.y / scale) - (Math.floor((newX / (1 / slope)) - posOff.y) + 1)
                             };
 
-                            if (World[newWorldPos.y][newWorldPos.x] === 0 || World[newWorldPos.y][newWorldPos.x] === World[worldPos.y][worldPos.x]) {
+                            if (newWorldPos.y === worldPos.y) {
 
                                 distance.x.length = Math.hypot(newX, newY);
                                 distance.x.x_hit = newX;
@@ -175,13 +175,13 @@ class Ray {
 
                     } else if (Push[worldPos.y]) {
 
-                        if (Push[worldPos.y][worldPos.x] && Push) {
+                        if (Push[worldPos.y][worldPos.x]) {
                             const newY = y + (Push[worldPos.y][worldPos.x][0] * rise);
                             const newX = newY / slope;
 
                             let newWorldPos = {
-                                x: Math.floor(this.pos.x / scale) + (Math.floor((newY / slope) - posOff.x) + 1),
-                                y: (Math.floor(this.pos.y / scale) + Math.floor(count - Push[worldPos.y][worldPos.x][0]) * Math.sign(rise)) + (rise < 0 ? 0 : -1)
+                                x:  Math.floor(this.pos.x / scale) + (Math.floor((newY / slope) - posOff.x) + 1),
+                                y: (Math.floor(this.pos.y / scale) + Math.floor(count + Push[worldPos.y][worldPos.x][0]) * -1) + (rise < 0 ? 0 : -1)
                             };
 
                             // worldPos = {
@@ -189,7 +189,7 @@ class Ray {
                             //     y: (Math.floor(this.pos.y / scale) + count * -1) + (rise < 0 ? 0 : -1)
                             // };
 
-                            if (World[newWorldPos.y][newWorldPos.x] === 0 || World[newWorldPos.y][newWorldPos.x] === World[worldPos.y][worldPos.x]) {
+                            if (newWorldPos.x === worldPos.x) {
 
                                 hit = true;
                                 distance.y.length = Math.hypot(newX, newY);
@@ -197,7 +197,7 @@ class Ray {
                                 distance.y.worldHit = worldPos;
                             }
                             if (Push[worldPos.y][worldPos.x][0] >= Push[worldPos.y][worldPos.x][1]) {
-                                World[worldPos.y - Math.floor(Push[worldPos.y][worldPos.x][0])][worldPos.x] = World[worldPos.y][worldPos.x];
+                                World[worldPos.y - (Math.floor(Push[worldPos.y][worldPos.x][0]) * Math.sign(rise) )][worldPos.x] = World[worldPos.y][worldPos.x];
                                 World[worldPos.y][worldPos.x] = 0;
                             }
 
@@ -259,7 +259,7 @@ class Ray {
         let doorSide;
 
         if (!xHit && World[distance.worldHit.y + 1] && World[distance.worldHit.y - 1] ) {
-            doorSide = (World[distance.worldHit.y + 1][distance.worldHit.x] === 4 || World[distance.worldHit.y - 1][distance.worldHit.x] === 4);
+            doorSide = (`${World[distance.worldHit.y + 1][distance.worldHit.x]}`[0] === '4' || `${World[distance.worldHit.y - 1][distance.worldHit.x]}`[0] === '4');
 
         } else {
             doorSide = (World[distance.worldHit.y][distance.worldHit.x + 1] === 4 || World[distance.worldHit.y][distance.worldHit.x - 1] === 4);
