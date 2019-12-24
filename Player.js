@@ -20,7 +20,7 @@ class Player {
 
         this.health = 100;
         this.lives  = 3;
-        this.ammo   = 8;
+        this.ammo   = 99;
         this.score  = 0;
 
         this.spriteDir = 1;
@@ -201,6 +201,7 @@ class Player {
         for (let i = Math.floor(player.rays.length / 3); i < Math.floor(2 * player.rays.length / 3); i++) {
             const ray = player.rays[i];
             if (`${World[ray.distance()[2].y][ray.distance()[2].x]}`[0] === '4' && ray.distance()[0] < 2) {
+                document.getElementById("doorOpen").cloneNode(true).play();
                 const x = ray.distance()[2].x;
                 const y = ray.distance()[2].y;
                 const loop = setInterval( () => {
@@ -233,6 +234,7 @@ class Player {
             if (Push[ray.distance()[2].y]) {
                 if (Push[ray.distance()[2].y][ray.distance()[2].x]) {
                     if (ray.distance()[0] < 2 && (Push[ray.distance()[2].y][ray.distance()[2].x][0] < Push[ray.distance()[2].y][ray.distance()[2].x][1])) {
+                        document.getElementById("secretPush").cloneNode(true).play();
                         const x = ray.distance()[2].x;
                         const y = ray.distance()[2].y;
                         const loop = setInterval(() => {
@@ -276,6 +278,12 @@ class Player {
                     sprites[index].health--;
                     stop = true;
                     if (sprites[index].health <= 0) {
+                        sprites.push({
+                            x: enemy.x + 0.5,
+                            y: enemy.y + 0.5,
+                            id: "ammoPack",
+                            drop: true
+                        })
                         const loop = setInterval( () => {
                             player.kill(enemy)
                         }, 
@@ -292,6 +300,10 @@ class Player {
     }
 
     kill(enemy) {
-        enemy.id = 'dead';
+        if (enemy.deathFrame <= 5) {
+            enemy.id = "death_" + enemy.deathFrame;
+            enemy.deathFrame++;
+        }
+
     }
 }

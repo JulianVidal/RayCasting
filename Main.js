@@ -3,7 +3,7 @@ const scale = 10;
 const MoveSpeed = 3;
 const rotateSpeed = 0.12;
 
-const doorSpeed = 0.05;
+const doorSpeed = 0.025;
 const pushSpeed = 0.05;
 
 const resolution = 1;
@@ -213,6 +213,7 @@ function mouseDown(event) {
         player.ammo--;
         const loop = setInterval( () => {game.gunAnimation(loop)}, 1000 / 15);  
         player.shoot();
+        document.getElementById("pistolShot").cloneNode(true).play();
     }
 }
 
@@ -233,6 +234,7 @@ function passable(sprite) {
             break;
         case "foodPack":
             if (player.health < 100) {
+                document.getElementById("pickup").cloneNode(true).play();
                 player.health = player.health + 10 >= 100 ? 100 : player.health + 10;
                 sprites[sprites.indexOf(sprite)].x = 0;
             }
@@ -240,13 +242,20 @@ function passable(sprite) {
             break;
         case "ammoPack":
             if (player.ammo  < 99) {
-                player.ammo = player.ammo + 9 >= 99 ? 99 : player.ammo + 9;
-                sprites[sprites.indexOf(sprite)].x = 0;
+                document.getElementById("pickup").cloneNode(true).play();
+                if (!sprite.drop) {
+                    player.ammo = player.ammo + 9 >= 99 ? 99 : player.ammo + 9;
+                    sprites[sprites.indexOf(sprite)].x = 0;
+                } else {
+                    player.ammo = player.ammo + 4 >= 99 ? 99 : player.ammo + 4;
+                    sprites[sprites.indexOf(sprite)].x = 0;
+                }
             }
             return true;
             break;
         case "medPack":
             if (player.health < 100) {
+                document.getElementById("pickup").cloneNode(true).play();
                 player.health = player.health + 25 >= 100 ? 100 : player.health + 25;
                 
                 sprites[sprites.indexOf(sprite)].x = 0;
@@ -256,6 +265,7 @@ function passable(sprite) {
 
         case "stew":
             if (player.health < 100) {
+                document.getElementById("pickup").cloneNode(true).play();
                 player.health = player.health + 4 >= 100 ? 100 : player.health + 4;
                 sprites[sprites.indexOf(sprite)].x = 0;
             }
@@ -263,24 +273,28 @@ function passable(sprite) {
             break;
 
         case "crown":
+            document.getElementById("pickup").cloneNode(true).play();
             player.score += 5000;
             sprites[sprites.indexOf(sprite)].x = 0;
             return true;
             break;
 
         case "chest":
+            document.getElementById("pickup").cloneNode(true).play();
             player.score += 1000;
             sprites[sprites.indexOf(sprite)].x = 0;
             return true;
             break;
 
         case "cross":
+            document.getElementById("pickup").cloneNode(true).play();
             player.score += 100;
             sprites[sprites.indexOf(sprite)].x = 0;
             return true;
             break;
 
         case "chalice":
+            document.getElementById("pickup").cloneNode(true).play();
             player.score += 500;
             sprites[sprites.indexOf(sprite)].x = 0;
             return true;

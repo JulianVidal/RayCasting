@@ -97,7 +97,8 @@ const sprites = [
         id: 'guard',
         point: 100,
         health: 2,
-        dropItem: "ammoPack"
+        dropItem: "ammoPack",
+        deathFrame: 1
     },
 
 
