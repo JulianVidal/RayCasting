@@ -17,6 +17,8 @@ let lastShot = pistoCoolDown;
 let moving = "";
 let rotating = "";
 
+let frames = 0;
+
 document.addEventListener('keydown', keyPressed);
 document.addEventListener('keyup', keyUp);
 document.addEventListener('click', mouseDown);
@@ -111,6 +113,7 @@ function setup() {
 }
 
 function draw() {
+    frames++;
     lastShot++;
     // Changes the background of the canvas
     map.screen.background("#555");
@@ -126,6 +129,15 @@ function draw() {
     getImage(0, 0, 0, 640, 640, 480, "HUDCase")
     HUD.draw();
 
+    const index = sprites.findIndex(
+        obj => obj.y === 26.5 && obj.x === 33.5 && obj.id === "guard"
+    );
+
+
+    if (frames % fps === 0) {
+        // sprites[index].dir.unshift(sprites[index].dir.pop());
+        // sprites[index].dir.push(sprites[index].dir.shift())
+    }
 }
 
 function keyPressed(event) {
@@ -199,7 +211,8 @@ function mouseDown(event) {
     if (player.ammo > 0 && lastShot > pistoCoolDown) {
         lastShot = 0;
         player.ammo--;
-        const loop = setInterval( () => {game.gunAnimation(loop)}, 1000 / 15);    
+        const loop = setInterval( () => {game.gunAnimation(loop)}, 1000 / 15);  
+        player.shoot();
     }
 }
 
@@ -270,6 +283,10 @@ function passable(sprite) {
         case "chalice":
             player.score += 500;
             sprites[sprites.indexOf(sprite)].x = 0;
+            return true;
+            break;
+        
+        case "dead":
             return true;
             break;
 

@@ -156,17 +156,31 @@ class Game {
                 if (distances[distIndex]){
                     if (distances[distIndex][0] > distance) {
                         let imageId = sprites[i].id;
+ 
+                        const dX = playerX  - sprites[i].x; 
+                        const dY = playerY  - sprites[i].y; 
+
+                        const dir = Math.atan2(dY, dX);
 
                         if (imageId === 'guard') {
-                            if (player.spriteDir === sprites[i].dir) {
-                                imageId = 'guardStandBack'
-                            } else if (player.spriteDir - 1 === sprites[i].dir) {
-                                imageId = 'guardStandRight'
-                            } else if (player.spriteDir === sprites[i].dir + 3) {
-                                imageId = 'guardStandLeft'
-                            }  else {
-                                imageId = 'guardStandFront'
-                            }
+
+                            if (dir > 7 * Math.PI / 8 || (dir <  -7 * Math.PI / 8 && dir > -Math.PI)) {
+                                imageId = sprites[i].dir[0]
+                            } else if (dir > -7 * Math.PI / 8 && dir < -5 * Math.PI / 8 ) {
+                                imageId = sprites[i].dir[1]
+                            } else if (dir > -5 * Math.PI / 8 && dir < -3 * Math.PI / 8) {
+                                imageId = sprites[i].dir[2]
+                            } else if (dir > -3 * Math.PI / 8 && dir < -1 * Math.PI / 8) {
+                                imageId = sprites[i].dir[3]
+                            } else if ((dir > -1 * Math.PI / 8 && dir < 0) || (dir < 1 * Math.PI / 8 && dir > 0)) {
+                                imageId = sprites[i].dir[4]
+                            } else if (dir > 1 * Math.PI / 8 && dir < 3 * Math.PI / 8) {
+                                imageId = sprites[i].dir[5]
+                            } else if (dir > 3 * Math.PI / 8 && dir < 5 * Math.PI / 8) {
+                                imageId = sprites[i].dir[6]
+                            } else if (dir > 5 * Math.PI / 8 && dir < 7 * Math.PI / 8) {
+                                imageId = sprites[i].dir[7]
+                            }   
                         }
 
                         getImage(columnX, (this.screen.height / 2) - height / 2, j / height, resolution, resolution, height, imageId);

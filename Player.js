@@ -262,4 +262,36 @@ class Player {
             clearInterval(loop);
         }
     }
+
+    shoot() {
+        let stop = false;
+        for (let i = Math.floor(player.rays.length / 3); i < Math.floor(2 * player.rays.length / 3); i++) {
+            const ray = player.rays[i];
+            const enemies = sprites.filter(sprite => sprite.id === "guard");
+
+            for (const enemy of enemies) {
+
+                if (Math.floor(enemy.x) === ray.distance()[2].x || Math.floor(enemy.y) === ray.distance()[2].y) {
+                    const index = sprites.indexOf(enemy);
+                    sprites[index].health--;
+                    stop = true;
+                    if (sprites[index].health <= 0) {
+                        const loop = setInterval( () => {
+                            player.kill(enemy)
+                        }, 
+                        1000 / fps )
+                    }
+                    break;
+                }
+            
+            }
+
+        if (stop) break;
+
+        }
+    }
+
+    kill(enemy) {
+        enemy.id = 'dead';
+    }
 }

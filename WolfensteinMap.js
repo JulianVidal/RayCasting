@@ -84,8 +84,20 @@ const sprites = [
     {
         x: 33.5,
         y: 26.5,
-        dir: 1,
-        id: 'guard'
+        dir: [
+            'guardStandBack',
+            'guardStandBackLeft',
+            'guardStandLeft',
+            'guardStandFrontLeft',
+            'guardStandFront',
+            'guardStandFrontRight',
+            'guardStandRight',
+            'guardStandBackRight',
+        ],
+        id: 'guard',
+        point: 100,
+        health: 2,
+        dropItem: "ammoPack"
     },
 
 
