@@ -287,7 +287,7 @@ class Player {
                         const loop = setInterval( () => {
                             player.kill(enemy)
                         }, 
-                        1000 / fps )
+                        100)
                     }
                     break;
                 }

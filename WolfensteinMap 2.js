@@ -140,27 +140,13 @@ const sprites = [
     {
         x: 31.5,
         y: 50.5,
-        id: 'death_5'
+        id: 'dead'
     },
 
     {
         x: 38.5,
         y: 54.5,
-        dir: [
-            'guardStandFront',
-            'guardStandFrontRight',
-            'guardStandRight',
-            'guardStandBackRight',
-            'guardStandBack',
-            'guardStandBackLeft',
-            'guardStandLeft',
-            'guardStandFrontLeft',
-        ],
-        id: 'guard',
-        point: 100,
-        health: 2,
-        dropItem: "ammoPack",
-        deathFrame: 1
+        id: 'stand'
     },
 
     // Skeletons
@@ -272,7 +258,7 @@ const sprites = [
         // Bottom Right
     {
         x: 42,
-        y: 29,
+        y: 29.4,
         id: 'bluePlant'
     },
 

@@ -5,8 +5,6 @@ class Hud {
     }
 
     draw() {
-        this.screen.canvas.drawImage(document.getElementById("HUD"), 17, 393)
-        this.screen.canvas.drawImage(document.getElementById("HUDCase"), 0, 0)
 
         // Floor
         this.drawNumber(45, 425, 1);
@@ -29,7 +27,7 @@ class Hud {
         const num = `${number}`.split("").reverse().join("");
 
         for (let i = 0; i < num.length; i++) {
-            this.screen.canvas.drawImage(document.getElementById(num[i]), x - (i * 16), y, 16, 32)
+            getImage(x - (i * 16), y, 0, 8, 16, 32, num[i])
         }
         
     }

@@ -14,12 +14,17 @@ class Game {
 
         const width = resolution;
 
+        let maxDistance = 0;
+
         for (let i = 0; i < distances.length; i++) {
             const height = Gameheight / distances[i][0];
             let image = "greyStone";
             let color = "#2233FF";
 
             let wallHit = World[distances[i][2].y][distances[i][2].x];
+
+            if (distances[i][0] > maxDistance) maxDistance = distances[i][0];
+
 
             if (distances[i][5]) wallHit = 42;
 
@@ -103,11 +108,7 @@ class Game {
             }
         );
 
-        distances.sort(
-            (a, b) => {
-                return b.length - a.length
-            }
-        )
+        let spritesDrawn = 0;
 
         for (let i = 0; i < sprites.length; i++) {
 
@@ -116,8 +117,8 @@ class Game {
 
             const distance = Math.sqrt( spriteX * spriteX  +  spriteY * spriteY );
 
-            if (distance > distances[0]) {
-                break;
+            if (distance > maxDistance) {
+                continue;
             }
 
             const height   = Math.round(Gameheight / distance);
@@ -142,14 +143,15 @@ class Game {
             while (theta > Math.PI * 2) theta -= Math.PI * 2;
 
             const spriteScreenX  = Math.round(( 1 - (theta / (Math.PI / 6)) ) * (Gamewidth / 2));
-
-            // if (spriteScreenX < -3000 || spriteScreenX > 3000) {
-            //     break;
-            // }
+            
+            if (spriteScreenX < 0 || spriteScreenX > Gamewidth) {
+                continue;
+            }
+            
 
             while (theta < 0) theta += Math.PI * 2;
-
-            for (let j = 0; j < height; j++) {
+            spritesDrawn++;
+            for (let j = 0; j < height; j += resolution) {
                 const columnX = Math.round((spriteScreenX + j) - height / 2);
                 const distIndex = Math.round(columnX / resolution);
 
@@ -182,14 +184,16 @@ class Game {
                                 imageId = sprites[i].dir[7]
                             }   
                         }
-
-                        getImage(columnX, (this.screen.height / 2) - height / 2, j / height, resolution, resolution, height, imageId);
+                        getImage(columnX, (this.screen.height / 2) - height / 2, j / height, 1, resolution, height, imageId);
                     }
                 }
 
             }
 
         }
+
+        // console.log(spritesDrawn)
+
 
 
         getImage((this.screen.width / 2) - 150, this.screen.height - 400, 0, 64, 300, 300, "gun_" + this.gunFrame);

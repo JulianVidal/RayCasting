@@ -6,7 +6,7 @@ const rotateSpeed = 0.12;
 const doorSpeed = 0.025;
 const pushSpeed = 0.05;
 
-const resolution = 1;
+const resolution = 2;
 
 const Gamewidth  = 640;
 const Gameheight = 480;
@@ -18,6 +18,9 @@ let moving = "";
 let rotating = "";
 
 let frames = 0;
+
+let HUD_HUDCase;
+let weapon;
 
 document.addEventListener('keydown', keyPressed);
 document.addEventListener('keyup', keyUp);
@@ -68,15 +71,18 @@ function setup() {
     map  = new Map(document.getElementById("Map"));
     game = new Game(document.getElementById("Game"));
 
+    HUD_HUDCase = new Screen(document.getElementById("HUD_HUDCase"));
+
     // Initialises player
     player = new Player(map.screen, 300, 265);
 
-    HUD  = new Hud(game.screen, player);
+    HUD  = new Hud(HUD_HUDCase, player);
 
     // Changes the size of the canvas
     map.screen.setSize(World[0].length * scale, World.length * scale);
     game.screen.setSize(Gamewidth, Gameheight);
-    
+
+    HUD_HUDCase.setSize(Gamewidth, Gameheight);
 
     // Changes the background of the canvas
     map.screen.background("#555");
@@ -85,7 +91,7 @@ function setup() {
 
 
     // Begins the game
-    setInterval(draw, 1000 / fps);
+    // setInterval(draw, 1000 / fps);
 
     // setTimeout(() => {
     //     draw();
@@ -105,39 +111,38 @@ function setup() {
         }
     }
 
-    // draw();
-
+    draw();
+    HUD.draw();
 
     // window.onload needs a return
     return null;
 }
 
 function draw() {
-    frames++;
-    lastShot++;
-    // Changes the background of the canvas
-    map.screen.background("#555");
-    game.screen.background("#000");
-    map.draw();
-    game.draw3D();
 
-    player.move();
-    player.draw();
+    if (frames % 2 === 0) {
+        lastShot++;
+        // Changes the background of the canvas
+        map.screen.background("#555");
+        game.screen.background("#000");
+        map.draw();
+        game.draw3D();
 
-    // HUD 
-    getImage(17, 393, 0, 604, 604, 79, "HUD");
-    getImage(0, 0, 0, 640, 640, 480, "HUDCase")
-    HUD.draw();
+        player.move();
+        player.draw();
 
-    const index = sprites.findIndex(
-        obj => obj.y === 26.5 && obj.x === 33.5 && obj.id === "guard"
-    );
+        // const index = sprites.findIndex(
+        //     obj => obj.y === 26.5 && obj.x === 33.5 && obj.id === "guard"
+        // );
 
 
-    if (frames % fps === 0) {
-        // sprites[index].dir.unshift(sprites[index].dir.pop());
-        // sprites[index].dir.push(sprites[index].dir.shift())
+        if (frames % fps === 0) {
+            // sprites[index].dir.unshift(sprites[index].dir.pop());
+            // sprites[index].dir.push(sprites[index].dir.shift())
+        }
     }
+    frames++;
+    requestAnimationFrame(draw);
 }
 
 function keyPressed(event) {
@@ -203,7 +208,7 @@ function getImage(x, y, xImg, w, wImg, h, id) {
     const width = image.width;
     const height = image.height;
 
-    game.screen.canvas.drawImage(image, xImg * width, 0, w, height, x, y, wImg, h);
+    game.screen.canvas.drawImage(image, Math.round(xImg * width), 0, Math.round(w), Math.round(height), Math.round(x), Math.round(y), Math.round(wImg), Math.round(h));
 
 }
 
@@ -211,7 +216,8 @@ function mouseDown(event) {
     if (player.ammo > 0 && lastShot > pistoCoolDown) {
         lastShot = 0;
         player.ammo--;
-        const loop = setInterval( () => {game.gunAnimation(loop)}, 1000 / 15);  
+        HUD.draw();
+        const loop = setInterval( () => {game.gunAnimation(loop)}, 1000 / 19);  
         player.shoot();
         document.getElementById("pistolShot").cloneNode(true).play();
     }
@@ -236,7 +242,8 @@ function passable(sprite) {
             if (player.health < 100) {
                 document.getElementById("pickup").cloneNode(true).play();
                 player.health = player.health + 10 >= 100 ? 100 : player.health + 10;
-                sprites[sprites.indexOf(sprite)].x = 0;
+                sprites[sprites.indexOf(sprite)].x = 0;          
+                HUD.draw();
             }
             return true;
             break;
@@ -246,9 +253,11 @@ function passable(sprite) {
                 if (!sprite.drop) {
                     player.ammo = player.ammo + 9 >= 99 ? 99 : player.ammo + 9;
                     sprites[sprites.indexOf(sprite)].x = 0;
+                    HUD.draw();
                 } else {
                     player.ammo = player.ammo + 4 >= 99 ? 99 : player.ammo + 4;
                     sprites[sprites.indexOf(sprite)].x = 0;
+                    HUD.draw();
                 }
             }
             return true;
@@ -257,8 +266,8 @@ function passable(sprite) {
             if (player.health < 100) {
                 document.getElementById("pickup").cloneNode(true).play();
                 player.health = player.health + 25 >= 100 ? 100 : player.health + 25;
-                
                 sprites[sprites.indexOf(sprite)].x = 0;
+                HUD.draw();
             }
             return true;
             break;
@@ -268,6 +277,7 @@ function passable(sprite) {
                 document.getElementById("pickup").cloneNode(true).play();
                 player.health = player.health + 4 >= 100 ? 100 : player.health + 4;
                 sprites[sprites.indexOf(sprite)].x = 0;
+                HUD.draw();
             }
             return true;
             break;
@@ -276,6 +286,7 @@ function passable(sprite) {
             document.getElementById("pickup").cloneNode(true).play();
             player.score += 5000;
             sprites[sprites.indexOf(sprite)].x = 0;
+            HUD.draw();
             return true;
             break;
 
@@ -283,6 +294,7 @@ function passable(sprite) {
             document.getElementById("pickup").cloneNode(true).play();
             player.score += 1000;
             sprites[sprites.indexOf(sprite)].x = 0;
+            HUD.draw();
             return true;
             break;
 
@@ -290,6 +302,7 @@ function passable(sprite) {
             document.getElementById("pickup").cloneNode(true).play();
             player.score += 100;
             sprites[sprites.indexOf(sprite)].x = 0;
+            HUD.draw();
             return true;
             break;
 
@@ -297,10 +310,11 @@ function passable(sprite) {
             document.getElementById("pickup").cloneNode(true).play();
             player.score += 500;
             sprites[sprites.indexOf(sprite)].x = 0;
+            HUD.draw();
             return true;
             break;
         
-        case "dead":
+        case "death_5":
             return true;
             break;
 
