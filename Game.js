@@ -194,14 +194,67 @@ class Game {
 
         // console.log(spritesDrawn)
 
-
-
-        getImage((this.screen.width / 2) - 150, this.screen.height - 400, 0, 64, 300, 300, "gun_" + this.gunFrame);
+        getImage((this.screen.width / 2) - 150, this.screen.height - 400, 0, 64, 300, 300, player.gun + "_" +  this.gunFrame);
         // getImage(260, this.screen.height - 330, 0, 128, 100, 3);
 
     }
 
-    gunAnimation(loop) {
+    pistolAnimation(loop) {
+
+        if (this.gunFrame >= 5) {
+            this.gunFrame = 1;
+            clearInterval(loop);
+        } else {
+            this.gunFrame++;
+        }
+
+        if (this.gunFrame === 3) {
+            if (player.gun === "pistol") {
+                document.getElementById("pistolShot").cloneNode(true).play(); 
+                player.ammo--;
+            }
+            player.shoot();
+            HUD.draw();
+        }
+
+    }
+
+    smgAnimationInitial(loop) {
+        if (this.gunFrame === 3) {
+            player.ammo--;
+            player.shoot();
+            HUD.draw();
+        }
+
+        if (this.gunFrame < 3) {
+            clearInterval(loop);
+            loopShoot = setInterval( () => this.smgAnimationDuring(loopShoot), 1000 / 19);
+        } else {
+            this.gunFrame++;
+        }
+    }
+
+    smgAnimationDuring(loop) {
+        if (this.gunFrame === 3) {
+            player.ammo--;
+            player.shoot();
+            HUD.draw();
+        }
+
+        if (this.gunFrame > 4) {
+            this.gunFrame = 3;
+        } else {
+            this.gunFrame++;
+        }
+    }
+
+    smgAnimationLast(loop) {
+        if (this.gunFrame === 3) {
+            player.ammo--;
+            player.shoot();
+            HUD.draw();
+        }
+
         if (this.gunFrame >= 5) {
             this.gunFrame = 1;
             clearInterval(loop);
@@ -209,4 +262,5 @@ class Game {
             this.gunFrame++;
         }
     }
+
 } 

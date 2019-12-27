@@ -6,13 +6,19 @@ const rotateSpeed = 0.12;
 const doorSpeed = 0.025;
 const pushSpeed = 0.05;
 
-const resolution = 2;
+const resolution = 10;
 
 const Gamewidth  = 640;
 const Gameheight = 480;
 
 const pistoCoolDown = fps / 2;
+const knifeCoolDown = fps / 2;
+const smgCoolDown = 500;
 let lastShot = pistoCoolDown;
+
+let loopShoot;
+let loopAnimate;
+let timeShoot;
 
 let moving = "";
 let rotating = "";
@@ -24,7 +30,8 @@ let weapon;
 
 document.addEventListener('keydown', keyPressed);
 document.addEventListener('keyup', keyUp);
-document.addEventListener('click', mouseDown);
+document.addEventListener('mousedown', mouseDown);
+document.addEventListener('mouseup', mouseUp);
 
 document.getElementById("Map").addEventListener('click', getCords);
 
@@ -172,6 +179,21 @@ function keyPressed(event) {
             player.open();
             player.push();
             break;
+        
+        case "0":
+            player.gun = player.weapons[0];
+            HUD.draw();
+            break;
+
+        case "1":
+            player.gun = player.weapons[1];
+            HUD.draw();
+            break;
+
+        case "2":
+            player.gun = player.weapons[2] ? player.weapons[2] : player.gun;
+            HUD.draw();
+            break;
 
         default:
             break;
@@ -213,13 +235,32 @@ function getImage(x, y, xImg, w, wImg, h, id) {
 }
 
 function mouseDown(event) {
-    if (player.ammo > 0 && lastShot > pistoCoolDown) {
-        lastShot = 0;
-        player.ammo--;
-        HUD.draw();
-        const loop = setInterval( () => {game.gunAnimation(loop)}, 1000 / 19);  
-        player.shoot();
-        document.getElementById("pistolShot").cloneNode(true).play();
+
+    if (player.ammo > 0 ) {
+
+        if (player.gun === "pistol" && lastShot >= pistoCoolDown) {
+
+            const loop = setInterval( () => {game.pistolAnimation(loop)}, 1000 / 19);  
+            lastShot = 0;
+
+        } else if (player.gun === "smg") {
+            loopAnimate = setInterval( () => {game.smgAnimationInitial(loopAnimate)}, 1000 / 19);  
+
+        } else if (player.gun === "knife" && lastShot >= knifeCoolDown) {
+
+            const loop = setInterval( () => {game.pistolAnimation(loop)}, 1000 / 19);  
+            lastShot = 0;
+        }
+    }
+}
+
+function mouseUp(e) {
+    if (player.gun === "smg") {
+        clearInterval(loopShoot);
+        clearInterval(loopAnimate);
+
+
+        const loop = setInterval( () => {game.smgAnimationLast(loop)}, 1000 / 19);  
     }
 }
 
@@ -315,6 +356,14 @@ function passable(sprite) {
             break;
         
         case "death_5":
+            return true;
+            break;
+
+        case "smg":
+            player.gun = "smg";
+            player.weapons.push("smg");
+            HUD.draw();
+            sprites[sprites.indexOf(sprite)].x = 0;
             return true;
             break;
 

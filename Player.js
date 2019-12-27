@@ -25,6 +25,10 @@ class Player {
 
         this.spriteDir = 1;
 
+        this.gun = "pistol";
+
+        this.weapons = ["knife","pistol"];
+
     }
 
     draw() {
@@ -306,4 +310,6 @@ class Player {
         }
 
     }
+
+    
 }

@@ -23,6 +23,9 @@ class Hud {
         // Ammo
         this.drawNumber(450, 425, player.ammo);
 
+        // Gun Shadow
+        this.screen.canvas.drawImage(document.getElementById(player.gun + "_HUD"), 500, 400, 120, 60)
+
     }
 
     drawNumber(x, y, number) {
