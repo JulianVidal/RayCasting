@@ -90,16 +90,18 @@ class Game {
             this.screen.rect(i * width, 0, width, (this.screen.height / 2) - (height / 2), color);
             this.screen.rect(Math.round(i * width), ((this.screen.height / 2) - (height / 2) ) + height, width, (this.screen.height / 2) - (height / 2) + 2, "#666"/*"#55AA55"*/);
 
-            getImage(Math.round(i * width * 10) / 10, Math.round(((this.screen.height / 2) - height / 2) * 10 ) / 10, distances[i][3], width, width + 100, height, image);
+            getImage(Math.round(i * width * 10) / 10, Math.round(((this.screen.height / 2) - height / 2) * 10 ) / 10, distances[i][3], width, width + 1000, height, image);
 
             if (distances[i][1]) this.screen.rect(i * width + (width / 2 ), (this.screen.height / 2), width, height, "#00000066"/*`rgba(0, 0, 0, ${distances[i][0] / 7})`*/, true)
         }
+
+        const allSprites = sprites.concat(enemies);
 
 
         const playerX =  player.pos.x / scale;
         const playerY =  player.pos.y / scale;
 
-        sprites.sort(
+        allSprites.sort(
             (a, b) => {
                 const spriteXA = a.x - playerX;
                 const spriteYA = a.y - playerY;
@@ -115,10 +117,10 @@ class Game {
 
         shootable = [];
 
-        for (let i = 0; i < sprites.length; i++) {
+        for (let i = 0; i < allSprites.length; i++) {
 
-            const spriteX = sprites[i].x - playerX;
-            const spriteY = sprites[i].y - playerY;
+            const spriteX = allSprites[i].x - playerX;
+            const spriteY = allSprites[i].y - playerY;
 
             const distance = Math.sqrt( spriteX * spriteX  +  spriteY * spriteY );
 
@@ -162,41 +164,41 @@ class Game {
 
                 if (distances[distIndex]){
                     if (distances[distIndex][0] > distance) {
-                        let imageId = sprites[i].id;
+                        let imageId = allSprites[i].id;
  
-                        const dX = playerX  - sprites[i].x; 
-                        const dY = playerY  - sprites[i].y; 
+                        const dX = playerX  - allSprites[i].x; 
+                        const dY = playerY  - allSprites[i].y; 
 
                         const dir = Math.atan2(dY, dX);
 
                         if (imageId === 'guard') {
 
                             if (dir > 7 * Math.PI / 8 || (dir <  -7 * Math.PI / 8 && dir > -Math.PI)) {
-                                imageId = sprites[i].dir[0]
+                                imageId = allSprites[i].dir[0]
                             } else if (dir > -7 * Math.PI / 8 && dir < -5 * Math.PI / 8 ) {
-                                imageId = sprites[i].dir[1]
+                                imageId = allSprites[i].dir[1]
                             } else if (dir > -5 * Math.PI / 8 && dir < -3 * Math.PI / 8) {
-                                imageId = sprites[i].dir[2]
+                                imageId = allSprites[i].dir[2]
                             } else if (dir > -3 * Math.PI / 8 && dir < -1 * Math.PI / 8) {
-                                imageId = sprites[i].dir[3]
+                                imageId = allSprites[i].dir[3]
                             } else if ((dir > -1 * Math.PI / 8 && dir < 0) || (dir < 1 * Math.PI / 8 && dir > 0)) {
-                                imageId = sprites[i].dir[4]
+                                imageId = allSprites[i].dir[4]
                             } else if (dir > 1 * Math.PI / 8 && dir < 3 * Math.PI / 8) {
-                                imageId = sprites[i].dir[5]
+                                imageId = allSprites[i].dir[5]
                             } else if (dir > 3 * Math.PI / 8 && dir < 5 * Math.PI / 8) {
-                                imageId = sprites[i].dir[6]
+                                imageId = allSprites[i].dir[6]
                             } else if (dir > 5 * Math.PI / 8 && dir < 7 * Math.PI / 8) {
-                                imageId = sprites[i].dir[7]
+                                imageId = allSprites[i].dir[7]
                             }   
                         }
                         getImage(columnX, (this.screen.height / 2) - height / 2, j / height, 1, resolution, height, imageId);
 
-                        if (distIndex > (Gamewidth / resolution)  / 4 && distIndex < (3 * Gamewidth / resolution)  / 4 && sprites[i].id === "guard") {
+                        if (distIndex > (Gamewidth / resolution)  / 4 && distIndex < (3 * Gamewidth / resolution)  / 4 && allSprites[i].enemy) {
                             
-                            const repeat = shootable.findIndex( arr => arr[0].x === sprites[i].x && arr[0].y === sprites[i].y);
+                            const repeat = shootable.findIndex( arr => arr[0].x === allSprites[i].x && arr[0].y === allSprites[i].y);
 
                             if (repeat === -1) {
-                                shootable.unshift([sprites[i], distance])
+                                shootable.unshift([allSprites[i], distance])
                             }
                         }
                     }

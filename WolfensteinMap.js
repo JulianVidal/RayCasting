@@ -79,28 +79,31 @@ let Push = {
     }
 };
 
+const enemies = [
+    new Enemy(33.5, 26.5, "guard", 100, 2),
+];
+
 const sprites = [
     // Test
-    {
-        x: 33.5,
-        y: 26.5,
-        dir: [
-            'guardStandBack',
-            'guardStandBackLeft',
-            'guardStandLeft',
-            'guardStandFrontLeft',
-            'guardStandFront',
-            'guardStandFrontRight',
-            'guardStandRight',
-            'guardStandBackRight',
-        ],
-        id: 'guard',
-        point: 100,
-        health: 2,
-        dropItem: "ammoPack",
-        deathFrame: 1
-    },
-
+    // {
+    //     x: 33.5,
+    //     y: 26.5,
+    //     dir: [
+    //         'guardStandBack',
+    //         'guardStandBackLeft',
+    //         'guardStandLeft',
+    //         'guardStandFrontLeft',
+    //         'guardStandFront',
+    //         'guardStandFrontRight',
+    //         'guardStandRight',
+    //         'guardStandBackRight',
+    //     ],
+    //     id: 'guard',
+    //     point: 100,
+    //     health: 2,
+    //     dropItem: "ammoPack",
+    //     deathFrame: 1
+    // },
 
     // Spawn Room
 

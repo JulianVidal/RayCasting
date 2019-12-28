@@ -6,7 +6,7 @@ const rotateSpeed = 0.12;
 const doorSpeed = 0.025;
 const pushSpeed = 0.05;
 
-const resolution = 10;
+const resolution = 1;
 
 const Gamewidth  = 640;
 const Gameheight = 480;
@@ -31,6 +31,18 @@ let weapon;
 let shootable = [];
 
 let bright = 0;
+
+const enemyAngles = [
+    -4 * Math.PI / 4,
+    -3 * Math.PI / 4,
+    -2 * Math.PI / 4,
+    -1 * Math.PI / 4,
+     0 * Math.PI / 4,
+     1 * Math.PI / 4,
+     2 * Math.PI / 4,
+     3 * Math.PI / 4,
+     4 * Math.PI / 4,
+];
 
 document.addEventListener('keydown', keyPressed);
 document.addEventListener('keyup', keyUp);
@@ -99,7 +111,6 @@ function setup() {
     map.screen.background("#555");
     game.screen.background("#FFF");
 
-    console.log( document.getElementById("backgroundMusic").play())
     document.getElementById("backgroundMusic").play();
 
     // Begins the game
