@@ -143,9 +143,15 @@ function draw() {
         player.move();
         player.draw();
 
-        const c = `rgba(0,255,0, ${bright})`;
+        if (bright >= 0) {
+            const c = `rgba(0,255,0, ${bright})`;
+            game.screen.background(c);
+        }
 
-        game.screen.background(c);
+        if (frames % 15 === 0) {
+            HUD.face = Math.round(Math.random() * 2) + 1;
+            HUD.draw();
+        }
 
         // game.screen.background("rgba(0,255,0,0)")
         // const index = sprites.findIndex(
@@ -413,6 +419,15 @@ function passable(sprite) {
             player.weapons.push("smg");
             HUD.draw();
             sprites[sprites.indexOf(sprite)].x = 0;
+            return true;
+            break;
+
+        case "orb":
+            player.ammo += 25;
+            player.health = 100;
+            player.lives += 1;
+            sprites[sprites.indexOf(sprite)].x = 0;
+            HUD.draw();
             return true;
             break;
 

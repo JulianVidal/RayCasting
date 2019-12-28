@@ -2,6 +2,7 @@ class Hud {
     constructor(screen, player) {
         this.screen = screen;
         this.player = player;
+        this.face = 1;
     }
 
     draw() {
@@ -16,6 +17,10 @@ class Hud {
 
         // Lives 
         this.drawNumber(225, 426, player.lives);
+
+        // Face
+        this.screen.canvas.drawImage(document.getElementById("face_" + this.face ), 267, 395)
+
 
         // Health
         this.drawNumber(365, 425, player.health);

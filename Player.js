@@ -20,7 +20,7 @@ class Player {
 
         this.health = 100;
         this.lives  = 3;
-        this.ammo   = 99;
+        this.ammo   = 8;
         this.score  = 0;
 
         this.spriteDir = 1;
@@ -322,6 +322,7 @@ class Player {
 
         if (enemy.deathFrame === 2) {
             document.getElementById("enemyDeathSound_1").cloneNode(true).play(); 
+            player.score += 100;
         }
 
     }
