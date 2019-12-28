@@ -28,6 +28,10 @@ let frames = 0;
 let HUD_HUDCase;
 let weapon;
 
+let shootable = [];
+
+let bright = 0;
+
 document.addEventListener('keydown', keyPressed);
 document.addEventListener('keyup', keyUp);
 document.addEventListener('mousedown', mouseDown);
@@ -95,7 +99,8 @@ function setup() {
     map.screen.background("#555");
     game.screen.background("#FFF");
 
-
+    console.log( document.getElementById("backgroundMusic").play())
+    document.getElementById("backgroundMusic").play();
 
     // Begins the game
     // setInterval(draw, 1000 / fps);
@@ -138,6 +143,11 @@ function draw() {
         player.move();
         player.draw();
 
+        const c = `rgba(0,255,0, ${bright})`;
+
+        game.screen.background(c);
+
+        // game.screen.background("rgba(0,255,0,0)")
         // const index = sprites.findIndex(
         //     obj => obj.y === 26.5 && obj.x === 33.5 && obj.id === "guard"
         // );
@@ -178,6 +188,7 @@ function keyPressed(event) {
             console.log("Interact");
             player.open();
             player.push();
+            player.switch();
             break;
         
         case "0":
@@ -282,6 +293,9 @@ function passable(sprite) {
         case "foodPack":
             if (player.health < 100) {
                 document.getElementById("pickup").cloneNode(true).play();
+                const loop = setInterval( () => {
+                    flashing(loop);
+                }, 1000/fps);
                 player.health = player.health + 10 >= 100 ? 100 : player.health + 10;
                 sprites[sprites.indexOf(sprite)].x = 0;          
                 HUD.draw();
@@ -291,6 +305,9 @@ function passable(sprite) {
         case "ammoPack":
             if (player.ammo  < 99) {
                 document.getElementById("pickup").cloneNode(true).play();
+                const loop = setInterval( () => {
+                    flashing(loop);
+                }, 1000/fps);
                 if (!sprite.drop) {
                     player.ammo = player.ammo + 9 >= 99 ? 99 : player.ammo + 9;
                     sprites[sprites.indexOf(sprite)].x = 0;
@@ -306,6 +323,9 @@ function passable(sprite) {
         case "medPack":
             if (player.health < 100) {
                 document.getElementById("pickup").cloneNode(true).play();
+                const loop = setInterval( () => {
+                    flashing(loop);
+                }, 1000/fps);
                 player.health = player.health + 25 >= 100 ? 100 : player.health + 25;
                 sprites[sprites.indexOf(sprite)].x = 0;
                 HUD.draw();
@@ -316,6 +336,9 @@ function passable(sprite) {
         case "stew":
             if (player.health < 100) {
                 document.getElementById("pickup").cloneNode(true).play();
+                const loop = setInterval( () => {
+                    flashing(loop);
+                }, 1000/fps);
                 player.health = player.health + 4 >= 100 ? 100 : player.health + 4;
                 sprites[sprites.indexOf(sprite)].x = 0;
                 HUD.draw();
@@ -325,6 +348,11 @@ function passable(sprite) {
 
         case "crown":
             document.getElementById("pickup").cloneNode(true).play();
+            if (true) {
+                const loop = setInterval( () => {
+                    flashing(loop);
+                }, 1000/fps);
+            }
             player.score += 5000;
             sprites[sprites.indexOf(sprite)].x = 0;
             HUD.draw();
@@ -333,6 +361,11 @@ function passable(sprite) {
 
         case "chest":
             document.getElementById("pickup").cloneNode(true).play();
+            if (true) {
+                const loop = setInterval( () => {
+                    flashing(loop);
+                }, 1000/fps);
+            }
             player.score += 1000;
             sprites[sprites.indexOf(sprite)].x = 0;
             HUD.draw();
@@ -341,6 +374,11 @@ function passable(sprite) {
 
         case "cross":
             document.getElementById("pickup").cloneNode(true).play();
+            if (true) {
+                const loop = setInterval( () => {
+                    flashing(loop);
+                }, 1000/fps);
+            }
             player.score += 100;
             sprites[sprites.indexOf(sprite)].x = 0;
             HUD.draw();
@@ -349,6 +387,11 @@ function passable(sprite) {
 
         case "chalice":
             document.getElementById("pickup").cloneNode(true).play();
+            if (true) {
+                const loop = setInterval( () => {
+                    flashing(loop);
+                }, 1000/fps);
+            }
             player.score += 500;
             sprites[sprites.indexOf(sprite)].x = 0;
             HUD.draw();
@@ -360,6 +403,12 @@ function passable(sprite) {
             break;
 
         case "smg":
+            document.getElementById("pickup").cloneNode(true).play();
+            if (true) {
+                const loop = setInterval( () => {
+                    flashing(loop);
+                }, 1000/fps);
+            }
             player.gun = "smg";
             player.weapons.push("smg");
             HUD.draw();
@@ -373,4 +422,19 @@ function passable(sprite) {
 
 
     
+}
+
+function flashing(loop) {
+    bright += 0.08;
+    if (bright >= 0.3) {
+        clearInterval(loop);
+        const loop_2 = setInterval( () => unflashing(loop_2), 1000/fps)
+    }
+}
+
+function unflashing(loop) {
+    bright -= 0.08;
+    if (bright <= 0) {
+        clearInterval(loop);
+    }
 }

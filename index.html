@@ -36,9 +36,10 @@
     <img hidden id="door"     src="Texture/walls/door.png"     height="128" width="128"/>
     <img hidden id="doorSide" src="Texture/walls/doorside.png" height="64" width="64"/>
 
-    <img hidden id="doorElevator"   src="Texture/walls/elevator/doorElevator.png"   height="64" width="64"/>
-    <img hidden id="elevatorHandle" src="Texture/walls/elevator/elevatorhandle.png" height="64" width="64"/>
-    <img hidden id="elevatorSwitch" src="Texture/walls/elevator/elevatorswitch.png" height="64" width="64"/>
+    <img hidden id="doorElevator"      src="Texture/walls/elevator/doorElevator.png"   height="64" width="64"/>
+    <img hidden id="elevatorHandle"    src="Texture/walls/elevator/elevatorhandle.png" height="64" width="64"/>
+    <img hidden id="elevatorSwitchOn"  src="Texture/walls/elevator/elevatorswitchon.png" height="64" width="64"/>
+    <img hidden id="elevatorSwitchOff" src="Texture/walls/elevator/elevatorswitchoff.png" height="64" width="64"/>
 
     <img hidden id="pistol_1" src="sprites/guns/pistol/pistol_1.png" height="64" width="64"/>
     <img hidden id="pistol_2" src="sprites/guns/pistol/pistol_2.png" height="64" width="64"/>
@@ -138,10 +139,23 @@
 
 
 
-    <audio id="pistolShot" src="sound/guns/Pistol.wav" />
-    <audio id="doorOpen"   src="sound/interacting/Door.wav" />
-    <audio id="secretPush" src="sound/interacting/Secret_Entrance.wav" />
-    <audio id="pickup"     src="sound/pickup.wav" />
+    <audio id="pistolShot"    src="sound/guns/Pistol.wav" preload="auto"/>
+    <audio id="smgShot"       src="sound/guns/smg.wav" preload="auto"/>
+    <audio id="knifeSwing"    src="sound/guns/knife.wav" preload="auto"/>
+
+    <audio id="doorOpen"   src="sound/interacting/Door.wav" preload="auto"/>
+    <audio id="secretPush" src="sound/interacting/Secret_Entrance.wav" preload="auto"/>
+    <audio id="flipSwitch" src="sound/interacting/Switch.wav" preload="auto"/>
+
+    <audio id="pickup"     src="sound/pickup.wav" preload="auto"/>
+
+    <audio id="enemyDeathSound_1" src="sound/enemy/Death_1.wav" preload="auto"/>
+
+    <audio id="step" src="sound/step.wav" preload="auto"/>
+
+
+    <audio id="backgroundMusic" src="sound/music/Get_Them.mp3" loop preload="auto"/>
+
 
 
 

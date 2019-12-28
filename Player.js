@@ -127,12 +127,14 @@ class Player {
                 break;
             } 
 
+            
             if (spriteHitX && spriteHitY) break;
         }
 
         if ( ((wall === 0) || (wall === 4  && Math.round(Doors[newMapPosY][newMapPosX]) === 0) ) && (!spriteHitX && !spriteHitY)) {
             this.pos.x += Math.cos(this.rot) * this.speed;
             this.pos.y += Math.sin(this.rot) * -1 * this.speed;
+            
 
         } else if ( World[newMapPosY][mapPosX] === 0 && !spriteHitY) {
             this.pos.y += Math.sin(this.rot) * -1 * this.speed;
@@ -204,7 +206,7 @@ class Player {
     open() {
         for (let i = Math.floor(player.rays.length / 3); i < Math.floor(2 * player.rays.length / 3); i++) {
             const ray = player.rays[i];
-            if (`${World[ray.distance()[2].y][ray.distance()[2].x]}`[0] === '4' && ray.distance()[0] < 2) {
+            if (`${World[ray.distance()[2].y][ray.distance()[2].x]}`[0] === '4' && ray.distance()[0] < 2 && Doors[ray.distance()[2].y][ray.distance()[2].x] === 1) {
                 document.getElementById("doorOpen").cloneNode(true).play();
                 const x = ray.distance()[2].x;
                 const y = ray.distance()[2].y;
@@ -219,9 +221,11 @@ class Player {
     }
 
     opening(y, x, loop) {
-        Doors[y][x] -= doorSpeed;
+        if (Doors[y][x] > 0) {
+            Doors[y][x] -= doorSpeed;
+        }
 
-        if (Doors[y][x] <= 0) {
+        if (Doors[y][x] <= 0 && x !== Math.floor(player.pos.x / scale) && y !== Math.floor(player.pos.y / scale)) {
             clearInterval(loop);
             setTimeout(() => {
                 const newLoop = setInterval(() => {
@@ -270,37 +274,44 @@ class Player {
     }
 
     shoot() {
-        let stop = false;
-        for (let i = Math.floor(player.rays.length / 3); i < Math.floor(2 * player.rays.length / 3); i++) {
-            const ray = player.rays[i];
-            const enemies = sprites.filter(sprite => sprite.id === "guard");
 
-            for (const enemy of enemies) {
+    if (shootable[0]) {
+        const index = sprites.indexOf(shootable[0][0]);
+        const enemy = sprites[index];
+        
+        if (player.gun === "knife" && shootable[0][1] < 3) {
+            enemy.health--;
 
-                if (Math.floor(enemy.x) === ray.distance()[2].x || Math.floor(enemy.y) === ray.distance()[2].y) {
-                    const index = sprites.indexOf(enemy);
-                    sprites[index].health--;
-                    stop = true;
-                    if (sprites[index].health <= 0) {
-                        sprites.push({
-                            x: enemy.x + 0.5,
-                            y: enemy.y + 0.5,
-                            id: "ammoPack",
-                            drop: true
-                        })
-                        const loop = setInterval( () => {
-                            player.kill(enemy)
-                        }, 
-                        100)
-                    }
-                    break;
-                }
-            
+            if (sprites[index].health <= 0) {
+                sprites.push({
+                    x: enemy.x + 0.5,
+                    y: enemy.y + 0.5,
+                    id: "ammoPack",
+                    drop: true
+                })
+                const loop = setInterval( () => {
+                    player.kill(enemy)
+                }, 
+                100)
             }
+        } else if (player.gun !== "knife") {
+            enemy.health--;
 
-        if (stop) break;
-
+            if (sprites[index].health <= 0) {
+                sprites.push({
+                    x: enemy.x + 0.5,
+                    y: enemy.y + 0.5,
+                    id: "ammoPack",
+                    drop: true
+                })
+                const loop = setInterval( () => {
+                    player.kill(enemy)
+                }, 
+                100)
+            }
         }
+    }
+
     }
 
     kill(enemy) {
@@ -309,6 +320,20 @@ class Player {
             enemy.deathFrame++;
         }
 
+        if (enemy.deathFrame === 2) {
+            document.getElementById("enemyDeathSound_1").cloneNode(true).play(); 
+        }
+
+    }
+
+    switch() {
+        for (let i = Math.floor(player.rays.length / 3); i < Math.floor(2 * player.rays.length / 3); i++) {
+            const ray = player.rays[i];
+            if (World[ray.distance()[2].y][ray.distance()[2].x] === 5 && ray.distance()[0] < 2) {
+                document.getElementById("flipSwitch").cloneNode(true).play();
+                World[ray.distance()[2].y][ray.distance()[2].x] = 51;
+            }
+        }   
     }
 
     

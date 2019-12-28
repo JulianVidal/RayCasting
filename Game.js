@@ -75,7 +75,10 @@ class Game {
                     break;
 
                 case 5:
-                    image = "elevatorSwitch";
+                    image = "elevatorSwitchOn";
+                    break;
+                case 51:
+                    image = "elevatorSwitchOff";
                     break;
                 case 52:
                     image = "elevatorHandle";
@@ -109,6 +112,8 @@ class Game {
         );
 
         let spritesDrawn = 0;
+
+        shootable = [];
 
         for (let i = 0; i < sprites.length; i++) {
 
@@ -185,6 +190,15 @@ class Game {
                             }   
                         }
                         getImage(columnX, (this.screen.height / 2) - height / 2, j / height, 1, resolution, height, imageId);
+
+                        if (distIndex > (Gamewidth / resolution)  / 4 && distIndex < (3 * Gamewidth / resolution)  / 4 && sprites[i].id === "guard") {
+                            
+                            const repeat = shootable.findIndex( arr => arr[0].x === sprites[i].x && arr[0].y === sprites[i].y);
+
+                            if (repeat === -1) {
+                                shootable.unshift([sprites[i], distance])
+                            }
+                        }
                     }
                 }
 
@@ -213,6 +227,8 @@ class Game {
                 document.getElementById("pistolShot").cloneNode(true).play(); 
                 player.ammo--;
             }
+            if (player.gun === "knife") document.getElementById("knifeSwing").cloneNode(true).play(); 
+
             player.shoot();
             HUD.draw();
         }
@@ -221,6 +237,7 @@ class Game {
 
     smgAnimationInitial(loop) {
         if (this.gunFrame === 3) {
+            document.getElementById("smgShot").cloneNode(true).play(); 
             player.ammo--;
             player.shoot();
             HUD.draw();
@@ -236,6 +253,7 @@ class Game {
 
     smgAnimationDuring(loop) {
         if (this.gunFrame === 3) {
+            document.getElementById("smgShot").cloneNode(true).play(); 
             player.ammo--;
             player.shoot();
             HUD.draw();
@@ -250,6 +268,7 @@ class Game {
 
     smgAnimationLast(loop) {
         if (this.gunFrame === 3) {
+            document.getElementById("smgShot").cloneNode(true).play(); 
             player.ammo--;
             player.shoot();
             HUD.draw();
