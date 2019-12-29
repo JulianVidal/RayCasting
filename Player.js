@@ -288,6 +288,7 @@ class Player {
 
 
             if (enemy.health <= 0) {
+                enemy.alive = false;
                 sprites.push({
                     x: enemy.x + 0.5,
                     y: enemy.y + 0.5,

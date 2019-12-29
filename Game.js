@@ -193,7 +193,7 @@ class Game {
                         }
                         getImage(columnX, (this.screen.height / 2) - height / 2, j / height, 1, resolution, height, imageId);
 
-                        if (distIndex > (Gamewidth / resolution)  / 4 && distIndex < (3 * Gamewidth / resolution)  / 4 && allSprites[i].enemy) {
+                        if (distIndex > (Gamewidth / resolution)  / 4 && distIndex < (3 * Gamewidth / resolution)  / 4 && allSprites[i].alive) {
                             
                             const repeat = shootable.findIndex( arr => arr[0].x === allSprites[i].x && arr[0].y === allSprites[i].y);
 

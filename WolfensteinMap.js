@@ -80,7 +80,8 @@ let Push = {
 };
 
 const enemies = [
-    new Enemy(33.5, 26.5, "guard", 100, 2),
+    new Enemy(33.5, 26.5, "guard", 100, 2, 0),
+    new Enemy(38.5, 54.5, "guard", 100, 2, 0),
 ];
 
 const sprites = [
@@ -146,25 +147,25 @@ const sprites = [
         id: 'death_5'
     },
 
-    {
-        x: 38.5,
-        y: 54.5,
-        dir: [
-            'guardStandFront',
-            'guardStandFrontRight',
-            'guardStandRight',
-            'guardStandBackRight',
-            'guardStandBack',
-            'guardStandBackLeft',
-            'guardStandLeft',
-            'guardStandFrontLeft',
-        ],
-        id: 'guard',
-        point: 100,
-        health: 2,
-        dropItem: "ammoPack",
-        deathFrame: 1
-    },
+    // {
+    //     x: 38.5,
+    //     y: 54.5,
+    //     dir: [
+    //         'guardStandFront',
+    //         'guardStandFrontRight',
+    //         'guardStandRight',
+    //         'guardStandBackRight',
+    //         'guardStandBack',
+    //         'guardStandBackLeft',
+    //         'guardStandLeft',
+    //         'guardStandFrontLeft',
+    //     ],
+    //     id: 'guard',
+    //     point: 100,
+    //     health: 2,
+    //     dropItem: "ammoPack",
+    //     deathFrame: 1
+    // },
 
     // Skeletons
 
