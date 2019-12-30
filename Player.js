@@ -289,6 +289,7 @@ class Player {
 
             if (enemy.health <= 0) {
                 enemy.alive = false;
+                if (enemy.shootingLoop) clearInterval(enemy.shootingLoop);
                 sprites.push({
                     x: enemy.x + 0.5,
                     y: enemy.y + 0.5,

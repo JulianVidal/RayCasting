@@ -252,7 +252,7 @@ function getImage(x, y, xImg, w, wImg, h, id) {
 
     const width = image.width;
     const height = image.height;
-    
+
     game.screen.canvas.drawImage(image, Math.round(xImg * width), 0, Math.round(w), Math.round(height), Math.round(x), Math.round(y), Math.round(wImg), Math.round(h));
 
 }
@@ -313,7 +313,9 @@ function passable(sprite, enemy) {
             break;
         case "foodPack":
             if (player.health < 100 && !enemy) {
-                document.getElementById("pickup").cloneNode(true).play();
+                document.getElementById("pickup").pause();
+                document.getElementById("pickup").currentTime = 0;
+                document.getElementById("pickup").play();
                 const loop = setInterval(() => {
                     flashing(loop);
                 }, 1000 / fps);
@@ -325,7 +327,9 @@ function passable(sprite, enemy) {
             break;
         case "ammoPack":
             if (player.ammo < 99 && !enemy) {
-                document.getElementById("pickup").cloneNode(true).play();
+                document.getElementById("pickup").pause();
+                document.getElementById("pickup").currentTime = 0;
+                document.getElementById("pickup").play();
                 const loop = setInterval(() => {
                     flashing(loop);
                 }, 1000 / fps);
@@ -343,7 +347,9 @@ function passable(sprite, enemy) {
             break;
         case "medPack":
             if (player.health < 100 && !enemy) {
-                document.getElementById("pickup").cloneNode(true).play();
+                document.getElementById("pickup").pause();
+                document.getElementById("pickup").currentTime = 0;
+                document.getElementById("pickup").play();                
                 const loop = setInterval(() => {
                     flashing(loop);
                 }, 1000 / fps);
@@ -356,7 +362,9 @@ function passable(sprite, enemy) {
 
         case "stew":
             if (player.health < 100 && !enemy) {
-                document.getElementById("pickup").cloneNode(true).play();
+                document.getElementById("pickup").pause();
+                document.getElementById("pickup").currentTime = 0;
+                document.getElementById("pickup").play();                
                 const loop = setInterval(() => {
                     flashing(loop);
                 }, 1000 / fps);
@@ -369,7 +377,9 @@ function passable(sprite, enemy) {
 
         case "crown":
             if (!enemy) {
-                document.getElementById("pickup").cloneNode(true).play();
+                document.getElementById("pickup").pause();
+                document.getElementById("pickup").currentTime = 0;
+                document.getElementById("pickup").play();
                 const loop = setInterval(() => {
                     flashing(loop);
                 }, 1000 / fps);
@@ -383,7 +393,9 @@ function passable(sprite, enemy) {
 
         case "chest":
             if (!enemy) {
-                document.getElementById("pickup").cloneNode(true).play();
+                document.getElementById("pickup").pause();
+                document.getElementById("pickup").currentTime = 0;
+                document.getElementById("pickup").play();                
                 const loop = setInterval(() => {
                     flashing(loop);
                 }, 1000 / fps);
@@ -397,7 +409,9 @@ function passable(sprite, enemy) {
 
         case "cross":
             if (!enemy) {
-                document.getElementById("pickup").cloneNode(true).play();
+                document.getElementById("pickup").pause();
+                document.getElementById("pickup").currentTime = 0;
+                document.getElementById("pickup").play();
                 const loop = setInterval(() => {
                     flashing(loop);
                 }, 1000 / fps);
@@ -411,7 +425,9 @@ function passable(sprite, enemy) {
 
         case "chalice":
             if (!enemy) {
-                document.getElementById("pickup").cloneNode(true).play();
+                document.getElementById("pickup").pause();
+                document.getElementById("pickup").currentTime = 0;
+                document.getElementById("pickup").play();
                 const loop = setInterval(() => {
                     flashing(loop);
                 }, 1000 / fps);
@@ -429,7 +445,9 @@ function passable(sprite, enemy) {
 
         case "smg":
             if (!enemy) {
-                document.getElementById("pickup").cloneNode(true).play();
+                document.getElementById("pickup").pause();
+                document.getElementById("pickup").currentTime = 0;
+                document.getElementById("pickup").play();                
                 const loop = setInterval(() => {
                     flashing(loop);
                 }, 1000 / fps);
@@ -444,7 +462,9 @@ function passable(sprite, enemy) {
 
         case "orb":
             if (!enemy) {
-                document.getElementById("pickup").cloneNode(true).play();
+                document.getElementById("pickup").pause();
+                document.getElementById("pickup").currentTime = 0;
+                document.getElementById("pickup").play();                
                 const loop = setInterval(() => {
                     flashing(loop);
                 }, 1000 / fps);

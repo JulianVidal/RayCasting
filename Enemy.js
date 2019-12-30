@@ -47,6 +47,7 @@ class Enemy {
         this.doorOpening = false;
 
         this.shotFrame = 1;
+        this.shootingLoop;
     }
 
     move() {
@@ -221,7 +222,7 @@ class Enemy {
             this.searching = false;
             this.shooting = true;
             this.id = "shoot_1"
-            const loop = setInterval(() => this.shot(loop), 1000 / 5);
+            this.shootingLoop = setInterval(() => this.shot(this.shootingLoop), 1000 / 5);
         }
     }
 
