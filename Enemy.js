@@ -267,7 +267,7 @@ class Enemy {
             Doors[y][x] -= doorSpeed;
         }
 
-        if (Doors[y][x] <= 0 && x !== Math.floor(player.pos.x / scale) && y !== Math.floor(player.pos.y / scale)) {
+        if (Doors[y][x] <= 0) {
             this.doorOpening = false;
             clearInterval(loop);
             setTimeout(() => {
