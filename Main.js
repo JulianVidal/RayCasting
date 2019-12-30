@@ -252,7 +252,7 @@ function getImage(x, y, xImg, w, wImg, h, id) {
 
     const width = image.width;
     const height = image.height;
-
+    
     game.screen.canvas.drawImage(image, Math.round(xImg * width), 0, Math.round(w), Math.round(height), Math.round(x), Math.round(y), Math.round(wImg), Math.round(h));
 
 }

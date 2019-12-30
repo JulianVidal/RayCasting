@@ -16,8 +16,7 @@ class Enemy {
 
         this.type = id;
 
-        this.walkFoot = Math.ceil(Math.random() + 1);
-        this.id = id + "Walk_" + this.walkFoot + "_";
+        this.id = id + "Walk_1_";
 
         this.dir = [
             'Back',
@@ -44,18 +43,10 @@ class Enemy {
         this.searching = false;
         this.shooting = false;
 
-        this.doorOpening = false;
-
         this.shotFrame = 1;
     }
 
     move() {
-        if (frames % 15 === 0) {
-            if (this.walkFoot === 1) this.walkFoot = 2;
-            else if (this.walkFoot === 2) this.walkFoot = 1;
-
-            this.id = this.type + "Walk_" + this.walkFoot + "_";
-        }
         const theta = -this.heading;
 
         const newMapPosX = Math.floor(((this.x * scale) + (Math.cos(theta) * MoveSpeed) * 2) / scale);
@@ -92,10 +83,6 @@ class Enemy {
 
 
             if (spriteHitX && spriteHitY) break;
-        }
-
-        if (wall === 4 && !this.doorOpening) {
-            this.open(newMapPosY, newMapPosX);     
         }
 
         if (((wall === 0) || (wall === 4 && Math.round(Doors[newMapPosY][newMapPosX]) === 0)) && (!spriteHitX && !spriteHitY)) {
@@ -152,7 +139,7 @@ class Enemy {
     }
 
     patroll() {
-        if (!this.move()) this.rotate(Math.PI);
+        if (!this.move()) this.rotate(Math.PI); 
 
         if (this.inSight()) {
             this.patrolling = false;
@@ -169,9 +156,6 @@ class Enemy {
         const dY = playerY - this.y;
 
         const dir = Math.atan2(dY, dX);
-        const dist = Math.sqrt(dX * dX + dY * dY);
-
-        const ray = new Ray(map.screen, this.x, this.y, this.heading);
 
         let playerDirection;
 
@@ -193,8 +177,10 @@ class Enemy {
             playerDirection = this.dir[7]
         }
 
-        if ((playerDirection === "Front" || playerDirection === "FrontLeft" || playerDirection === "FrontRight") && (dist < Math.abs(ray.distance()[0]))) return true;
-
+        for (const enemy of shootable) {
+            const inSight = enemy[0];
+            if ((playerDirection === "Front" || playerDirection === "FrontLeft" || playerDirection === "FrontRight") && this.x === inSight.x && this.y === inSight.y) return true;
+        }
         return false;
     }
 
@@ -205,16 +191,14 @@ class Enemy {
         const dX = playerX - this.x;
         const dY = playerY - this.y;
 
-        const dist = Math.sqrt(dX * dX + dY * dY);
+        const dist = Math.sqrt(dX * dX, dY * dY);
         const dir = Math.atan2(dY, dX);
 
         this.rotate(dir - this.heading);
-        // if (!this.move()) {
-        //     this.patrolling = true;
-        //     this.searching = false;
-        // }
-
-        this.move();
+        if (!this.move()) {
+            this.patrolling = true;
+            this.searching = false;
+        }
 
         if (dist < 2) {
             this.patrolling = false;
@@ -229,12 +213,16 @@ class Enemy {
         this.id = "shoot_" + this.shotFrame;
 
         if (this.shotFrame === 4) {
+            
+            for (const enemy of shootable) {
+                const inSight = enemy[0];
+                if (this.x === inSight.x && this.y === inSight.y && inSight.shotFrame === 4) {
+                    player.health -= 10;
+                    console.log("hit")
 
-            if (this.inSight()) {
-                player.health -= 10;
-                console.log("hit")
+                    break;
+                }
             }
-
 
             clearInterval(loop);
             this.shotFrame = 1;
@@ -246,41 +234,4 @@ class Enemy {
 
         this.shotFrame++;
     }
-
-    open(y, x) {
-        document.getElementById("doorOpen").cloneNode(true).play();
-        this.doorOpening = true;
-        const loop = setInterval(() => {
-                this.opening(y, x, loop)
-            },
-            1000 / fps
-        );
-    }
-
-    opening(y, x, loop) {
-        if (Doors[y][x] > 0) {
-            Doors[y][x] -= doorSpeed;
-        }
-
-        if (Doors[y][x] <= 0 && x !== Math.floor(player.pos.x / scale) && y !== Math.floor(player.pos.y / scale)) {
-            this.doorOpening = false;
-            clearInterval(loop);
-            setTimeout(() => {
-                    const newLoop = setInterval(() => {
-                            this.closing(x, y, newLoop);
-                        },
-                        1000 / fps)
-                },
-                1000)
-        }
-    }
-
-    closing(x, y, loop) {
-        Doors[y][x] += doorSpeed;
-
-        if (Doors[y][x] >= 1) {
-            clearInterval(loop);
-        }
-    }
-
 }

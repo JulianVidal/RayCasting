@@ -171,26 +171,27 @@ class Game {
 
                         const dir = Math.atan2(dY, dX);
 
-                        if (imageId === 'guard') {
+                        if (allSprites[i].alive && !allSprites[i].shooting) {
 
                             if (dir >= 7 * Math.PI / 8 || (dir <= -7 * Math.PI / 8 && dir >= -Math.PI)) {
-                                imageId = allSprites[i].dir[0]
+                                imageId = imageId + allSprites[i].dir[0]
                             } else if (dir >= -7 * Math.PI / 8 && dir <= -5 * Math.PI / 8) {
-                                imageId = allSprites[i].dir[1]
+                                imageId = imageId + allSprites[i].dir[1]
                             } else if (dir >= -5 * Math.PI / 8 && dir <= -3 * Math.PI / 8) {
-                                imageId = allSprites[i].dir[2]
+                                imageId = imageId + allSprites[i].dir[2]
                             } else if (dir >= -3 * Math.PI / 8 && dir <= -1 * Math.PI / 8) {
-                                imageId = allSprites[i].dir[3]
+                                imageId = imageId + allSprites[i].dir[3]
                             } else if ((dir >= -1 * Math.PI / 8 && dir <= 0) || (dir <= 1 * Math.PI / 8 && dir >= 0)) {
-                                imageId = allSprites[i].dir[4]
+                                imageId = imageId + allSprites[i].dir[4]
                             } else if (dir >= 1 * Math.PI / 8 && dir <= 3 * Math.PI / 8) {
-                                imageId = allSprites[i].dir[5]
+                                imageId = imageId + allSprites[i].dir[5]
                             } else if (dir >= 3 * Math.PI / 8 && dir <= 5 * Math.PI / 8) {
-                                imageId = allSprites[i].dir[6]
+                                imageId = imageId + allSprites[i].dir[6]
                             } else if (dir >= 5 * Math.PI / 8 && dir <= 7 * Math.PI / 8) {
-                                imageId = allSprites[i].dir[7]
+                                imageId = imageId + allSprites[i].dir[7]
                             }   
                         }
+
                         getImage(columnX, (this.screen.height / 2) - height / 2, j / height, 1, resolution, height, imageId);
 
                         if (distIndex > (Gamewidth / resolution)  / 4 && distIndex < (3 * Gamewidth / resolution)  / 4 && allSprites[i].alive) {
@@ -228,6 +229,21 @@ class Game {
             if (player.gun === "pistol") {
                 document.getElementById("pistolShot").cloneNode(true).play(); 
                 player.ammo--;
+
+                const playerX = player.pos.x / scale;
+                const playerY = player.pos.y / scale;
+
+                for (const enemy of enemies) {
+                    const dX = enemy.x - playerX;
+                    const dY = enemy.y - playerY;
+
+                    const dist = Math.sqrt(dX * dX + dY * dY);
+
+                    if (dist < 10) {
+                        enemy.patrolling = false;
+                        enemy.searching = true;
+                    }
+                }
             }
             if (player.gun === "knife") document.getElementById("knifeSwing").cloneNode(true).play(); 
 

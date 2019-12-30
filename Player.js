@@ -295,7 +295,7 @@ class Player {
                     id: "ammoPack",
                     drop: true
                 })
-
+                enemy.id = "death_" + enemy.deathFrame;
                 const loop = setInterval(() => {
                         player.kill(enemy)
                     },
