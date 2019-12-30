@@ -231,7 +231,8 @@ class Enemy {
 
     shot(loop) {
         this.id = "shoot_" + this.shotFrame;
-        console.log(this.id)
+
+        if (this.shotFrame === 3) document.getElementById("pistolShot").cloneNode(true).play(); 
         if (this.shotFrame === 4) {
 
             if (this.inSight()) {

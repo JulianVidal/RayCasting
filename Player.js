@@ -95,6 +95,9 @@ class Player {
     }
 
     forward() {
+        if (frames % 10 === 0) {
+            document.getElementById("step").cloneNode(true).play();
+        }
         const newMapPosX = Math.floor((this.pos.x + (Math.cos(this.rot) * MoveSpeed) * 2) / scale);
         const newMapPosY = Math.floor((this.pos.y + (Math.sin(this.rot) * -1 * MoveSpeed) * 2) / scale);
 
@@ -146,6 +149,9 @@ class Player {
     }
 
     backward() {
+        if (frames % 10 === 0) {
+            document.getElementById("step").cloneNode(true).play();
+        }
         const newMapPosX = Math.floor((this.pos.x - (Math.cos(this.rot) * MoveSpeed) * 2) / scale);
         const newMapPosY = Math.floor((this.pos.y - (Math.sin(this.rot) * -1 * MoveSpeed) * 2) / scale);
 
