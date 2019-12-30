@@ -99,8 +99,6 @@ function setup() {
     map.screen.background("#555");
     game.screen.background("#FFF");
 
-    document.getElementById("backgroundMusic").play();
-
     // Begins the game
     // setInterval(draw, 1000 / fps);
 
@@ -130,6 +128,11 @@ function setup() {
 }
 
 function draw() {
+
+    if (frames === 0) {
+        document.getElementById("backgroundMusic").play();
+
+    }
 
     if (frames % 2 === 0) {
         lastShot++;

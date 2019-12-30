@@ -191,7 +191,7 @@ class Game {
                                 imageId = imageId + allSprites[i].dir[7]
                             }   
                         }
-
+                        console.log(imageId, allSprites[i].shooting)
                         getImage(columnX, (this.screen.height / 2) - height / 2, j / height, 1, resolution, height, imageId);
 
                         if (distIndex > (Gamewidth / resolution)  / 4 && distIndex < (3 * Gamewidth / resolution)  / 4 && allSprites[i].alive) {
@@ -239,7 +239,7 @@ class Game {
 
                     const dist = Math.sqrt(dX * dX + dY * dY);
 
-                    if (dist < 10) {
+                    if (dist < 10 && !enemy.shooting) {
                         enemy.patrolling = false;
                         enemy.searching = true;
                     }

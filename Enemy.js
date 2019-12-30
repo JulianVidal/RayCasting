@@ -48,6 +48,9 @@ class Enemy {
 
         this.shotFrame = 1;
         this.shootingLoop;
+
+        this.lastShot = 0;
+        this.shotCooldown = 10;
     }
 
     move() {
@@ -217,7 +220,7 @@ class Enemy {
 
         this.move();
 
-        if (dist < 2) {
+        if (dist < 2 && frames - this.lastShot  > this.shotCooldown) {
             this.patrolling = false;
             this.searching = false;
             this.shooting = true;
@@ -228,7 +231,7 @@ class Enemy {
 
     shot(loop) {
         this.id = "shoot_" + this.shotFrame;
-
+        console.log(this.id)
         if (this.shotFrame === 4) {
 
             if (this.inSight()) {
@@ -238,10 +241,11 @@ class Enemy {
 
 
             clearInterval(loop);
+            this.lastShot = frames;
             this.shotFrame = 1;
             this.patrolling = true;
             this.shooting = false;
-            this.id = this.type + "Walk_1_";
+            this.id = this.type + "Walk_" + this.walkFoot + "_";
             this.rotate(Math.PI);
         }
 
