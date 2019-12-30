@@ -32,18 +32,6 @@ let shootable = [];
 
 let bright = 0;
 
-const enemyAngles = [
-    -4 * Math.PI / 4,
-    -3 * Math.PI / 4,
-    -2 * Math.PI / 4,
-    -1 * Math.PI / 4,
-    0 * Math.PI / 4,
-    1 * Math.PI / 4,
-    2 * Math.PI / 4,
-    3 * Math.PI / 4,
-    4 * Math.PI / 4,
-];
-
 document.addEventListener('keydown', keyPressed);
 document.addEventListener('keyup', keyUp);
 document.addEventListener('mousedown', mouseDown);
@@ -97,7 +85,7 @@ function setup() {
     HUD_HUDCase = new Screen(document.getElementById("HUD_HUDCase"));
 
     // Initialises player
-    player = new Player(map.screen, 300, 265);
+    player = new Player(map.screen, 330, 345);
 
     HUD = new Hud(HUD_HUDCase, player);
 

@@ -173,21 +173,21 @@ class Game {
 
                         if (imageId === 'guard') {
 
-                            if (dir > 7 * Math.PI / 8 || (dir <  -7 * Math.PI / 8 && dir > -Math.PI)) {
+                            if (dir >= 7 * Math.PI / 8 || (dir <= -7 * Math.PI / 8 && dir >= -Math.PI)) {
                                 imageId = allSprites[i].dir[0]
-                            } else if (dir > -7 * Math.PI / 8 && dir < -5 * Math.PI / 8 ) {
+                            } else if (dir >= -7 * Math.PI / 8 && dir <= -5 * Math.PI / 8) {
                                 imageId = allSprites[i].dir[1]
-                            } else if (dir > -5 * Math.PI / 8 && dir < -3 * Math.PI / 8) {
+                            } else if (dir >= -5 * Math.PI / 8 && dir <= -3 * Math.PI / 8) {
                                 imageId = allSprites[i].dir[2]
-                            } else if (dir > -3 * Math.PI / 8 && dir < -1 * Math.PI / 8) {
+                            } else if (dir >= -3 * Math.PI / 8 && dir <= -1 * Math.PI / 8) {
                                 imageId = allSprites[i].dir[3]
-                            } else if ((dir > -1 * Math.PI / 8 && dir < 0) || (dir < 1 * Math.PI / 8 && dir > 0)) {
+                            } else if ((dir >= -1 * Math.PI / 8 && dir <= 0) || (dir <= 1 * Math.PI / 8 && dir >= 0)) {
                                 imageId = allSprites[i].dir[4]
-                            } else if (dir > 1 * Math.PI / 8 && dir < 3 * Math.PI / 8) {
+                            } else if (dir >= 1 * Math.PI / 8 && dir <= 3 * Math.PI / 8) {
                                 imageId = allSprites[i].dir[5]
-                            } else if (dir > 3 * Math.PI / 8 && dir < 5 * Math.PI / 8) {
+                            } else if (dir >= 3 * Math.PI / 8 && dir <= 5 * Math.PI / 8) {
                                 imageId = allSprites[i].dir[6]
-                            } else if (dir > 5 * Math.PI / 8 && dir < 7 * Math.PI / 8) {
+                            } else if (dir >= 5 * Math.PI / 8 && dir <= 7 * Math.PI / 8) {
                                 imageId = allSprites[i].dir[7]
                             }   
                         }
