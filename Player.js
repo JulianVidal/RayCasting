@@ -96,7 +96,7 @@ class Player {
 
     forward() {
         if (frames % 10 === 0) {
-            document.getElementById("step").cloneNode(true).play();
+            // document.getElementById("step").cloneNode(true).play();
         }
         const newMapPosX = Math.floor((this.pos.x + (Math.cos(this.rot) * MoveSpeed) * 2) / scale);
         const newMapPosY = Math.floor((this.pos.y + (Math.sin(this.rot) * -1 * MoveSpeed) * 2) / scale);
@@ -150,7 +150,7 @@ class Player {
 
     backward() {
         if (frames % 10 === 0) {
-            document.getElementById("step").cloneNode(true).play();
+            // document.getElementById("step").cloneNode(true).play();
         }
         const newMapPosX = Math.floor((this.pos.x - (Math.cos(this.rot) * MoveSpeed) * 2) / scale);
         const newMapPosY = Math.floor((this.pos.y - (Math.sin(this.rot) * -1 * MoveSpeed) * 2) / scale);
@@ -297,13 +297,15 @@ class Player {
                 enemy.alive = false;
                 enemy.id = enemy.type + "Walk_" + enemy.walkFoot + "_";
                 clearInterval(enemy.shootingLoop);
-                sprites.push({
-                    x: enemy.x + 0.5,
-                    y: enemy.y + 0.5,
-                    id: "ammoPack",
-                    drop: true
-                })
-                enemy.id = "death_" + enemy.deathFrame;
+                if (enemy.drop) {
+                    sprites.push({
+                        x: enemy.x + 0.5,
+                        y: enemy.y + 0.5,
+                        id: enemy.drop,
+                        drop: true
+                    });
+                }
+                enemy.id = enemy.type + "Death_" + enemy.deathFrame;
                 const loop = setInterval(() => {
                         player.kill(enemy)
                     },
@@ -317,13 +319,13 @@ class Player {
     }
 
     kill(enemy) {
-        if (enemy.deathFrame <= 5) {
-            enemy.id = "death_" + enemy.deathFrame;
+        if (enemy.deathFrame <= enemy.lastDeathFrame) {
+            enemy.id = enemy.type + "Death_" + enemy.deathFrame;
             enemy.deathFrame++;
         }
 
         if (enemy.deathFrame === 2) {
-            document.getElementById("enemyDeathSound_1").cloneNode(true).play();
+            enemy.deathSound.play();
             player.score += 100;
         }
 

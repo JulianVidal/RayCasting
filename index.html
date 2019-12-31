@@ -3,14 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <title>Ray Casting</title>
-    <script src="Enemy.js"></script>
-    <script src="WolfensteinMap.js"></script>
-    <script src="Screen.js"></script>
-    <script src="Hud.js"></script>
-    <script src="Ray.js"></script>
-    <script src="Game.js"></script>
-    <script src="Map.js"></script>
-    <script src="Player.js"></script>
 </head>
 <body>
     <h1>Ray Casting</h1>
@@ -132,15 +124,43 @@
     <img hidden id="guardWalk_2_Right"      src="sprites/enemies/Guard/walking/right/guardwalkright_2.png"   height="64" width="64"/>
 
 
-    <img hidden id="death_1"  src="sprites/enemies/Guard/dying/death_1.png"   height="64" width="64"/>
-    <img hidden id="death_2"  src="sprites/enemies/Guard/dying/death_2.png"   height="64" width="64"/>
-    <img hidden id="death_3"  src="sprites/enemies/Guard/dying/death_3.png"   height="64" width="64"/>
-    <img hidden id="death_4"  src="sprites/enemies/Guard/dying/death_4.png"   height="64" width="64"/>
-    <img hidden id="death_5"  src="sprites/enemies/Guard/dying/death_5.png"   height="64" width="64"/>
+    <img hidden id="guardDeath_1"  src="sprites/enemies/Guard/dying/death_1.png"   height="64" width="64"/>
+    <img hidden id="guardDeath_2"  src="sprites/enemies/Guard/dying/death_2.png"   height="64" width="64"/>
+    <img hidden id="guardDeath_3"  src="sprites/enemies/Guard/dying/death_3.png"   height="64" width="64"/>
+    <img hidden id="guardDeath_4"  src="sprites/enemies/Guard/dying/death_4.png"   height="64" width="64"/>
+    <img hidden id="guardDeath_5"  src="sprites/enemies/Guard/dying/death_5.png"   height="64" width="64"/>
 
-    <img hidden id="shoot_1"  src="sprites/enemies/Guard/shooting/guardshoot_1.png"   height="64" width="64"/>
-    <img hidden id="shoot_2"  src="sprites/enemies/Guard/shooting/guardshoot_2.png"   height="64" width="64"/>
-    <img hidden id="shoot_3"  src="sprites/enemies/Guard/shooting/guardshoot_3.png"   height="64" width="64"/>
+    <img hidden id="guardShoot_1"  src="sprites/enemies/Guard/shooting/guardshoot_1.png"   height="64" width="64"/>
+    <img hidden id="guardShoot_2"  src="sprites/enemies/Guard/shooting/guardshoot_2.png"   height="64" width="64"/>
+    <img hidden id="guardShoot_3"  src="sprites/enemies/Guard/shooting/guardshoot_3.png"   height="64" width="64"/>
+
+
+    <img hidden id="dogWalk_1_Back"        src="sprites/enemies/Dog/walking/back/dogwalkback_1.png"         height="64" width="64"/>
+    <img hidden id="dogWalk_1_BackLeft"    src="sprites/enemies/Dog/walking/back/dogwalkbackleft_1.png"     height="64" width="64"/>
+    <img hidden id="dogWalk_1_BackRight"   src="sprites/enemies/Dog/walking/back/dogwalkbackright_1.png"    height="64" width="64"/>
+    <img hidden id="dogWalk_1_Front"       src="sprites/enemies/Dog/walking/back/dogwalkfront_1.png"        height="64" width="64"/>
+    <img hidden id="dogWalk_1_FrontLeft"   src="sprites/enemies/Dog/walking/back/dogwalkfrontleft_1.png"    height="64" width="64"/>
+    <img hidden id="dogWalk_1_FrontRight"  src="sprites/enemies/Dog/walking/back/dogwalkfrontright_1.png"   height="64" width="64"/>
+    <img hidden id="dogWalk_1_Left"        src="sprites/enemies/Dog/walking/back/dogwalkleft_1.png"         height="64" width="64"/>
+    <img hidden id="dogWalk_1_Right"       src="sprites/enemies/Dog/walking/back/dogwalkright_1.png"         height="64" width="64"/>
+
+    <img hidden id="dogWalk_2_Back"        src="sprites/enemies/Dog/walking/front/dogwalkback_2.png"         height="64" width="64"/>
+    <img hidden id="dogWalk_2_BackLeft"    src="sprites/enemies/Dog/walking/front/dogwalkbackleft_2.png"     height="64" width="64"/>
+    <img hidden id="dogWalk_2_BackRight"   src="sprites/enemies/Dog/walking/front/dogwalkbackright_2.png"    height="64" width="64"/>
+    <img hidden id="dogWalk_2_Front"       src="sprites/enemies/Dog/walking/front/dogwalkfront_2.png"        height="64" width="64"/>
+    <img hidden id="dogWalk_2_FrontLeft"   src="sprites/enemies/Dog/walking/front/dogwalkfrontleft_2.png"    height="64" width="64"/>
+    <img hidden id="dogWalk_2_FrontRight"  src="sprites/enemies/Dog/walking/front/dogwalkfrontright_2.png"   height="64" width="64"/>
+    <img hidden id="dogWalk_2_Left"        src="sprites/enemies/Dog/walking/front/dogwalkleft_2.png"         height="64" width="64"/>
+    <img hidden id="dogWalk_2_Right"       src="sprites/enemies/Dog/walking/front/dogwalkright_2.png"         height="64" width="64"/>
+
+    <img hidden id="dogDeath_1"  src="sprites/enemies/Dog/dying/dogdeath_1.png"   height="64" width="64"/>
+    <img hidden id="dogDeath_2"  src="sprites/enemies/Dog/dying/dogdeath_2.png"   height="64" width="64"/>
+    <img hidden id="dogDeath_3"  src="sprites/enemies/Dog/dying/dogdeath_3.png"   height="64" width="64"/>
+    <img hidden id="dogDeath_4"  src="sprites/enemies/Dog/dying/dogdeath_4.png"   height="64" width="64"/>
+
+    <img hidden id="dogShoot_1"  src="sprites/enemies/Dog/shooting/dogbite_1.png"   height="64" width="64"/>
+    <img hidden id="dogShoot_2"  src="sprites/enemies/Dog/shooting/dogbite_2.png"   height="64" width="64"/>
+    <img hidden id="dogShoot_3"  src="sprites/enemies/Dog/shooting/dogbite_3.png"   height="64" width="64"/>
 
 
     <img hidden id="HUD"     src="HUD/HUD.png"     height="79" width="604"/>
@@ -177,7 +197,13 @@
 
     <audio id="pickup"     src="sound/pickup.wav" preload="auto"/>
 
-    <audio id="enemyDeathSound_1" src="sound/enemy/Death_1.wav" preload="auto"/>
+    <audio id="guardDeathSound" src="sound/enemy/guard/guardDeath.wav" preload="auto"/>
+    <audio id="guardSound" src="sound/enemy/guard/guard.wav" preload="auto"/>
+
+    <audio id="dogDeathSound" src="sound/enemy/dog/dogDeath.wav" preload="auto"/>
+    <audio id="dogSound" src="sound/enemy/dog/dog.wav" preload="auto"/>
+
+
 
     <audio id="step" src="sound/step.wav" preload="auto"/>
 
@@ -186,7 +212,14 @@
 
 
 
-
+    <script src="Enemy.js"></script>
+    <script src="WolfensteinMap.js"></script>
+    <script src="Screen.js"></script>
+    <script src="Hud.js"></script>
+    <script src="Ray.js"></script>
+    <script src="Game.js"></script>
+    <script src="Map.js"></script>
+    <script src="Player.js"></script>
     <script src="Main.js"></script>
 </body>
 </html>

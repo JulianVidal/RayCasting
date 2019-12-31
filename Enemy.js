@@ -16,7 +16,7 @@ class Enemy {
 
         this.type = id;
 
-        this.walkFoot = Math.ceil(Math.random() + 1);
+        this.walkFoot = Math.round(Math.random() + 1);
         this.id = id + "Walk_" + this.walkFoot + "_";
 
         this.dir = [
@@ -34,7 +34,6 @@ class Enemy {
 
         this.rotate(direction);
 
-
         this.score = score;
         this.health = health;
         this.deathFrame = 1;
@@ -51,6 +50,24 @@ class Enemy {
 
         this.lastShot = 0;
         this.shotCooldown = 10;
+
+        if (id === 'dog') {
+            this.lastDeathFrame = 4;
+            this.lastShootFrame = 4;
+            this.shotFrameSpeed = 10;
+            this.drop = "";
+            this.sound = document.getElementById("dogSound").cloneNode(true);
+            this.deathSound= document.getElementById("dogDeathSound").cloneNode(true);
+
+        }
+        if (id === 'guard') {
+            this.lastDeathFrame = 5;
+            this.lastShootFrame = 4;
+            this.shotFrameSpeed = 5;
+            this.drop = "ammoPack";
+            this.sound = document.getElementById("guardSound").cloneNode(true);
+            this.deathSound= document.getElementById("guardDeathSound").cloneNode(true);
+        }
     }
 
     move() {
@@ -98,7 +115,7 @@ class Enemy {
             if (spriteHitX && spriteHitY) break;
         }
 
-        if (wall === 4 && !this.doorOpening) {
+        if (wall === 4 && !this.doorOpening && this.type != 'dog') {
             this.open(newMapPosY, newMapPosX);     
         }
 
@@ -161,6 +178,7 @@ class Enemy {
         if (this.inSight()) {
             this.patrolling = false;
             this.searching = true;
+            this.sound.play();
         }
     }
 
@@ -224,16 +242,16 @@ class Enemy {
             this.patrolling = false;
             this.searching = false;
             this.shooting = true;
-            this.id = "shoot_1"
-            this.shootingLoop = setInterval(() => this.shot(this.shootingLoop), 1000 / 5);
+            this.id = this.type + "Shoot_1";
+            this.shootingLoop = setInterval(() => this.shot(this.shootingLoop), 1000 / this.shotFrameSpeed);
         }
     }
 
     shot(loop) {
-        this.id = "shoot_" + this.shotFrame;
+        this.id = this.type + "Shoot_" + this.shotFrame;
 
-        if (this.shotFrame === 3) document.getElementById("pistolShot").cloneNode(true).play(); 
-        if (this.shotFrame === 4) {
+        if (this.shotFrame === 3 && this.type === 'guard') document.getElementById("pistolShot").cloneNode(true).play(); 
+        if (this.shotFrame === this.lastShootFrame) {
 
             if (this.inSight()) {
                 player.health -= 10;

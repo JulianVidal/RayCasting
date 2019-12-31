@@ -85,7 +85,7 @@ function setup() {
     HUD_HUDCase = new Screen(document.getElementById("HUD_HUDCase"));
 
     // Initialises player
-    player = new Player(map.screen, 330, 345);
+    player = new Player(map.screen, 300, 270);
 
     HUD = new Hud(HUD_HUDCase, player);
 
