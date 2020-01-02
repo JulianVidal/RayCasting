@@ -80,8 +80,49 @@ let Push = {
 };
 
 const enemies = [
-    new Enemy(55.5, 27.5, "dog", 100, 2, 0),
+
+    // Spawn Room
     new Enemy(38.5, 54.5, "guard", 100, 2, 0),
+
+    // Big Room
+    new Enemy(39.5, 26.5, "guard", 100, 2, 0),
+
+    // Right of Big room
+
+    // Down Path
+
+    new Enemy(57.5, 34.5, "dog", 100, 2, 0),
+    new Enemy(60.5, 35.5, "dog", 100, 2, 0),
+
+    // Forward Path
+
+    new Enemy(55.5, 28.5, "dog", 100, 2, 0),
+    new Enemy(60.5, 24.5, "guard", 100, 2, 0),
+
+    // Hallway 2
+    new Enemy(31.5, 15.5, "guard", 100, 2, 0),
+
+
+    // After second hallway
+    new Enemy(33.5, 2.5, "guard", 100, 2, 0),
+    new Enemy(39.5, 5.5, "guard", 100, 2, 0),
+
+    // After hallway 3
+    new Enemy(14.5, 8.5, "guard", 100, 2, 0),
+    new Enemy(8.5, 9.5, "guard", 100, 2, 0),
+    new Enemy(8.5, 12.5, "guard", 100, 2, 0),
+
+    // After hallway 4
+    new Enemy(7.5, 24.5, "guard", 100, 2, 0),
+    new Enemy(12.5, 30.5, "guard", 100, 2, 0),
+
+    // B0ttom Hallway 5
+    new Enemy(10.5, 35.5, "guard", 100, 2, 0),
+
+    // After bottom hallway 5
+    new Enemy(22.5, 40.5, "guard", 100, 2, 0),
+    new Enemy(22.5, 41.5, "guard", 100, 2, 0),
+
 ];
 
 const sprites = [
@@ -144,7 +185,7 @@ const sprites = [
     {
         x: 31.5,
         y: 50.5,
-        id: 'death_5'
+        id: 'guardDeath_5'
     },
 
     // {

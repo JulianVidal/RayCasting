@@ -116,7 +116,9 @@ class Enemy {
         }
 
         if (wall === 4 && !this.doorOpening && this.type != 'dog') {
-            this.open(newMapPosY, newMapPosX);     
+            if (World[newMapPosY][newMapPosX] !== 41) {
+                this.open(newMapPosY, newMapPosX);   
+            } 
         }
 
         if (((wall === 0) || (wall === 4 && Math.round(Doors[newMapPosY][newMapPosX]) === 0)) && (!spriteHitX && !spriteHitY)) {
@@ -193,7 +195,7 @@ class Enemy {
         const dir = Math.atan2(dY, dX);
         const dist = Math.sqrt(dX * dX + dY * dY);
 
-        const ray = new Ray(map.screen, this.x, this.y, this.heading);
+        const ray = new Ray(map.screen, this.x * scale, this.y * scale, this.heading);
 
         let playerDirection;
 
@@ -254,8 +256,14 @@ class Enemy {
         if (this.shotFrame === this.lastShootFrame) {
 
             if (this.inSight()) {
+                document.getElementById("playerPain").cloneNode(true).play();
                 player.health -= 10;
-                console.log("hit")
+                console.log("hit");
+
+                if (player.health <= 0) {
+                    document.getElementById("playerDeath").cloneNode(true).play();
+                    const loop = setInterval( () => fadeBlack(loop), 1000 /fps );
+                }
             }
 
 

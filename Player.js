@@ -287,9 +287,11 @@ class Player {
 
             if (player.gun === "knife" && shootable[0][1] < 3) {
                 enemy.health--;
+                if (enemy.type === 'guard') document.getElementById("guardPaint").cloneNode(true).play();
 
             } else if (player.gun !== "knife") {
                 enemy.health--;
+                if (enemy.type === 'guard') document.getElementById("guardPaint").cloneNode(true).play();
             }
 
 
@@ -337,6 +339,7 @@ class Player {
             if (World[ray.distance()[2].y][ray.distance()[2].x] === 5 && ray.distance()[0] < 2) {
                 document.getElementById("flipSwitch").cloneNode(true).play();
                 World[ray.distance()[2].y][ray.distance()[2].x] = 51;
+                const loop = setInterval( () => fadeBlack(loop), 1000 /fps );
             }
         }
     }

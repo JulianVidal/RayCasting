@@ -31,6 +31,9 @@ let weapon;
 let shootable = [];
 
 let bright = 0;
+let black = 0;
+
+let gameOver = false;
 
 document.addEventListener('keydown', keyPressed);
 document.addEventListener('keyup', keyUp);
@@ -85,7 +88,7 @@ function setup() {
     HUD_HUDCase = new Screen(document.getElementById("HUD_HUDCase"));
 
     // Initialises player
-    player = new Player(map.screen, 300, 270);
+    player = new Player(map.screen, 300, 505);
 
     HUD = new Hud(HUD_HUDCase, player);
 
@@ -157,6 +160,11 @@ function draw() {
             game.screen.background(c);
         }
 
+        if (black >= 0) {
+            const c = `rgba(0,0,0, ${black})`;
+            game.screen.background(c);
+        }
+
         if (frames % 15 === 0) {
             HUD.face = Math.round(Math.random() * 2) + 1;
             HUD.draw();
@@ -174,7 +182,10 @@ function draw() {
         }
     }
     frames++;
-    requestAnimationFrame(draw);
+
+    if (!gameOver) {
+        requestAnimationFrame(draw);
+    }
 }
 
 function keyPressed(event) {
@@ -442,7 +453,7 @@ function passable(sprite, enemy) {
             return true;
             break;
 
-        case "death_5":
+        case "guardDeath_5":
             return true;
             break;
 
@@ -471,8 +482,7 @@ function passable(sprite, enemy) {
                 const loop = setInterval(() => {
                     flashing(loop);
                 }, 1000 / fps);
-
-                player.ammo += 25;
+                player.ammo = player.ammo + 25 >= 99 ? 99 : player.ammo + 25;
                 player.health = 100;
                 player.lives += 1;
                 sprites[sprites.indexOf(sprite)].x = 0;
@@ -500,6 +510,14 @@ function flashing(loop) {
 function unflashing(loop) {
     bright -= 0.08;
     if (bright <= 0) {
+        clearInterval(loop);
+    }
+}
+
+function fadeBlack(loop) {
+    black += 0.08;
+    if (black >= 1) {
+        gameOver = true;
         clearInterval(loop);
     }
 }
