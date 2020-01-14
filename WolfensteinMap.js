@@ -91,8 +91,8 @@ const enemies = [
 
     // Down Path
 
-    // new Enemy(57.5, 34.5, "dog", 100, 2, 0),
-    // new Enemy(60.5, 35.5, "dog", 100, 2, 0),
+    new Enemy(57.5, 34.5, "dog", 100, 2, 0),
+    new Enemy(60.5, 35.5, "dog", 100, 2, 0),
 
     // // Forward Path
 
