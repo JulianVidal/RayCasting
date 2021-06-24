@@ -37,8 +37,8 @@ let gameOver = false;
 
 document.addEventListener('keydown', keyPressed);
 document.addEventListener('keyup', keyUp);
-document.addEventListener('mousedown', mouseDown);
-document.addEventListener('mouseup', mouseUp);
+document.getElementById("HUD_HUDCase").addEventListener('mousedown', mouseDown);
+document.getElementById("HUD_HUDCase").addEventListener('mouseup', mouseUp);
 
 document.getElementById("Map").addEventListener('click', getCords);
 
