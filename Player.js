@@ -11,7 +11,7 @@ class Player {
     this.rayAmount = Gamewidth / resolution
     this.rays = []
 
-    this.rot = (0 * Math.PI) / 2
+    this.rot = 2 * Math.PI
 
     for (
       let i = -this.FOV / 2 + this.rot;
