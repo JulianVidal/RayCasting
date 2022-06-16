@@ -39,7 +39,7 @@ class Player {
     // this.ray.draw();
 
     for (let ray of this.rays) {
-      ray.distance(this.rot)
+      // ray.distance(this.rot)
     }
   }
 

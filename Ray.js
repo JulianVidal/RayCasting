@@ -259,10 +259,16 @@ class Ray {
         let doorSide;
 
         if (!xHit && World[distance.worldHit.y + 1] && World[distance.worldHit.y - 1] ) {
-            doorSide = (`${World[distance.worldHit.y + 1][distance.worldHit.x]}`[0] === '4' || `${World[distance.worldHit.y - 1][distance.worldHit.x]}`[0] === '4');
+            doorSide = (
+                (`${World[distance.worldHit.y + 1][distance.worldHit.x]}`[0] === '4' && rise > 0) || 
+                (`${World[distance.worldHit.y - 1][distance.worldHit.x]}`[0] === '4' && rise < 0)
+                );
 
         } else {
-            doorSide = (World[distance.worldHit.y][distance.worldHit.x + 1] === 4 || World[distance.worldHit.y][distance.worldHit.x - 1] === 4);
+            doorSide = (
+                (World[distance.worldHit.y][distance.worldHit.x + 1] === 4 && run < 0) || 
+                (World[distance.worldHit.y][distance.worldHit.x - 1] === 4 && run > 0)
+                );
         }
 
         return [perpDistance, xHit, distance.worldHit, xImg, this.dir, doorSide];
